@@ -48,7 +48,7 @@ void Devil::Plan()
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
     //////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
-    printScence(robot,sort,senceMax);
+   // printScence(robot,sort,senceMax);
     printTask(task,taskMax);
     //printInfoCons(info,infoMax,"info");
 //    printInfoCons(cons_not,cons_not_Max,"cons_not");

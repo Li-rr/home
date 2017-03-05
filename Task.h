@@ -45,6 +45,8 @@ class Task
 		string expectMove; //针对goto设立
 		int expectPickup; //针对pickup
 		int expectGive;	  //针对give
+		int used;		  //判断task是否匹配完成
+						
     private:
         int No;
     string Action;

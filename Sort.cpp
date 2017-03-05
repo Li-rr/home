@@ -27,6 +27,8 @@ Sort::Sort()
 	expectClosed = 0; //与上文sclosed相同
 	expectTask="";
 	appareCount = 0;
+	needMatch = 0;
+	taskLock = 0;
 }
 
 

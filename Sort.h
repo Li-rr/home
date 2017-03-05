@@ -29,7 +29,7 @@ public:
         string getsType();
         bool getsLocked();
         bool getsClosed();
-
+		int taskLock; //任务锁，针对putdown
 		int bigSort; //标记大物体
     	//针对处理任务的一些属性
 		string expectTask;
@@ -46,6 +46,7 @@ public:
 		int expectClosed;	//期望门关闭
 		int expectOnBig; //针对puton中的大物体
 		int appareCount;	//本物体在任务中出现的次数
+		int needMatch; //针对同名物体设立
 private:
         int snum;
         int sloc;

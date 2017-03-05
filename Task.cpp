@@ -22,6 +22,7 @@ Task::Task()
 	expectMove = "";
 	expectPickup = -1;
 	expectGive = -1;
+	used = 0;
 }
 Task::~Task()
 {

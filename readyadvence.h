@@ -18,6 +18,8 @@ void dealwithInfoCons(string TASK,InfoCons info_cons[],int &numMax,string SIGN);
 int findSortByName(int sNum,string name,Sort sort[]);
 void judgewithCons(InfoCons cons_nn[],int consNn,Task task[],int taskNum,Sort sort[],int sortNum);
 void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCons consn[],Robot robot,int sNum,int tNum,int cNum,int cnNum);
+void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot);
+
 void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int infoNum);
 
 void printTask(Task task[],int count);
