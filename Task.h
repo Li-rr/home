@@ -63,7 +63,7 @@ class Task
     bool Closedx;
     bool Closedy;
     int _priority;
-    int tasksuccess;
+    int success;
     int needAnalyze;
 };
 

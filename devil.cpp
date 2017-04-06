@@ -53,7 +53,13 @@ void Devil::Plan()
     //printInfoCons(info,infoMax,"info");
 //    printInfoCons(cons_not,cons_not_Max,"cons_not");
 //    printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
-   // planWithtask(task,sort,taskMax,senceMax,robot);
+    planWithtask(task,sort,taskMax,senceMax,robot);
+   vector <unsigned int> test;
+   Sense(test);
+   for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
+   {
+		cout<<*it<<endl;
+   }
     cout<<"\n|-------ok--------|\n";
 }
 

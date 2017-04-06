@@ -17,7 +17,7 @@ Task::Task()
     _priority=-1;
     _locx=-1;
     _locy=-1;
-    tasksuccess=0;
+    success=0;
     needAnalyze=0;
 	expectMove = "";
 	expectPickup = -1;
@@ -42,10 +42,16 @@ void Task::setTaskAction(string act,int  act1,int act2)
     {
         needAnalyze=1;
     }
+	if(act == "putdown")
+	  _priority = 1;
+	if(act == "goto")
+	  _priority = 5;
 }
 void Task::setTaskAction(string act,string act1,string act2)
 {
     Action=act;
+	if(act == "putdown")
+	  _priority = 1; //设定优先级
     if(act1=="X")
         Act1=0;
     if(act=="Y")
@@ -107,11 +113,11 @@ void Task::setTaskClosed2()
 }
 void  Task::setTaskSuccess(int succ)
 {
-    tasksuccess=succ;
+    success=succ;
 }
 int Task::getTaskSuccess()
 {
-    return tasksuccess;
+    return success;
 }
 int Task::getTaskNo()
 {
@@ -179,3 +185,4 @@ int Task::getTaskLocy()
 {
     return _locy;
 }
+

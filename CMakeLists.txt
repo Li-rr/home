@@ -15,7 +15,7 @@ FILE(GLOB lrr-5_SRCS
     class.h
     readyadvence.h
     readyadvence.cpp
-    
+    two_table.h
 	planwithtask.cpp
 )
 SOURCE_GROUP("" FILES ${lrr-5_SRCS})

@@ -10,6 +10,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	  setSortAttribute(task,i,sort,sortNum,robot);	
 	}
 	//验证写入是否成功
+	/*
 	for(i=0;i<sortNum;i++)
 	{
 		if(sort[i].used==1)
@@ -17,6 +18,19 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			cout<<i<<" "<<sort[i].getsName()<<" "<<sort[i].getsNum()<<" "<<sort[i].appareCount<<endl;
 		}
 	}
+	*/
+	//start plan task
+	for(i = 0;i <= taskNum; i++)
+	{
+		if(task[i].getTaskPriority()== 1 && !task[i].getTaskSuccess())
+		{
+			task[i].setTaskSuccess(PutDown(task[i].getTaskAct1()));
+			cout<<"PutDown success: "<<task[i].getTaskSuccess()<<endl;
+		}
+
+	}
+	
+	Graph G;
     cout<<"hello"<<endl;
 } 
 ///////////////////////////

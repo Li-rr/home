@@ -4,5 +4,6 @@
 #include "Task.h"
 #include "Robot.h"
 #include "InfoCons.h"
+#include "two_table.h"
 #include "readyadvence.h"
 //#endif
