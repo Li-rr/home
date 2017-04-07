@@ -4,11 +4,14 @@ void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot)
 void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
 {
 	int i=0;
+	Graph G;
 	//将任务目标写入sort中
 	for(i = 0; i <= taskNum; i++)
 	{
 	  setSortAttribute(task,i,sort,sortNum,robot);	
+	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 	}
+	G.printMatrix();
 	//验证写入是否成功
 	/*
 	for(i=0;i<sortNum;i++)
@@ -20,7 +23,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	}
 	*/
 	//start plan task
-	for(i = 0;i <= taskNum; i++)
+/*	for(i = 0;i <= taskNum; i++)
 	{
 		if(task[i].getTaskPriority()== 1 && !task[i].getTaskSuccess())
 		{
@@ -29,9 +32,9 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 		}
 
 	}
+*/
+
 	
-	Graph G;
-    cout<<"hello"<<endl;
 } 
 ///////////////////////////
 void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot)
