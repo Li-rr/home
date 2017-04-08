@@ -31,6 +31,8 @@ class Graph
 				  VerList[act1][act2].direction=-1;
 				if(action == "putin")
 				  VerList[act1][act2].direction=1;
+				if(action=="puton")
+				  VerList[act1][act2].direction=-4;
 			}
 
 			if(act1 && !act2)
@@ -41,7 +43,13 @@ class Graph
 				  VerList[act1][act2].direction=2;
 				if(action == "goto")
 				  VerList[act1][act2].direction=3;
+				if(action == "putdown")
+				  VerList[act1][act2].direction=4;
 			}
+		}
+		void setStatus(int i,int j,int success)
+		{
+			VerList[i][j].status = success;
 		}
 		int getStatus(int i,int j)
 		{

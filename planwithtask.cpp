@@ -3,7 +3,7 @@ using namespace _home;
 void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot);
 void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
 {
-	int i=0;
+	int i=0,j=0;
 	Graph G;
 	//将任务目标写入sort中
 	for(i = 0; i <= taskNum; i++)
@@ -12,6 +12,18 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 	}
 	G.printMatrix();
+	for(i=0;i<maxNode;i++)
+	{
+		for(j=0;j<maxNode;j++)
+		{
+			if(G.getStatus(i,j)==0)
+			  continue;
+			if(G.getDirection(i,j)==4)
+			{
+				G.setStatus(i,j,PutDown(i));
+			}
+		}
+	}
 	//验证写入是否成功
 	/*
 	for(i=0;i<sortNum;i++)
