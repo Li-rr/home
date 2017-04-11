@@ -105,6 +105,7 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 	}
 	else
 	{
+		//此处有bug
 		move(sot,sort,robot);
 		if(sort[sot-1].getsInside()!=-1)
 		{
@@ -140,7 +141,7 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 		robot.setPlate(0);
 	}
 	act1 = robot.getHold();
-	cout<<act1<<" "<<sot<<" "<<G.getStatus(act1,sot)<<endl;
+	cout<<"i will putin"<<act1<<" "<<sot<<" "<<G.getStatus(act1,sot)<<endl;
 	if(G.getStatus(act1,sot)==0)
 	  return 0;
 	open(sot,sort,robot,G);
@@ -148,5 +149,78 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 	robot.setHold(0);
 	sort[act1-1].setsInside(sot);
 	cout<<"Sir, I'm put "<<act1 <<" in "<<sot<<endl;
+	return flag;
+}
+int Devil::putdown(int sort,Robot &robot,Graph G)
+{
+
+	int act1;
+	if(robot.getHold() == sort && robot.getPlate()==0)
+	{
+		PutDown(robot.getHold());
+		robot.setHold(0);
+		return 1;
+	}else if(robot.getHold() == 0 && robot.getPlate()==sort)
+	{
+		FromPlate(robot.getPlate());
+		robot.setHold(robot.getPlate());
+		robot.setPlate(0);
+		
+		PutDown(robot.getHold());
+		robot.setHold(0);
+		return 1;
+	}else if(robot.getHold() !=0 && robot.getPlate()==sort)
+	{
+		int flag = 0;
+		for(int i=0;i<maxNode;i++)
+		{
+			if(G.getStatus(sort,i)==1)
+			{
+				flag = 1;
+				break;
+			}	
+		}
+		if(flag == 1)
+		{
+			PutDown(robot.getHold());
+
+			FromPlate(robot.getPlate());
+			robot.setHold(robot.getPlate());
+			robot.setPlate(0);
+			PutDown(robot.getHold());
+			robot.setHold(0);
+			return 1;
+		}
+	}	
+	return 0;
+}
+int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
+{
+	int flag = 0;
+	if(robot.getHold()!=0)
+	{
+		PutDown(robot.getHold());
+		cout<<"I'm running Pickup ,i need putdown "<<robot.getHold()<<endl;
+		robot.setHold(0);
+	}
+	flag = PickUp(sot);
+	if(flag==1)
+	{
+		robot.setHold(sot);
+		if(robot.getPlate()==0)
+			{
+				ToPlate(robot.getHold());
+				robot.setPlate(robot.getHold());
+				robot.setHold(0);
+			}
+	}
+	if(flag == 0)
+	{
+		vector <unsigned int> obj;
+		Sense(obj);
+		for(vector<unsigned int>::iterator it =obj.begin();it!=obj.end();it++)
+			cout<<"I can see"<<*it<<" My location is "<<robot.getLoc()<<endl;
+	}
+
 	return flag;
 }
