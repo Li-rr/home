@@ -19,8 +19,13 @@ namespace _home
     public:
         Devil();
         void planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot);
-
+		int move(int sot,Sort sort[],Robot &robot);
+		int open(int sot,Sort sort[],Robot &robot,Graph G);
+		int takeout(int sot,Sort sort[],Robot &robot,Graph G);
     protected:
+		int close(int sot,Sort sort[],Robot &robot,Graph G);
+		int getSort(int sot,Sort sort[],Robot &robot,Graph G);
+		int putin(int sot,Sort sort[],Robot &robot,Graph G);
         void Plan();
 
         void Fini();

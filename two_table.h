@@ -45,6 +45,8 @@ class Graph
 				  VerList[act1][act2].direction=3;
 				if(action == "putdown")
 				  VerList[act1][act2].direction=4;
+				if(action == "pickup")
+				  VerList[act1][act2].direction=-4;
 			}
 		}
 		void setStatus(int i,int j,int success)

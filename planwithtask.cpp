@@ -1,14 +1,36 @@
 #include "devil.hpp"
 using namespace _home;
 void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot);
+int checkConnection(int sort2,Graph G)
+{
+	cout<<"check connection: "<<G.getDirection(sort2,0)<<endl;
+	return G.getDirection(sort2,0); //返回大物体
+}
+int checkInside(int smallSort,Sort sort[])
+{
+	return sort[smallSort-1].getsInside();
+}
+int checkPutinFirst(int sort,int present,Graph G)
+{
+	int i,flag=0;
+	for(i=0;i<maxNode;i++)
+	{
+		if(G.getDirection(sort,i)==present)
+		  continue;
+		if(G.getDirection(sort,i)==-1 && G.getStatus(sort,i)==1)
+		  flag = -1;
+	}
+	return 0;
+}
 void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
 {
+	cout<<"-----------------------------------------------------------"<<endl;
 	int i=0,j=0;
 	Graph G;
 	//将任务目标写入sort中
 	for(i = 0; i <= taskNum; i++)
 	{
-	  setSortAttribute(task,i,sort,sortNum,robot);	
+	//  setSortAttribute(task,i,sort,sortNum,robot);	
 	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 	}
 	G.printMatrix();
@@ -18,9 +40,56 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 		{
 			if(G.getStatus(i,j)==0)
 			  continue;
-			if(G.getDirection(i,j)==4)
+			if(G.getDirection(i,j)==4)	//putdown
 			{
 				G.setStatus(i,j,PutDown(i));
+			}
+			if(G.getDirection(i,j)==-1)	//takeout
+			{
+				cout<<j<<" "<<checkConnection(j,G)<<endl;
+				cout<<i<<" inside: "<<checkInside(i,sort)<<endl;
+				if(checkInside(i,sort)!=-1)	//确定为takeout
+				{
+					Devil::move(i,sort,robot);
+					G.setStatus(i,j,Devil::takeout(i,sort,robot,G));
+				}
+				if(checkConnection(j,G)==2)	//close
+				{
+					cout<<"j->: "<<j<<endl;
+					G.setStatus(j,0,close(j,sort,robot,G));
+				}
+			}
+			if(G.getDirection(i,j)==1)	//putin
+			{
+				cout<<G.getStatus(i,j)<<endl;
+				int signedTask = checkPutinFirst(i,G.getDirection(i,j),G);
+				cout<<"I have other task "<<signedTask<<endl;
+				if(signedTask == -1) //takeout_fisrt
+				{
+					cout<<"asd"<<endl;
+					move(i,sort,robot);
+					G.setStatus(i,sort[i-1].getsInside(),Devil::takeout(i,sort,robot,G));
+				}
+				if(checkPutinFirst(i,G.getDirection(i,j),G) == 0) //only_putin
+				{
+					getSort(i,sort,robot,G);
+					move(j,sort,robot);
+					open(j,sort,robot,G);
+					G.setStatus(i,j,putin(j,sort,robot,G));
+				}
+			}
+			if(G.getDirection(i,j)==3)	//goto,低级处理
+			{
+				G.setStatus(i,j,move(i,sort,robot));
+			}
+			if(G.getDirection(i,j)==2)	//close.低级处理
+			{
+				move(i,sort,robot);
+				G.setStatus(i,j,close(i,sort,robot,G));
+			}
+			if(G.getDirection(i,j)==4)	//pickup
+			{
+			
 			}
 		}
 	}

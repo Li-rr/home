@@ -209,11 +209,24 @@ void dealwithInfoCons(string TASK,InfoCons info_cons[],int &numMax,string SIGN)
 }/*}}}*/
 ////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
+int findSortByName(int sNum,string name,string color,Sort sort[])
+{
+	int i;
+	for(i=0;i<sNum;i++)
+	{
+		if(sort[i].getsName()==name&&sort[i].getsColor()==color)
+		{
+			cout<<"this is findSortByName&Color, i find it: "<<sort[i].getsNum()<<endl;	
+			return i;
+		}
+	}
+	return -1;
+}
 int findSortByName(int sNum,string name,Sort sort[])
 {/*{{{*/
     int i;
     for(i=0; i<sNum; i++)
-    {
+     {
         if(sort[i].getsName() ==name)
             return i;
     }
@@ -649,7 +662,8 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
 {/*{{{*/
     cout<<"-----------------this is updateSenceByinfo-------------------------\n";
     cout<<"snum-->"<<SNum<<" infoNUm--> "<<infoNum<<endl;
-    int i,j,inside=0,obj1,obj2,flag;
+    int i,j,inside=0,flag;
+	int obj1,obj2;
     for( i =0; i<SNum; i++)
     {
         for(j=0; j<=infoNum; j++)
@@ -659,8 +673,17 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
             if(info[j].getNamex()==sort[i].getsName()&&info[j].getColorx()==sort[i].getsColor()&&sort[i].getsLoc()==-1)
             {
 
-
-                obj1=findSortByName(SNum,info[j].getNamex(),sort);
+				cout<<sort[i].getsName()<<" "<<sort[i].getsColor()<<"--info--"<<info[j].getNamex()<<" "<<info[j].getColorx()<<endl;
+				obj1 = findSortByName(SNum,info[j].getNamex(),info[j].getColorx(),sort);
+				obj2 = findSortByName(SNum,info[j].getNamey(),info[j].getColory(),sort);
+				if(obj1 == -1)
+               	{
+					obj1 = findSortByName(SNum,info[j].getNamex(),sort);
+				}
+				if(obj2 == -1)
+				{
+					obj2 = findSortByName(SNum,info[j].getNamey(),sort);
+				}
                 cout<<"obj1 --> "<<obj1<<endl;
                 if(info[j].getState()=="near"||info[j].getState()=="on")
                 {
@@ -669,10 +692,10 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
            //     cout<<"@@@@@@@@@@@@@@@@@@\n";
                 if(info[j].getState()=="inside")
                 {
+					sort[obj1].setsLoc(sort[obj2].getsLoc());
+					sort[obj1].setsInside(sort[obj2].getsNum());
                     sort[i].setsLoc(sort[obj1].getsLoc());
-              //      cout<<"@@@@@@@@@@@@@@@@@@\n";
-
-                    sort[i].setsInside(obj1+1);
+                    cout<<"this is info -- inside\n";
                 }
                 if(info[j].getState()=="plate")
                 {

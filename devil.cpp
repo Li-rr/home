@@ -48,18 +48,18 @@ void Devil::Plan()
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
     //////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
-   // printScence(robot,sort,senceMax);
+    printScence(robot,sort,senceMax);
     printTask(task,taskMax);
-    //printInfoCons(info,infoMax,"info");
-//    printInfoCons(cons_not,cons_not_Max,"cons_not");
-//    printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
+    printInfoCons(info,infoMax,"info");
+    printInfoCons(cons_not,cons_not_Max,"cons_not");
+    printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
     planWithtask(task,sort,taskMax,senceMax,robot);
-   vector <unsigned int> test;
-   Sense(test);
-   for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
-   {
-		cout<<*it<<endl;
-   }
+ //  vector <unsigned int> test;
+  // Sense(test);
+  // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
+  // {
+	//	cout<<*it<<endl;
+  // }
     cout<<"\n|-------ok--------|\n";
 }
 
