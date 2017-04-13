@@ -49,10 +49,17 @@ void Devil::Plan()
     //////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
-    printTask(task,taskMax);
-    printInfoCons(info,infoMax,"info");
-    printInfoCons(cons_not,cons_not_Max,"cons_not");
-    printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
+//	for(int i=0; i<senceMax;i++)
+//	{
+//		if(sort[i].getsType()=="container")
+//		{
+//			cout<<sort[i].getsNum()<<" have "<<sort[i].sinsideD<<endl;
+//		}
+//	}
+   	   printTask(task,taskMax);
+  //  printInfoCons(info,infoMax,"info");
+   // printInfoCons(cons_not,cons_not_Max,"cons_not");
+   // printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
     planWithtask(task,sort,taskMax,senceMax,robot);
  //  vector <unsigned int> test;
   // Sense(test);

@@ -120,6 +120,7 @@ void dealwithsence(string STR,Sort sort[],Robot &robot, int &senceMax)
             obj2 = atoi(str2.c_str());
             sort[obj1-1].setsInside(obj2);
                sort[obj1-1].setsNum(obj1);
+			sort[obj2-1].sinsideD = obj1;
         }
         if(*it == "closed")
         {
