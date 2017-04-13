@@ -31,7 +31,7 @@ void dealwithtask(string TASK,Task task[], int &taskMaxnum)
                 task[i].setTaskNamex(*(it+2));
             else if(*(it+1)=="Y")
                 task[i].setTaskNamey(*(it+2));
-		
+
         }
         if(flag&& *it=="color")
         {
@@ -82,7 +82,7 @@ void dealwithsence(string STR,Sort sort[],Robot &robot, int &senceMax)
         {
                         str1 = *(it+1);
             obj1 = atoi(str1.c_str());
-            robot.setLoc(obj1);
+            robot.setPlate(obj1);
         }
         if(*it == "hold")
         {
@@ -216,7 +216,7 @@ int findSortByName(int sNum,string name,string color,Sort sort[])
 	{
 		if(sort[i].getsName()==name&&sort[i].getsColor()==color)
 		{
-			cout<<"this is findSortByName&Color, i find it: "<<sort[i].getsNum()<<endl;	
+			cout<<"this is findSortByName&Color, i find it: "<<sort[i].getsNum()<<endl;
 			return i;
 		}
 	}
@@ -332,7 +332,7 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 						sort[j].taskLock = 1; //此物体在任务中不在被匹配
 					}
 				}
-			
+
 				if(!sort[j].taskLock&&task[i].getTaskAction()=="takeout")
 				{
 					cout<<"this is match takeout act1"<<endl;
@@ -356,9 +356,9 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 					sort[j].needMatch = 0;
 					task[i].used = 1;
 				}
-			
+
 		}
-		}	
+		}
 	}
 }
 void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCons consn[],Robot robot,int sNum,int tNum,int cNum,int cnNum)
@@ -383,7 +383,7 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 					sort[i].needMatch = 1;  //打标记
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
-						task[j].setTaskAct1(i+1);			
+						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
 						sort[i].used = 1;   //当前物体被使用
 						sort[i].needMatch = 0;//匹配到，标记去掉
@@ -395,7 +395,7 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 					sort[i].needMatch = 1;
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
-						task[j].setTaskAct1(i+1);			
+						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
@@ -407,11 +407,11 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 					sort[i].needMatch = 1;
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
-						task[j].setTaskAct1(i+1);			
+						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
-					}	
+					}
 				}/*}}}*/
 				else if(task[j].getTaskAction()=="putin")/*{{{*/
 				{
@@ -419,7 +419,7 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 					sort[i].needMatch = 1;
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
-						task[j].setTaskAct1(i+1);			
+						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
 						sort[i].used = 1;
 						sort[i].needMatch = 0;

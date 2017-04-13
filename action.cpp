@@ -1,10 +1,22 @@
 #include "devil.hpp"
 using namespace _home;
+int checkConnectionSmall(int sot,Graph G)
+{
+	int i = 0;
+	for(i =0 ; i<maxNode;i++)
+	{
+		if(G.getStatus(sot,i)==1)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
 int Devil::move(int sot,Sort sort[],Robot &robot)
 {
 	bool flag=0;
 	if(robot.getLoc()!= sort[sot-1].getsLoc())
-	{
+	{ 
 		 flag=Move(sort[sot-1].getsLoc());
 		robot.setLoc(sort[sot-1].getsLoc());
 	}
@@ -15,7 +27,7 @@ int checkOpen(int sot,Sort sort[])
 {
 	int flag = 0;
 	if(sort[sot-1].getsClosed()== false)
-	{
+	{ 
 		flag = 1;
 	}
 	return flag;
@@ -24,24 +36,46 @@ int checkOpen(int sot,Sort sort[])
 int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
-	if(G.getStatus(sot,0)==0)
-	  return 1;
+//	if(G.getStatus(sot,0)==0)
+//	  return 1;
+	if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
+	{
+		cout<<"Befor open big sort,my hand have other sort, i need it -> "<<robot.getHold()<<" i will put it in my plate"<<endl;
+		ToPlate(robot.getHold());
+		robot.setPlate(robot.getHold());
+		robot.setHold(0);
+	}
+	else if(checkConnectionSmall(robot.getHold(),G)==0&&robot.getHold()!=0)
+	{
+		cout<<"Before open big sort,my hand have other sort, i need pudown it -> "<<robot.getHold()<<endl;
+		PutDown(robot.getHold());
+		robot.setHold(0);
+	}
 	if(checkOpen(sot,sort)==0)
 	{
 		flag = Open(sot);
 		sort[sot-1].setsClosed(0);
 		cout<<"Sir,I'm open "<<sot<<endl;
-	}
+	} 
 	return flag;
 }
 
 int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
 {
-	int flag = 0;
+	int flag = 0,checkOpen = 0;
 	int act2 = sort[sot-1].getsInside();
-	if(G.getStatus(sot,act2)==0)
-	  return 0;
-	open(act2,sort,robot,G);
+//	if(G.getStatus(sot,act2)==0)
+//	  return 0;
+	cout<<"This is take -> "<<sot<<" from -> "<<act2<<endl;
+	checkOpen = open(act2,sort,robot,G);
+	if(checkOpen==1)
+	{
+		cout<<"I open this sort ->"<<act2<<endl;
+	}
+	else
+	{
+		cout<<"Sorry, I can't open this sort -> "<<act2<<endl;
+	}
 	flag = TakeOut(sot,act2);
 	robot.setHold(sot);
 	sort[sot-1].setsInside(-1);
@@ -52,10 +86,18 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
 int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
-	if(G.getStatus(sot,0)==0)
+//	if(G.getStatus(sot,0)==0)
+//	{
+//		return 0;
+//	}
+	
+	if(robot.getHold()&&checkConnectionSmall(robot.getHold(),G)==0)
 	{
-		return 0;
+		cout<<"My hand has sort,but I don't need it"<<endl;
+		PutDown(robot.getHold());
+		robot.setHold(0);
 	}
+	
 	if(sort[sot-1].getsClosed()==0)
 	{
 		//此处可以检查一下手上的东西有没有用
@@ -87,14 +129,16 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 	cout<<"I want get "<<sot<<endl;
 	if(sort[sot-1].getsLoc()==robot.getLoc())
 	{
+		cout<<"This sort location same with  me"<<endl;
 		if(robot.getHold()==sot||robot.getPlate()==sot)	//on hold
 		{
 			flag = 1;
+			cout<<"This sort "<<sot<<" on my hand"<<endl;
 		}
 		else if(sort[sot-1].getsInside()!=-1)	//inside
 		{ 
-			takeout(sot,sort,robot,G);
-			flag = 1;
+			flag=takeout(sot,sort,robot,G);
+			cout<<"This sort "<<sot<<" in other sort"<<endl;
 		}
 		else
 		{
@@ -109,14 +153,15 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 		move(sot,sort,robot);
 		if(sort[sot-1].getsInside()!=-1)
 		{
-			takeout(sot,sort,robot,G);
-			flag =  1;
+			cout<<"This sort in other sort"<<sort[sot-1].getsInside()<<endl;
+			flag = takeout(sot,sort,robot,G);
+			
 		}
 		else
 		{
-			PickUp(sot);
+			flag = PickUp(sot);
 			robot.setHold(sot);
-			flag = 1;
+			
 		}
 
 	}
@@ -134,6 +179,7 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
 	int act1;
+	open(sot,sort,robot,G);
 	if(robot.getHold()==0&&robot.getPlate()!=0)
 	{
 		FromPlate(robot.getPlate());
@@ -144,7 +190,7 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 	cout<<"i will putin"<<act1<<" "<<sot<<" "<<G.getStatus(act1,sot)<<endl;
 	if(G.getStatus(act1,sot)==0)
 	  return 0;
-	open(sot,sort,robot,G);
+//	open(sot,sort,robot,G);
 	flag = PutIn(act1,sot);
 	robot.setHold(0);
 	sort[act1-1].setsInside(sot);
