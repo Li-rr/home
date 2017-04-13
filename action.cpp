@@ -12,6 +12,20 @@ int checkConnectionSmall(int sot,Graph G)
 	}
 	return 0;
 }
+//第一个参数为大物体编号
+int checkContainer(int sot,Sort sort[],Graph G)
+{
+	int smallSort = 0;
+	int flag = 0;
+	smallSort = sort[sot-1].sinsideD;
+	cout<<"This is checkContainer ,check: "<<sot<<" get -> "<<smallSort<<endl;
+	if(smallSort == 0) 
+	{
+		return 0;
+	}
+	flag = checkConnectionSmall(smallSort,G);
+	return flag;
+}
 int Devil::move(int sot,Sort sort[],Robot &robot)
 {
 	bool flag=0;
@@ -86,6 +100,15 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
 int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
+	int check_container = 0;
+	//在关闭前应当检查该物体内部有没有
+	//其他任务所需要的物品
+	check_container = checkContainer(sot,sort,G);
+	if(check_container != 0)
+	{
+		cout<<"In this container,have a sort -> "<<sort[sot-1].sinsideD<<" i need it"<<endl;
+		takeout(sort[sot-1].sinsideD,sort,robot,G);
+	}
 //	if(G.getStatus(sot,0)==0)
 //	{
 //		return 0;

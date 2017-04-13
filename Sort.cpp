@@ -5,7 +5,7 @@ Sort::Sort()
     sloc=-1;
 
     sinside=-1;
-	sinsideD=-1;
+	sinsideD=0;
 
     sname="N_N";
     ssize="N_S";
