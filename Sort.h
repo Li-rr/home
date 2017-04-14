@@ -2,6 +2,7 @@
 #ifndef __home_Sort_h__
 #define __home_Sort_h__
 #include <iostream>
+#include <vector>
 #include <string.h>
 #include "Task.h"
 #include "Robot.h"
@@ -37,8 +38,8 @@ public:
 		int used;		//判断当前物体是否需要
 		int giveme;		//针对human
 		string  expectMove;	//期望移动到哪个物体
-		int sinsideD;	//针对大物体内有哪个小物体
-    	        int expectInsiding;	//期望处于哪个物体内部
+		vector<int> sinsideD;	//针对大物体内有哪个小物体
+	   	int expectInsiding;	//期望处于哪个物体内部
 		int expectOn;		//期望在哪个物体上
 
 		//大物体

@@ -1,4 +1,19 @@
 #include "readyadvence.h"
+void getVector(int small[],vector<int> v)
+{	
+	int i=0;
+	for(vector<int>::iterator it = v.begin(),i=0 ;it!=v.end();it++,i++)
+	{
+		small[i] = *it;
+	}
+}
+void printVector(vector<int> v)
+{
+	for(vector<int>::iterator it = v.begin();it!=v.end();it++)
+	{
+		cout<<*it<<" ";
+	}
+}
 void dealwithtask(string TASK,Task task[], int &taskMaxnum)
 {/*{{{*/
     int i=-1,flag=0;  //flag用来判断当前字符串是否属于任务
@@ -120,7 +135,7 @@ void dealwithsence(string STR,Sort sort[],Robot &robot, int &senceMax)
             obj2 = atoi(str2.c_str());
             sort[obj1-1].setsInside(obj2);
                sort[obj1-1].setsNum(obj1);
-			sort[obj2-1].sinsideD = obj1;
+			sort[obj2-1].sinsideD.push_back(obj1);
         }
         if(*it == "closed")
         {

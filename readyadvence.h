@@ -12,6 +12,8 @@
 #include "Task.h"
 #include "InfoCons.h"
 using namespace std;
+void printVector(vector<int> v);
+void getVector(int small[],vector<int> v);
 void dealwithtask(string TASK,Task task[], int &taskMaxnum);
 void dealwithsence(string STR,Sort sort[],Robot &robot, int &senceMax);
 void dealwithInfoCons(string TASK,InfoCons info_cons[],int &numMax,string SIGN);

@@ -2,12 +2,26 @@
 using namespace _home;
 int checkConnectionSmall(int sot,Graph G)
 {
-	int i = 0;
-	for(i =0 ; i<maxNode;i++)
+	int i=0;
+	for(i=0;i<maxNode;i++)
 	{
 		if(G.getStatus(sot,i)==1)
-		{
 			return 1;
+	}
+	return 0;
+}
+int checkConnectionSmall(int sot[],Graph G,int count)
+{
+	int i = 0,j=0;
+	for(i=0; i<count;i++)
+ 	{
+		if(sot[i]==0)
+			return 0;
+		for(j=0;j<maxNode;j++)
+ 		{
+			//若有需要可以增加对任务的判断
+			if(G.getStatus(sot[i],j)==1)
+				return 1;
 		}
 	}
 	return 0;
@@ -15,15 +29,18 @@ int checkConnectionSmall(int sot,Graph G)
 //第一个参数为大物体编号
 int checkContainer(int sot,Sort sort[],Graph G)
 {
-	int smallSort = 0;
+	int smallSort[5] = {0};
 	int flag = 0;
-	smallSort = sort[sot-1].sinsideD;
-	cout<<"This is checkContainer ,check: "<<sot<<" get -> "<<smallSort<<endl;
-	if(smallSort == 0) 
+	getVector(smallSort,sort[sot-1].sinsideD);
+//	smallSort = sort[sot-1].sinsideD;
+	cout<<"This is checkContainer ,check: "<<sot<<" get -> ";
+	printVector(sort[sot-1].sinsideD);
+	//<<smallSort<<endl;
+	if(smallSort[0] == 0) 
 	{
 		return 0;
 	}
-	flag = checkConnectionSmall(smallSort,G);
+	flag = checkConnectionSmall(smallSort,G,5);
 	return flag;
 }
 int Devil::move(int sot,Sort sort[],Robot &robot)
@@ -106,7 +123,9 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 	check_container = checkContainer(sot,sort,G);
 	if(check_container != 0)
 	{
-		cout<<"In this container,have a sort -> "<<sort[sot-1].sinsideD<<" i need it"<<endl;
+		cout<<"In this container,have a sort -> ";
+		printVector(sort[sot-1].sinsideD);
+		cout<<" i need it"<<endl;
 		takeout(sort[sot-1].sinsideD,sort,robot,G);
 	}
 //	if(G.getStatus(sot,0)==0)

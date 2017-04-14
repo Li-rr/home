@@ -1,6 +1,6 @@
 #include "devil.hpp"
 using namespace _home;
-void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot);
+//void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot);
 int checkPutdown(int sort, int present,Graph G )
 {   
 	int i;
@@ -70,13 +70,13 @@ int getPutinSort(int sort,Graph G)
 	return 0;
 }
 void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
-{
+{ 
 	cout<<"-----------------------------------------------------------"<<endl;
 	int i=0,j=0;
 	Graph G;
 	//将任务目标写入sort中
 	for(i = 0; i <= taskNum; i++)
-	{
+ 	{
 	//  setSortAttribute(task,i,sort,sortNum,robot);	
 	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 	}
@@ -173,7 +173,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 				G.setStatus(i,j,pickup(i,sort,robot,G));
 			}
 		}
-	}
+ 	}
 	//验证写入是否成功
 	/*
 	for(i=0;i<sortNum;i++)
@@ -199,7 +199,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	
 } 
 ///////////////////////////
-void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot)
+/*void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot)
 {
 	if(task[num].getTaskAction()=="open")
 	{
@@ -260,4 +260,4 @@ void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot)
 		robot.expectGive = task[num].getTaskAct1();
 	}
 }
-
+*/

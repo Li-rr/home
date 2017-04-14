@@ -53,7 +53,9 @@ void Devil::Plan()
 	{
 		if(sort[i].getsType()=="container")
 		{
-			cout<<sort[i].getsNum()<<" have "<<sort[i].sinsideD<<endl;
+			cout<<sort[i].getsNum()<<" ";
+			printVector(sort[i].sinsideD);
+			cout<<endl;
 		}
 	}
    	   printTask(task,taskMax);
