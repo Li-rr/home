@@ -22,7 +22,7 @@ Devil::Devil() :
 void Devil::Plan()
 {
     //cout << "#(Devil): Init" << endl;
-   // cout << "# EnvDes:\n" << GetEnvDes() << endl;
+    cout << "# EnvDes:\n" << GetEnvDes() << endl;
     //cout << "# TaskDes:\n" << GetTaskDes() << endl;
     Sort sort[30];
     Robot robot;
