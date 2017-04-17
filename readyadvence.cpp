@@ -1,8 +1,8 @@
 #include "readyadvence.h"
 void getVector(int small[],vector<int> v)
-{	
+{
 	int i=0;
-	for(vector<int>::iterator it = v.begin(),i=0 ;it!=v.end();it++,i++)
+	for(vector<int>::iterator it = v.begin();it!=v.end();it++,i++)
 	{
 		small[i] = *it;
 	}

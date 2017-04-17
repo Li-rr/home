@@ -36,7 +36,7 @@ int checkContainer(int sot,Sort sort[],Graph G)
 	cout<<"This is checkContainer ,check: "<<sot<<" get -> ";
 	printVector(sort[sot-1].sinsideD);
 	//<<smallSort<<endl;
-	if(smallSort[0] == 0) 
+	if(smallSort[0] == 0)
 	{
 		return 0;
 	}
@@ -47,7 +47,7 @@ int Devil::move(int sot,Sort sort[],Robot &robot)
 {
 	bool flag=0;
 	if(robot.getLoc()!= sort[sot-1].getsLoc())
-	{ 
+	{
 		 flag=Move(sort[sot-1].getsLoc());
 		robot.setLoc(sort[sot-1].getsLoc());
 	}
@@ -58,7 +58,7 @@ int checkOpen(int sot,Sort sort[])
 {
 	int flag = 0;
 	if(sort[sot-1].getsClosed()== false)
-	{ 
+	{
 		flag = 1;
 	}
 	return flag;
@@ -87,7 +87,7 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 		flag = Open(sot);
 		sort[sot-1].setsClosed(0);
 		cout<<"Sir,I'm open "<<sot<<endl;
-	} 
+	}
 	return flag;
 }
 
@@ -132,14 +132,14 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 //	{
 //		return 0;
 //	}
-	
+
 	if(robot.getHold()&&checkConnectionSmall(robot.getHold(),G)==0)
 	{
 		cout<<"My hand has sort,but I don't need it"<<endl;
 		PutDown(robot.getHold());
 		robot.setHold(0);
 	}
-	
+
 	if(sort[sot-1].getsClosed()==0)
 	{
 		//此处可以检查一下手上的东西有没有用
@@ -147,10 +147,10 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 		if(robot.getHold()!=0&&robot.getPlate()==0)
 		{
 			ToPlate(robot.getHold());
-			
+
 			robot.setPlate(robot.getHold());
 			robot.setHold(0);
-			
+
 			flag=Close(sot);
 			sort[sot-1].setsClosed(1);
 			cout<<"Sir, I'm closed the: "<<sot<<endl;
@@ -178,7 +178,7 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 			cout<<"This sort "<<sot<<" on my hand"<<endl;
 		}
 		else if(sort[sot-1].getsInside()!=-1)	//inside
-		{ 
+		{
 			flag=takeout(sot,sort,robot,G);
 			cout<<"This sort "<<sot<<" in other sort"<<endl;
 		}
@@ -197,13 +197,13 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 		{
 			cout<<"This sort in other sort"<<sort[sot-1].getsInside()<<endl;
 			flag = takeout(sot,sort,robot,G);
-			
+
 		}
 		else
 		{
 			flag = PickUp(sot);
 			robot.setHold(sot);
-			
+
 		}
 
 	}
@@ -253,7 +253,7 @@ int Devil::putdown(int sort,Robot &robot,Graph G)
 		FromPlate(robot.getPlate());
 		robot.setHold(robot.getPlate());
 		robot.setPlate(0);
-		
+
 		PutDown(robot.getHold());
 		robot.setHold(0);
 		return 1;
@@ -266,7 +266,7 @@ int Devil::putdown(int sort,Robot &robot,Graph G)
 			{
 				flag = 1;
 				break;
-			}	
+			}
 		}
 		if(flag == 1)
 		{
@@ -279,7 +279,7 @@ int Devil::putdown(int sort,Robot &robot,Graph G)
 			robot.setHold(0);
 			return 1;
 		}
-	}	
+	}
 	return 0;
 }
 int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
