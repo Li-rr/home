@@ -21,7 +21,7 @@ int checkConnectionSmall(int sot[],Graph G,int count)
  		{
 			//若有需要可以增加对任务的判断
 			if(G.getStatus(sot[i],j)==1)
-				return 1;
+				return sot[i];
 		}
 	}
 	return 0;
@@ -126,7 +126,7 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 		cout<<"In this container,have a sort -> ";
 		printVector(sort[sot-1].sinsideD);
 		cout<<" i need it"<<endl;
-		takeout(sort[sot-1].sinsideD,sort,robot,G);
+		takeout(check_container,sort,robot,G);
 	}
 //	if(G.getStatus(sot,0)==0)
 //	{

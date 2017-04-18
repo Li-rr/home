@@ -9,10 +9,12 @@ void getVector(int small[],vector<int> v)
 }
 void printVector(vector<int> v)
 {
+	cout<<"This is printVector()\n";
 	for(vector<int>::iterator it = v.begin();it!=v.end();it++)
 	{
 		cout<<*it<<" ";
 	}
+	cout<<"printVector() is over.\n";
 }
 void dealwithtask(string TASK,Task task[], int &taskMaxnum)
 {/*{{{*/
@@ -710,6 +712,7 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
                 {
 					sort[obj1].setsLoc(sort[obj2].getsLoc());
 					sort[obj1].setsInside(sort[obj2].getsNum());
+					sort[obj2].sinsideD.push_back(obj1+1);
                     sort[i].setsLoc(sort[obj1].getsLoc());
                     cout<<"this is info -- inside\n";
                 }
