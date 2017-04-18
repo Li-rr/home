@@ -22,12 +22,15 @@ namespace _home
 		int move(int sot,Sort sort[],Robot &robot);
 		int open(int sot,Sort sort[],Robot &robot,Graph G);
 		int takeout(int sot,Sort sort[],Robot &robot,Graph G);
+		int puton(int sotx,int soty,Sort sort[],Robot &robot,Graph G);
     protected:
 		int close(int sot,Sort sort[],Robot &robot,Graph G);
 		int getSort(int sot,Sort sort[],Robot &robot,Graph G);
 		int putin(int sot,Sort sort[],Robot &robot,Graph G);
 		int putdown(int sort,Robot &robot,Graph G);
 		int pickup(int sot,Sort sort[],Robot &robot,Graph G);
+		void checkHold(Robot &robot,Graph G);
+		void checkPlate(Robot &plate,Graph G);
         void Plan();
 
         void Fini();

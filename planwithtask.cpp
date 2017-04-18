@@ -91,6 +91,11 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			{
 				G.setStatus(i,j,PutDown(i));
 			}
+			if(G.getDirection(i,j)==-4) //puton
+			{
+				cout<<"---------------"<<endl;
+				G.setStatus(i,j,puton(i,j,sort,robot,G));
+			}
 			if(G.getDirection(i,j)==-1)	//takeout
 			{
 				cout<<j<<" "<<checkConnection(j,G)<<endl;

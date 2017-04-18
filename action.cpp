@@ -1,24 +1,43 @@
 #include "devil.hpp"
 using namespace _home;
-int checkConnectionSmall(int sot,Graph G)
+int checkConnectionBig(int sot,Graph G,int taskCode,int present)
 {
-	int i=0;
-	for(i=0;i<maxNode;i++)
+	int i = 0;
+	cout<<"This is checkConnectionBig()\n";
+	for( i=0; i < maxNode; i++)
 	{
-		if(G.getStatus(sot,i)==1)
-			return 1;
+        if( i == present)
+            continue;
+		if(G.getDirection(i,sot) == taskCode && G.getStatus(i,sot)==1)
+		{
+			return i;
+		}
 	}
+	cout<<"checkConnectionBig() is over!()\n";
 	return 0;
 }
-int checkConnectionSmall(int sot[],Graph G,int count)
+int checkConnectionSmall(int sot,Graph G)
 {
+    int i=0;
+    for(i=0; i<maxNode; i++)
+    {
+        if(G.getStatus(sot,i)==1)
+        {
+            cout<<sot<<" connection with "<< i <<endl;
+            return 1;
+        }
+    }
+    return 0;
+}
+int checkConnectionSmall(int sot[],Graph G,int count)
+ {
 	int i = 0,j=0;
 	for(i=0; i<count;i++)
- 	{
+  	{
 		if(sot[i]==0)
 			return 0;
 		for(j=0;j<maxNode;j++)
- 		{
+  		{
 			//若有需要可以增加对任务的判断
 			if(G.getStatus(sot[i],j)==1)
 				return sot[i];
@@ -39,7 +58,7 @@ int checkContainer(int sot,Sort sort[],Graph G)
 	if(smallSort[0] == 0)
 	{
 		return 0;
-	}
+ 	}
 	flag = checkConnectionSmall(smallSort,G,5);
 	return flag;
 }
@@ -47,13 +66,51 @@ int Devil::move(int sot,Sort sort[],Robot &robot)
 {
 	bool flag=0;
 	if(robot.getLoc()!= sort[sot-1].getsLoc())
-	{
+ 	{
 		 flag=Move(sort[sot-1].getsLoc());
 		robot.setLoc(sort[sot-1].getsLoc());
 	}
 	return flag;
 }
+void Devil::checkPlate(Robot &robot,Graph G)
+{
+	cout<<"This is checkPlate\n";
+	int plate = robot.getPlate();
+	if(plate == 0) {
+		return;
+	} else {
+		if(checkConnectionSmall(plate,G)==0)
+		{
+			FromPlate(plate);
+			robot.setPlate(0);
+			PutDown(plate);
+			cout<<"This sort in my plate is useless i will putdown\n";
+		}
+	}
 
+	cout<<"checkPlate()\n";
+}
+void Devil::checkHold(Robot &robot,Graph G)
+{
+	cout<<"This is checkHold\n";
+	int hold = robot.getHold();
+	int flag = 0;
+	if(hold == 0)
+	{
+		return;
+	}
+	else
+	{
+		if(checkConnectionSmall(hold,G) == 0)
+		{
+			PutDown(hold);
+			robot.setHold(0);
+			cout<<"This sort in my hand is useless i will putdown "<<hold<<endl;
+		}
+	}
+	cout<<"checkHold is over\n";
+
+}
 int checkOpen(int sot,Sort sort[])
 {
 	int flag = 0;
@@ -87,6 +144,9 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 		flag = Open(sot);
 		sort[sot-1].setsClosed(0);
 		cout<<"Sir,I'm open "<<sot<<endl;
+	} else if(checkOpen(sot,sort)== 1)
+	{
+        flag = -1;
 	}
 	return flag;
 }
@@ -103,10 +163,14 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
 	{
 		cout<<"I open this sort ->"<<act2<<endl;
 	}
-	else
+	else if (checkOpen == 0 )
 	{
 		cout<<"Sorry, I can't open this sort -> "<<act2<<endl;
 	}
+	else if(checkOpen == -1)
+    {
+        cout<<"door is opened\n";
+    }
 	flag = TakeOut(sot,act2);
 	robot.setHold(sot);
 	sort[sot-1].setsInside(-1);
@@ -168,6 +232,7 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
+	checkHold(robot,G);
 	cout<<"I want get "<<sot<<endl;
 	if(sort[sot-1].getsLoc()==robot.getLoc())
 	{
@@ -176,19 +241,19 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 		{
 			flag = 1;
 			cout<<"This sort "<<sot<<" on my hand"<<endl;
-		}
+ 		}
 		else if(sort[sot-1].getsInside()!=-1)	//inside
-		{
+ 		{
 			flag=takeout(sot,sort,robot,G);
 			cout<<"This sort "<<sot<<" in other sort"<<endl;
 		}
 		else
-		{
+ 		{
 			PickUp(sot);	//on the ground
 			robot.setHold(sot);
 			flag = 1;
 		}
-	}
+ 	}
 	else
 	{
 		//此处有bug
@@ -198,21 +263,21 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 			cout<<"This sort in other sort"<<sort[sot-1].getsInside()<<endl;
 			flag = takeout(sot,sort,robot,G);
 
-		}
+ 		}
 		else
 		{
 			flag = PickUp(sot);
 			robot.setHold(sot);
 
-		}
+ 		}
 
-	}
+ 	}
 	if(flag == 1)
 	{
 		cout<<"Sir, I get it "<<sot<<endl;
-	}
+ 	}
 	else
-	{
+ 	{
 		cout<<"Sorry Sir,I failed "<<sot<<endl;
 	}
 	return flag;
@@ -238,6 +303,19 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 	sort[act1-1].setsInside(sot);
 	cout<<"Sir, I'm put "<<act1 <<" in "<<sot<<endl;
 	return flag;
+}
+int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph G)
+{
+	cout<<"This is puton()\n";
+	int flag = 0,obj2;
+	getSort(sotx,sort,robot,G);
+	obj2 = checkConnectionBig(soty,G,G.getDirection(sotx,soty),sotx);
+	cout<<"This is puton obj2 --> "<<obj2<<endl;
+	if(obj2 != 0)
+    {
+        getSort(obj2,sort,robot,G);
+    }
+	cout<<"puton() over!\n";
 }
 int Devil::putdown(int sort,Robot &robot,Graph G)
 {
