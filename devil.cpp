@@ -1,11 +1,30 @@
-/*
- * Simulation@Home Competition
- * File: devil.cpp
- * Author: Jiongkun Xie
- * Affiliation: Multi-Agent Systems Lab.
- *              University of Science and Technology of China
- */
-
+//
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//               佛祖保佑         永无BUG
+//
+//
+//
 #include "devil.hpp"
 #include <iostream>
 
@@ -23,7 +42,7 @@ void Devil::Plan()
 {
     //cout << "#(Devil): Init" << endl;
     cout << "# EnvDes:\n" << GetEnvDes() << endl;
-    //cout << "# TaskDes:\n" << GetTaskDes() << endl;
+    cout << "# TaskDes:\n" << GetTaskDes() << endl;
     Sort sort[30];
     Robot robot;
     Task task[30];
@@ -41,29 +60,30 @@ void Devil::Plan()
 
     dealwithInfoCons(TASK,cons_not,cons_not_Max,"cons_not");
     dealwithInfoCons(TASK,cons_notnot,cons_notnotMax,"cons_notnot");
-    //////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
     updateSenceByInfo(sort,info,robot,senceMax,infoMax);
     judgewithCons(cons_not,cons_not_Max,task,taskMax,sort,senceMax);
     judgewithCons(cons_notnot,cons_notnotMax,task,taskMax,sort,senceMax);
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
-    //////////////////////////////////////////////////////////////////
+    updateSenceByCons(sort,cons_not,robot,senceMax,cons_not_Max);
+    ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
-	for(int i=0; i<senceMax;i++)
-	{
-		if(sort[i].getsType()=="container")
-		{
-			cout<<sort[i].getsNum()<<" ";
-			printVector(sort[i].sinsideD);
-			cout<<endl;
-		}
-	}
-   	   printTask(task,taskMax);
-  //  printInfoCons(info,infoMax,"info");
-   // printInfoCons(cons_not,cons_not_Max,"cons_not");
-   // printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
+    for(int i=0; i<senceMax; i++)
+    {
+        if(sort[i].getsType()=="container")
+        {
+            cout<<sort[i].getsNum()<<" ";
+            printVector(sort[i].sinsideD);
+            cout<<endl;
+        }
+    }
+    printTask(task,taskMax);
+    printInfoCons(info,infoMax,"info");
+    printInfoCons(cons_not,cons_not_Max,"cons_not");
+    printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
     planWithtask(task,sort,taskMax,senceMax,robot);
- //  vector <unsigned int> test;
+// //  vector <unsigned int> test;
   // Sense(test);
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
   // {

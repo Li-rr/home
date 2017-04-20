@@ -2,7 +2,7 @@
 using namespace _home;
 //void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot);
 int checkPutdown(int sort, int present,Graph G )
-{   
+{
 	int i;
 	for(i=0;i<maxNode;i++)
 	{
@@ -23,7 +23,7 @@ int checkPuton(int sort,int present,Graph G)
 			return 5;
 	}
 
-} 
+}
 int checkGive(int sort,int present,Graph G)
 {
 	int i;
@@ -56,7 +56,7 @@ int checkPutinFirst(int sort,int present,Graph G)
 		  continue;
 		if(G.getDirection(sort,i)==-1 && G.getStatus(sort,i)==1)
 		  return -1;
-	} 
+	}
 	return 0;
 }
 int getPutinSort(int sort,Graph G)
@@ -70,14 +70,14 @@ int getPutinSort(int sort,Graph G)
 	return 0;
 }
 void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
-{ 
+{
 	cout<<"-----------------------------------------------------------"<<endl;
 	int i=0,j=0;
 	Graph G;
 	//将任务目标写入sort中
 	for(i = 0; i <= taskNum; i++)
  	{
-	//  setSortAttribute(task,i,sort,sortNum,robot);	
+	//  setSortAttribute(task,i,sort,sortNum,robot);
 	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 	}
 	G.printMatrix();
@@ -91,9 +91,9 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			{
 				G.setStatus(i,j,PutDown(i));
 			}
-			if(G.getDirection(i,j)==-4) //puton
+			if(G.getDirection(i,j)==-4&&G.getStatus(i,j)==1) //puton
 			{
-				cout<<"---------------"<<endl;
+				cout<<"put --"<<i<<"---"<<"--on--"<<j<<endl;
 				G.setStatus(i,j,puton(i,j,sort,robot,G));
 			}
 			if(G.getDirection(i,j)==-1)	//takeout
@@ -123,7 +123,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 					G.setStatus(i,sort[i-1].getsInside(),Devil::takeout(i,sort,robot,G));
 				}
 				if(checkPutinFirst(i,G.getDirection(i,j),G) == 0) //only_putin
-				{ 
+				{
 					getSort(i,sort,robot,G);
 					move(j,sort,robot);
 					cout<<"this putin I'm move"<<endl;
@@ -201,8 +201,8 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	}
 */
 
-	
-} 
+
+}
 ///////////////////////////
 /*void setSortAttribute(Task task[],int num,Sort sort[],int senceMax,Robot &robot)
 {
@@ -241,7 +241,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	{
 		sort[task[num].getTaskAct1()-1].expectOn = -3; //-3代表putdown
 		sort[task[num].getTaskAct1()-1].used = 1;
-		sort[task[num].getTaskAct1()-1].appareCount++;	
+		sort[task[num].getTaskAct1()-1].appareCount++;
 	}
 	if(task[num].getTaskAction()=="goto")
 	{

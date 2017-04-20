@@ -14,10 +14,10 @@ Sort::Sort()
     scontainer=false;
     sclosed=false;
     slock=false;
-
+    cons_not = 0;
 	giveme = 0;
 	bigSort = 1;
-	used = 0; 
+	used = 0;
 	expectMove = "";
 	expectInsiding = -1;
 
@@ -75,7 +75,30 @@ void Sort::setsType(string type)
 }
 void Sort::setsLock()
 {
-        slock=true;
+    slock = true;
+}
+void Sort::setsConsnot(string action)
+{
+    if(action == "putdown")
+    {
+        cons_not  = 4;
+    }
+    if(action == "open")
+    {
+        cons_not = -2;
+    }
+    if(action == "close")
+    {
+        cons_not = 2;
+    }
+    if(action == "goto")
+    {
+        cons_not = 3;
+    }
+    if(action == "pickup")
+    {
+        cons_not = 5;
+    }
 }
 void Sort::setsBigSort(string name)
 {

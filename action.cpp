@@ -304,7 +304,7 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 	cout<<"Sir, I'm put "<<act1 <<" in "<<sot<<endl;
 	return flag;
 }
-int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph G)
+int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
 {
 	cout<<"This is puton()\n";
 	int flag = 0,obj2;
@@ -315,13 +315,39 @@ int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph G)
     {
         getSort(obj2,sort,robot,G);
     }
+    move(soty,sort,robot);
+    if(obj2 == 0)
+    {
+        cout<<"puton---only---obj1\n";
+        flag = putdown(robot.getHold(),robot,G);
+        robot.setHold(0);
+    }else
+    {
+        cout<<"puton---obj1---obj2\n";
+        cout<<"robot.getHold()---"<<robot.getHold()<<endl;
+        putdown(robot.getHold(),robot,G);
+        FromPlate(robot.getPlate());
+        robot.setHold(robot.getPlate());
+        robot.setPlate(0);
+        flag = putdown(robot.getHold(),robot,G);
+
+        G.setStatus(obj2,soty,flag);
+        cout<<"checkputon"<<obj2<<"----"<<soty<<"----"<<G.getStatus(obj2,soty)<<endl;
+    }
+    return flag;
 	cout<<"puton() over!\n";
 }
 int Devil::putdown(int sort,Robot &robot,Graph G)
 {
 
 	int act1;
-	if(robot.getHold() == sort && robot.getPlate()==0)
+	if(robot.getHold()==sort&&robot.getPlate()!=0)
+    {
+        PutDown(robot.getHold());
+        robot.setHold(0);
+        return 1;
+    }
+	else if(robot.getHold() == sort && robot.getPlate()==0)
 	{
 		PutDown(robot.getHold());
 		robot.setHold(0);

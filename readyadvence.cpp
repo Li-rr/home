@@ -24,18 +24,25 @@ void dealwithtask(string TASK,Task task[], int &taskMaxnum)
     boost::split( vStr, TASK, boost::is_any_of( "( ):" ), boost::token_compress_on );
     for( vector<string>::iterator it = vStr.begin(); it != vStr.end(); it++)
     {
+        //cout<<*it<<endl;
+        if(*it == "task" && * (it-1)=="cons_not"||*it=="task"&& *(it-1)=="cons_notnot")
+           {
+               continue;
+           }
         if(*it == "task")
         {
             i=i+1;
             flag=1;
             task[i].setTaskNo(i+1);
-        } else if(*it == "cons"||*it=="cons_notnot"||*it=="info")
+       //     cout<<"this is task"<<endl;
+        } else if(*it == "cons_not"||*it=="cons_notnot"||*it=="info")
         {
             flag=0;
         }
         if(flag&&(*it == "open" || *it =="close"||*it=="takeout"|| *it=="putin"||*it=="goto"||*it=="pickup"
                   ||*it=="putdown"||*it=="give"||*it=="puton"))
         {
+            cout<<*it<<endl;
             if(*(it+2)!="Y")
                 str2="";
             else
@@ -48,7 +55,7 @@ void dealwithtask(string TASK,Task task[], int &taskMaxnum)
                 task[i].setTaskNamex(*(it+2));
             else if(*(it+1)=="Y")
                 task[i].setTaskNamey(*(it+2));
-
+                cout<<"***"<<task[i].getTaskNamex()<<endl;
         }
         if(flag&& *it=="color")
         {
@@ -162,7 +169,7 @@ void dealwithsence(string STR,Sort sort[],Robot &robot, int &senceMax)
 
 void dealwithInfoCons(string TASK,InfoCons info_cons[],int &numMax,string SIGN)
 {/*{{{*/
- //   cout<<"this is dealwithInfoCons-start.-"<<SIGN<<endl;
+    cout<<"this is dealwithInfoCons-start.-"<<SIGN<<endl;
     int i=-1;
     int flag=0;
     string str1="",str2="";
@@ -177,7 +184,7 @@ void dealwithInfoCons(string TASK,InfoCons info_cons[],int &numMax,string SIGN)
     {
         if(*it == SIGN)
         {
-            cout<<"I'm find it"<<endl;
+
             if(*(it-1)=="cons_not"||*(it-1)=="cons_notnot")
             {
                 //此if针对cons_not或cons_notnot后跟着的info
@@ -186,13 +193,14 @@ void dealwithInfoCons(string TASK,InfoCons info_cons[],int &numMax,string SIGN)
             i++;
             info_cons[i].setNo(i+1);
             flag=1;
+            cout<<"I'm find it"<<SIGN<<endl;
         }
         for(int j=0;j<4;j++)
         {
             if(*it!=SIGN&&*it==Flag[j])
                 flag=0;
         }
-            if(*it=="info"&&*(it-1)==SIGN)
+            if((*it=="info"||*it=="task")&&*(it-1)==SIGN)
                     flag=1;
         if(flag&&(*it=="at"||*it== "on"||*it=="near"||*it=="plate"||*it=="inside"||*it=="opened"||*it=="closed"||*it=="give"
            ||*it=="puton"||*it=="goto"||*it=="putdown"||*it=="pickup"||*it=="open"||*it=="putin"||*it=="close"||*it=="takeout"))
@@ -832,6 +840,7 @@ void printScence(Robot  robot,Sort sort[],int count)
 //
 void printInfoCons(InfoCons info[],int count,string SIGN)
 {/*{{{*/
+
     cout<<"/*************************************"<<SIGN<<"**********************************/\n";
     cout<<setw(7)<<setiosflags(ios::left);
     cout<<"No.";
@@ -876,3 +885,21 @@ void printInfoCons(InfoCons info[],int count,string SIGN)
     cout<<"/*************************************"<<SIGN<<"**********************************/\n\n";
 }
 /*}}}*/
+void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum)
+{
+    int i,j;
+    for(i=0;i<consNum;i++)
+    {
+        for(j=0; j < sortNum; j++)
+        {
+            if(con[i].getNamex()==sort[j].getsName()&&con[i].getColorx()==sort[i].getsColor())
+            {
+                    sort[j].setsConsnot(con[i].getState());
+                    if(robot.getHold() == sort[j].getsNum()&&sort[j].getsLoc()==4)
+                    {
+                        robot.setRobotConsnot(sort[j].getsNum());
+                    }
+            }
+        }
+    }
+}

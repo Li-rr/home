@@ -5,6 +5,10 @@ Robot::Robot()
     rloc=0;
     rhold=0;
     rplate=0;
+    useHold = 1;
+    usePlate = 1;
+    rcons_not = 0;
+    rcons_notnot = 0;
 	expectMove = "";
 	expectPickup = 0;
 	expectGive = 0;
@@ -41,4 +45,8 @@ int Robot::getHold()
 int Robot::getPlate()
 {
     return rplate;
+}
+void Robot::setRobotConsnot(int num)
+{
+    rcons_not = num;
 }

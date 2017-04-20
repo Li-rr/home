@@ -52,7 +52,10 @@ class Graph
 		}
 		void setStatus(int i,int j,int success)
 		{
-			VerList[i][j].status = success;
+		    if(success == 1)
+                VerList[i][j].status = 0;
+            else
+                VerList[i][j].status = 1;
 		}
 		int getStatus(int i,int j)
 		{

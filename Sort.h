@@ -21,6 +21,7 @@ public:
         void setsType(string type);
 		void setsBigSort(string name);
         void setsLock();
+        void setsConsnot(string action);
         int getsNum();
         int getsLoc();
         int getsInside();
@@ -57,6 +58,7 @@ private:
         string ssize;
         bool scontainer;
         bool sclosed;
+        int cons_not;
         bool slock;
 };
 #endif

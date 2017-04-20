@@ -10,6 +10,10 @@ private:
     int rplate;
     int rhold;
     int rloc;
+    int useHold;
+    int usePlate;
+    int rcons_not; //存放物体编号
+    int rcons_notnot;
 public:
 	string expectMove;		//针对goto
 	int expectPickup;	//针对pickup
@@ -20,9 +24,13 @@ public:
     void setLoc(int _loc);
     void setHold(int _hold);
     void setPlate(int _plate);
+    void setRobotConsnot(int num);
+    void setRobotConsnotnot();
     int getNum();
     int getLoc();
     int getHold();
     int getPlate();
+    int getRobotConsnot();
+    int getRobotConsnotnot();
 };
 #endif
