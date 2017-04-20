@@ -888,13 +888,16 @@ void printInfoCons(InfoCons info[],int count,string SIGN)
 void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum)
 {
     int i,j;
-    for(i=0;i<consNum;i++)
+    for(i=0;i<=consNum;i++)
     {
         for(j=0; j < sortNum; j++)
         {
-            if(con[i].getNamex()==sort[j].getsName()&&con[i].getColorx()==sort[i].getsColor())
+            if(con[i].getNamex()==sort[j].getsName()&&con[i].getColorx()==sort[j].getsColor())
             {
                     sort[j].setsConsnot(con[i].getState());
+                    cout<<sort[j].getsNum()<<"---cons----"<<sort[j].getsConsnot()<<endl;
+                    robot.setUsehold(sort[j].getsConsnot());
+                    robot.setUseplate(sort[j].getsConsnot());
             }
         }
     }

@@ -27,6 +27,8 @@ public:
     void setRobotConsnot(int num);
     void setRobotConsnotnot();
     void setUsehold(int signal);
+//    void setUsehold(Sort sort[]);
+//    void setUseplate(Sort sort[]);
     void setUseplate(int signal);
     int getNum();
     int getLoc();

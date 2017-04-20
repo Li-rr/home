@@ -69,6 +69,10 @@ int Devil::move(int sot,Sort sort[],Robot &robot)
  	{
 		 flag=Move(sort[sot-1].getsLoc());
 		robot.setLoc(sort[sot-1].getsLoc());
+		if(robot.getHold()!=0)
+            sort[robot.getHold()-1].setsLoc(sort[sot-1].getsLoc());
+        if(robot.getPlate()!=0)
+            sort[robot.getPlate()-1].setsLoc(sort[sot-1].getsLoc());
 	}
 	return flag;
 }
@@ -126,19 +130,37 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 	int flag = 0;
 //	if(G.getStatus(sot,0)==0)
 //	  return 1;
-	if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
-	{
-		cout<<"Befor open big sort,my hand have other sort, i need it -> "<<robot.getHold()<<" i will put it in my plate"<<endl;
-		ToPlate(robot.getHold());
-		robot.setPlate(robot.getHold());
-		robot.setHold(0);
-	}
-	else if(checkConnectionSmall(robot.getHold(),G)==0&&robot.getHold()!=0)
-	{
-		cout<<"Before open big sort,my hand have other sort, i need pudown it -> "<<robot.getHold()<<endl;
-		PutDown(robot.getHold());
-		robot.setHold(0);
-	}
+    if(robot.getUsehold()==0&&robot.getUseplate()==0)
+    {
+        if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
+        {
+            cout<<"Befor open big sort,my hand have other sort, i need it -> "<<robot.getHold()<<" i will put it in my plate"<<endl;
+            ToPlate(robot.getHold());
+            robot.setPlate(robot.getHold());
+            robot.setHold(0);
+        }
+        else if(checkConnectionSmall(robot.getHold(),G)==0&&robot.getHold()!=0)
+        {
+            cout<<"Before open big sort,my hand have other sort, i need pudown it -> "<<robot.getHold()<<endl;
+            PutDown(robot.getHold());
+            robot.setHold(0);
+        }
+    }
+    //此处对约束进行处理
+    if(robot.getUsehold()==1)
+    {
+        ToPlate(robot.getHold());
+        robot.setPlate(robot.getHold());
+        robot.setHold(0);
+        robot.setUsehold(0);
+        robot.setUseplate(1);
+    }
+    if(robot.getUseplate()==1&&robot.getHold()!=0)
+    {
+           PutDown(robot.getHold());
+           robot.setHold(0);
+    }
+
 	if(checkOpen(sot,sort)==0)
 	{
 		flag = Open(sot);
@@ -234,52 +256,27 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 	int flag = 0;
 	checkHold(robot,G);
 	cout<<"I want get "<<sot<<endl;
-	if(sort[sot-1].getsLoc()==robot.getLoc())
-	{
-		cout<<"This sort location same with  me"<<endl;
-		if(robot.getHold()==sot||robot.getPlate()==sot)	//on hold
-		{
-			flag = 1;
-			cout<<"This sort "<<sot<<" on my hand"<<endl;
- 		}
-		else if(sort[sot-1].getsInside()!=-1)	//inside
- 		{
-			flag=takeout(sot,sort,robot,G);
-			cout<<"This sort "<<sot<<" in other sort"<<endl;
-		}
-		else
- 		{
-			PickUp(sot);	//on the ground
-			robot.setHold(sot);
-			flag = 1;
-		}
- 	}
-	else
-	{
-		//此处有bug
-		move(sot,sort,robot);
-		if(sort[sot-1].getsInside()!=-1)
-		{
-			cout<<"This sort in other sort"<<sort[sot-1].getsInside()<<endl;
-			flag = takeout(sot,sort,robot,G);
-
- 		}
-		else
-		{
-			flag = PickUp(sot);
-			robot.setHold(sot);
-
- 		}
-
- 	}
-	if(flag == 1)
-	{
-		cout<<"Sir, I get it "<<sot<<endl;
- 	}
-	else
- 	{
-		cout<<"Sorry Sir,I failed "<<sot<<endl;
-	}
+    if(robot.getLoc() != sort[sot-1].getsLoc())
+    {
+        move(sot,sort,robot);
+        if(sort[sot-1].getsInside()!=-1)
+        {
+            flag = takeout(sot,sort,robot,G);
+        }else
+            flag = pickup(sot,sort,robot,G);
+    }
+    else
+    {
+        cout<<"This sort loc same with me"<<endl;
+        if(sort[sot-1].getsInside()!=-1)  //inside
+        {
+            flag = takeout(sot,sort,robot,G);
+        }
+        if(robot.getHold()!=sot&&robot.getPlate()!=sot)
+        {
+            flag = pickup(sot,sort,robot,G);
+        }
+    }
 	return flag;
 }
 int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
@@ -389,17 +386,25 @@ int Devil::putdown(int sort,Robot &robot,Graph G)
 int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
-	if(robot.getHold()!=0)
+	if(robot.getHold()!=0&&robot.getUsehold()==0)
 	{
 		PutDown(robot.getHold());
 		cout<<"I'm running Pickup ,i need putdown "<<robot.getHold()<<endl;
 		robot.setHold(0);
 	}
+	if(robot.getUsehold()==4&&robot.getHold()!=0)
+    {//针对约束
+        ToPlate(robot.getHold());
+        robot.setPlate(robot.getHold());
+        robot.setHold(0);
+        robot.setUsehold(0);
+        robot.setUseplate(4);
+    }
 	flag = PickUp(sot);
 	if(flag==1)
 	{
 		robot.setHold(sot);
-		if(robot.getPlate()==0)
+		if(robot.getPlate()==0&&checkConnectionSmall(robot.getHold(),G)!=0)
 			{
 				ToPlate(robot.getHold());
 				robot.setPlate(robot.getHold());

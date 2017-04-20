@@ -149,3 +149,7 @@ bool Sort::getsLocked()
 {
     return slock;
 }
+int Sort::getsConsnot()
+{
+    return cons_not;
+}

@@ -31,6 +31,7 @@ public:
         string getsType();
         bool getsLocked();
         bool getsClosed();
+        int getsConsnot();
 		int taskLock; //任务锁，针对putdown
 		int bigSort; //标记大物体
     	//针对处理任务的一些属性

@@ -5,8 +5,8 @@ Robot::Robot()
     rloc=0;
     rhold=0;
     rplate=0;
-    useHold = 1;
-    usePlate = 1;
+    useHold = 0;    //0代表关闭
+    usePlate = 0;
     rcons_not = 0;
     rcons_notnot = 0;
 	expectMove = "";
@@ -30,13 +30,41 @@ void Robot::setPlate(int _plate)
 {
     rplate=_plate;
 }
+//void Robot::setUsehold(Sort sort[])
+//{
+//    if(sort[rhold-1].getsConsnot()==4)
+//    {
+//            useHold = 1;
+//    }
+//}
 void Robot::setUsehold(int signal)
 {
-    useHold = signal;
+    if(signal == 4)
+    {
+        useHold = 1;
+    }
+    if(signal==0)
+    {
+        useHold=0;
+    }
 }
+//void Robot::setUseplate(Sort sort[])
+//{
+//    if(sort[rplate-1].getsConsnot()==4)
+//    {
+//        usePlate = 1;
+//    }
+//}
 void Robot::setUseplate(int signal)
 {
-    usePlate = signal;
+    if(signal == 4)
+    {
+        useHold = 1;
+    }
+    if(signal == 0)
+    {
+        usePlate = 0;
+    }
 }
 int Robot::getNum()
 {
