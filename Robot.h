@@ -26,10 +26,14 @@ public:
     void setPlate(int _plate);
     void setRobotConsnot(int num);
     void setRobotConsnotnot();
+    void setUsehold(int signal);
+    void setUseplate(int signal);
     int getNum();
     int getLoc();
     int getHold();
     int getPlate();
+    int getUsehold();
+    int getUseplate();
     int getRobotConsnot();
     int getRobotConsnotnot();
 };

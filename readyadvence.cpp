@@ -895,10 +895,6 @@ void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int c
             if(con[i].getNamex()==sort[j].getsName()&&con[i].getColorx()==sort[i].getsColor())
             {
                     sort[j].setsConsnot(con[i].getState());
-                    if(robot.getHold() == sort[j].getsNum()&&sort[j].getsLoc()==4)
-                    {
-                        robot.setRobotConsnot(sort[j].getsNum());
-                    }
             }
         }
     }

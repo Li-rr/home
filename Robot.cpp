@@ -30,6 +30,14 @@ void Robot::setPlate(int _plate)
 {
     rplate=_plate;
 }
+void Robot::setUsehold(int signal)
+{
+    useHold = signal;
+}
+void Robot::setUseplate(int signal)
+{
+    usePlate = signal;
+}
 int Robot::getNum()
 {
     return rnum;
@@ -49,4 +57,12 @@ int Robot::getPlate()
 void Robot::setRobotConsnot(int num)
 {
     rcons_not = num;
+}
+int Robot::getUsehold()
+{
+    return useHold;
+}
+int Robot::getUseplate()
+{
+    return useHold;
 }
