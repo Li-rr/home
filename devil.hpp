@@ -18,11 +18,12 @@ namespace _home
     {
     public:
         Devil();
-        void planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot);
+        void planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot,Graph &G);
 		int move(int sot,Sort sort[],Robot &robot);
 		int open(int sot,Sort sort[],Robot &robot,Graph G);
 		int takeout(int sot,Sort sort[],Robot &robot,Graph G);
 		int puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G);
+		void planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Robot &robot,int consnotNum, int taskNum,Graph G );
     protected:
 		int close(int sot,Sort sort[],Robot &robot,Graph G);
 		int getSort(int sot,Sort sort[],Robot &robot,Graph G);

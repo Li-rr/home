@@ -346,6 +346,20 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 		{
 			if(task[i].getTaskNamex()==sort[j].getsName())
 			{
+                if(!sort[j].taskLock&&task[i].getTaskAction()=="takeout")
+				{
+					cout<<"this is match takeout act1"<<endl;
+					if(sort[j].getsInside()==-1)
+                        continue;
+					if(sort[sort[j].getsInside()-1].getsName()==task[i].getTaskNamey())
+					{
+						cout<<"***"<<endl;
+						task[i].setTaskAct1(sort[j].getsNum());
+						sort[j].used = 1;
+						sort[j].needMatch = 0;
+						task[i].used = 1;
+					}
+				}
 				if(sort[j].needMatch&&task[i].getTaskAction()=="putdown")
 				{
 					cout<<"this is match putdown act"<<endl;
@@ -359,18 +373,7 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 					}
 				}
 
-				if(!sort[j].taskLock&&task[i].getTaskAction()=="takeout")
-				{
-					cout<<"this is match takeout act1"<<endl;
-					if(sort[sort[j].getsInside()-1].getsName()==task[i].getTaskNamey())
-					{
-						cout<<"***"<<endl;
-						task[i].setTaskAct1(sort[j].getsNum());
-						sort[j].used = 1;
-						sort[j].needMatch = 0;
-						task[i].used = 1;
-					}
-				}
+
 
 				if(!sort[j].taskLock&&task[i].getTaskAction()=="putin")
 				{

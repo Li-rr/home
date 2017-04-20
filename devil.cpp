@@ -49,9 +49,11 @@ void Devil::Plan()
     InfoCons info[30];
     InfoCons cons_not[30];
     InfoCons cons_notnot[30];
+    Graph G;
     string STR=GetEnvDes();
     string TASK=GetTaskDes();
     int senceMax= 0,taskMax=0,infoMax=0,cons_not_Max=0,cons_notnotMax=0;
+    int i=0;
     //////////////////////////////////////////////////
     dealwithsence(STR,sort,robot,senceMax);
    dealwithtask(TASK,task,taskMax);
@@ -82,7 +84,13 @@ void Devil::Plan()
     printInfoCons(info,infoMax,"info");
     printInfoCons(cons_not,cons_not_Max,"cons_not");
     printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
-    planWithtask(task,sort,taskMax,senceMax,robot);
+
+	for(i = 0; i <= taskMax; i++)
+ 	{
+	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
+	}
+    planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
+    planWithtask(task,sort,taskMax,senceMax,robot,G);
 // //  vector <unsigned int> test;
   // Sense(test);
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)

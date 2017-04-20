@@ -69,17 +69,10 @@ int getPutinSort(int sort,Graph G)
 	}
 	return 0;
 }
-void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
+void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot,Graph &G)
 {
 	cout<<"-----------------------------------------------------------"<<endl;
 	int i=0,j=0;
-	Graph G;
-	//将任务目标写入sort中
-	for(i = 0; i <= taskNum; i++)
- 	{
-	//  setSortAttribute(task,i,sort,sortNum,robot);
-	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
-	}
 	G.printMatrix();
 	for(i=0;i<maxNode;i++)
 	{

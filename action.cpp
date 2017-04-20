@@ -193,9 +193,12 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
     {
         cout<<"door is opened\n";
     }
-	flag = TakeOut(sot,act2);
-	robot.setHold(sot);
-	sort[sot-1].setsInside(-1);
+    flag = TakeOut(sot,act2);
+    if(flag == 1)
+    {
+        robot.setHold(sot);
+        sort[sot-1].setsInside(-1);
+    }
 	cout<<"Sir, I'm takeout: "<<sot<<" from "<<act2<<endl;
 	return flag;
 }
