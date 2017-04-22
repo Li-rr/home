@@ -71,7 +71,7 @@ void Devil::Plan()
     ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
- /*   for(int i=0; i<senceMax; i++)
+    for(int i=0; i<senceMax; i++)
     {
         if(sort[i].getsType()=="container")
         {
@@ -85,7 +85,11 @@ void Devil::Plan()
 				<<" can "<<sort[i].getsStatic("can")
 				<<" remotecontrol "<<sort[i].getsStatic("remotecontrol")
 				<<" bottle "<<sort[i].getsStatic("bottle")<<endl;
-    }*/
+		if(sort[i].getsSize()=="small")
+		{
+			cout<<sort[i].getsName()<<" "<<sort[i].getsLocked()<<endl;
+		}
+    }
     printTask(task,taskMax);
     printInfoCons(info,infoMax,"info");
     printInfoCons(cons_not,cons_not_Max,"cons_not");

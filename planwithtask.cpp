@@ -101,6 +101,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 	cout<<"-----------------------------------------------------------"<<endl;
 	int i=0,j=0;
 	G.printMatrix();
+	checkHold(robot,G);
 	for(i=0;i<maxNode;i++)
 	{
 		for(j=0;j<maxNode;j++)
@@ -118,6 +119,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==-1)	//takeout
 			{
+				cout<<"This is run takeout\n";
 				cout<<j<<" "<<checkConnection(j,G)<<endl;
 				cout<<i<<" inside: "<<checkInside(i,sort)<<endl;
 				if(checkInside(i,sort)!=-1)	//确定为takeout
@@ -130,6 +132,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 					cout<<"j->: "<<j<<endl;
 					G.setStatus(j,0,close(j,sort,robot,G));
 				}
+				cout<<"run takout over\n";
 			}
 			if(G.getDirection(i,j)==1)	//putin
 			{
@@ -157,8 +160,10 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==2)	//close.低级处理
 			{
+				cout<<"This is run close\n";
 				move(i,sort,robot);
 				G.setStatus(i,j,close(i,sort,robot,G));
+				cout<<"run close over\n";
 			}
 			if(G.getDirection(i,j)==5)	//pickup
 			{

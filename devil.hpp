@@ -25,12 +25,12 @@ namespace _home
 		int puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G);
 		void planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Robot &robot,int consnotNum, int taskNum,Graph G );
     protected:
-		int close(int sot,Sort sort[],Robot &robot,Graph G);
+		int close(int sot,Sort sort[],Robot &robot,Graph &G);
 		int getSort(int sot,Sort sort[],Robot &robot,Graph G);
 		int putin(int sot,Sort sort[],Robot &robot,Graph G);
 		int putdown(int sort,Robot &robot,Graph G);
 		int pickup(int sot,Sort sort[],Robot &robot,Graph G);
-		void checkHold(Robot &robot,Graph G);
+		void checkHold(Robot &robot,Graph &G);
 		void checkPlate(Robot &plate,Graph G);
         void Plan();
 

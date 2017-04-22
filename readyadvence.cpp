@@ -438,6 +438,13 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 				{
 					sort[i].expectClosed = 0;
 					sort[i].needMatch = 1;  //打标记
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
 						task[j].setTaskAct1(i+1);
@@ -445,12 +452,7 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 						sort[i].used = 1;   //当前物体被使用
 						sort[i].needMatch = 0;//匹配到，标记去掉
 					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="close")/*{{{*/
-				{
-					sort[i].expectClosed = 1;
-					sort[i].needMatch = 1;
-					if(task[j].getTaskColorx()==sort[i].getsColor())
+					if(sort[i].getsStatic(sort[i].getsName())==1)
 					{
 						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
@@ -458,11 +460,51 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 						sort[i].needMatch = 0;
 					}
 				}/*}}}*/
+				else if(task[j].getTaskAction()=="close")/*{{{*/
+				{
+					sort[i].expectClosed = 1;
+					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					if(task[j].getTaskColorx()==sort[i].getsColor())
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						task[j].used = 1;
+						sort[i].needMatch = 0;
+					}
+				}/*}}}*/
 				else if(task[j].getTaskAction()=="takeout")/*{{{*/
 				{
 					sort[i].expectInsiding = 0; //代表物体将被拿出容器
 					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
 					{
 						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
@@ -474,6 +516,13 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 				{
 					sort[i].expectInsiding = 1;	//代表物体将被放入容器
 					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
 						task[j].setTaskAct1(i+1);
@@ -481,22 +530,26 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
 					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+
 				}/*}}}*/
 				else if(task[j].getTaskAction()=="putdown")/*{{{*/
 				{
 					sort[i].expectOn = -2;	//代表物体将直接putdown
 					sort[i].needMatch = 1;
-					if(task[j].getTaskColorx()==sort[i].getsColor())
+					if(sort[i].getsLocked()==0)
 					{
 						task[j].setTaskAct1(i+1);
 						task[j].used = 1;
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
-					}/*}}}*/
-				}else if(task[j].getTaskAction()=="puton")/*{{{*/
-				{
-					sort[i].expectOn = 1;
-					sort[i].needMatch = 1;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
 						task[j].setTaskAct1(i+1);
@@ -504,11 +557,52 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
 					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					/*}}}*/
+				}else if(task[j].getTaskAction()=="puton")/*{{{*/
+				{
+					sort[i].expectOn = 1;
+					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					if(task[j].getTaskColorx()==sort[i].getsColor())
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+
 				}/*}}}*/
 				else if(task[j].getTaskAction()=="pickup")/*{{{*/
 				{
 					sort[i].expectOn = 0; //代表期望在机器人上
 					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
 						task[j].setTaskAct1(i+1);
@@ -530,6 +624,13 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 					int temp = findSortByName(sNum,"human",sort);
 					sort[temp].giveme = 1;
 					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
 						task[j].setTaskAct1(temp+1);
@@ -537,12 +638,27 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
 					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+
 				}/*}}}*/
 				else if(task[j].getTaskAction()=="goto")/*{{{*/
 				{
 					//代表机器人必须要求的地方
 					robot.expectMove = task[j].getTaskNamex();
 					sort[i].needMatch = 1;
+					if(sort[i].getsLocked()==0)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
 					if(task[j].getTaskColorx()==sort[i].getsColor())
 					{
 						task[j].setTaskAct1(i+1);
@@ -550,6 +666,14 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 						sort[i].used = 1;
 						sort[i].needMatch = 0;
 					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
+					{
+						task[j].setTaskAct1(i+1);
+						task[j].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+
 				}
 			}/*}}}*/
 			/*

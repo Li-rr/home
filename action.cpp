@@ -1,5 +1,9 @@
 #include "devil.hpp"
 using namespace _home;
+int checkTakeout(int sotx,int soty,Graph G)
+{
+	return G.getDirection(sotx,soty);
+}
 int checkConnectionBig(int sot,Graph G,int taskCode,int present)
 {
 	int i = 0;
@@ -24,13 +28,13 @@ int checkConnectionSmall(int sot,Graph G)
         if(G.getStatus(sot,i)==1)
         {
             cout<<sot<<" connection with "<< i <<endl;
-            return 1;
-        }
+            return G.getDirection(sot,i);
+     	}    
     }
     return 0;
-}
+} 
 int checkConnectionSmall(int sot[],Graph G,int count)
- {
+{
 	int i = 0,j=0;
 	for(i=0; i<count;i++)
   	{
@@ -94,7 +98,7 @@ void Devil::checkPlate(Robot &robot,Graph G)
 
 	cout<<"checkPlate()\n";
 }
-void Devil::checkHold(Robot &robot,Graph G)
+void Devil::checkHold(Robot &robot,Graph &G)
 {
 	cout<<"This is checkHold\n";
 	int hold = robot.getHold();
@@ -105,11 +109,27 @@ void Devil::checkHold(Robot &robot,Graph G)
 	}
 	else
 	{
-		if(checkConnectionSmall(hold,G) == 0)
+		if(robot.getUsehold()==0)
 		{
-			PutDown(hold);
+			if(checkConnectionSmall(hold,G) == 0)
+			{
+				PutDown(hold);
+				robot.setHold(0);
+				cout<<"This sort in my hand is useless i will putdown "<<hold<<endl;
+			}
+			if(checkConnectionSmall(hold,G)==4)
+			{
+				G.setStatus(hold,0,PutDown(hold));
+				robot.setHold(0);
+				cout<<"This sort i need putdown"<<endl;
+			}
+		}else
+		{
+			ToPlate(hold);
+			robot.setPlate(hold);
 			robot.setHold(0);
-			cout<<"This sort in my hand is useless i will putdown "<<hold<<endl;
+			robot.setUseplate(4);
+			robot.setUsehold(0);
 		}
 	}
 	cout<<"checkHold is over\n";
@@ -203,9 +223,9 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
 	return flag;
 }
 
-int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
+int Devil::close(int sot,Sort sort[],Robot &robot,Graph &G)
 {
-	int flag = 0;
+	int flag = 0,flag2=0;
 	int check_container = 0;
 	//在关闭前应当检查该物体内部有没有
 	//其他任务所需要的物品
@@ -215,7 +235,9 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph G)
 		cout<<"In this container,have a sort -> ";
 		printVector(sort[sot-1].sinsideD);
 		cout<<" i need it"<<endl;
-		takeout(check_container,sort,robot,G);
+		flag2 = takeout(check_container,sort,robot,G);
+		if(checkTakeout(check_container,sot,G)==-1)
+			G.setStatus(check_container,sot,flag2);
 	}
 //	if(G.getStatus(sot,0)==0)
 //	{
@@ -403,7 +425,14 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
         robot.setUsehold(0);
         robot.setUseplate(4);
     }
-	flag = PickUp(sot);
+	if(sort[sot-1].getsInside()==-1)
+	{
+		flag = PickUp(sot);
+	}
+	else
+	{	
+		flag = takeout(sot,sort,robot,G);
+	}
 	if(flag==1)
 	{
 		robot.setHold(sot);
