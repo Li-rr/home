@@ -1,3 +1,30 @@
+//
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//               佛祖保佑         永无BUG
+//
+//
+//
 #include "readyadvence.h"
 void getVector(int small[],vector<int> v)
 {
@@ -121,6 +148,7 @@ void dealwithsence(string STR,Sort sort[],Robot &robot, int &senceMax)
             sort[obj1-1].setsName(*(it+2));
                sort[obj1-1].setsNum(obj1);
 			   sort[obj1-1].setsBigSort(*(it+2));
+			   sort[obj1-1].setStatic(*(it+2));
         }
         if(*it == "size")
         {
@@ -482,6 +510,13 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 					sort[i].expectOn = 0; //代表期望在机器人上
 					sort[i].needMatch = 1;
 					if(task[j].getTaskColorx()==sort[i].getsColor())
+					{
+						task[j].setTaskAct1(i+1);
+						task[i].used = 1;
+						sort[i].used = 1;
+						sort[i].needMatch = 0;
+					}
+					if(sort[i].getsStatic(sort[i].getsName())==1)
 					{
 						task[j].setTaskAct1(i+1);
 						task[i].used = 1;

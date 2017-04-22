@@ -1,4 +1,9 @@
 #include "Sort.h"
+int Sort::book = 0;
+int Sort::can = 0;
+int Sort::remotecontrol = 0;
+int Sort::bottle = 0;
+int Sort::cup=0;
 Sort::Sort()
 {
     snum=-1;
@@ -152,4 +157,30 @@ bool Sort::getsLocked()
 int Sort::getsConsnot()
 {
     return cons_not;
+}
+void Sort::setStatic(string name)
+{
+	if(name=="book")
+		book++;
+	if(name=="can")
+		can++;
+	if(name=="remotecontrol")
+		remotecontrol++;
+	if(name=="bottle")
+		bottle++;
+	if(name=="cup")
+		cup++;
+}
+int Sort::getsStatic(string name)
+{
+	if(name=="book")
+		return book;
+	if(name=="can")
+		return can;
+	if(name=="remotecontrol")
+		return remotecontrol;
+	if(name=="bottle")
+		return bottle;
+	if(name=="cup")
+		return cup;
 }

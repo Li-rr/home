@@ -22,6 +22,7 @@ public:
 		void setsBigSort(string name);
         void setsLock();
         void setsConsnot(string action);
+		void setStatic(string name);
         int getsNum();
         int getsLoc();
         int getsInside();
@@ -33,6 +34,8 @@ public:
         bool getsClosed();
         int getsConsnot();
 		int taskLock; //任务锁，针对putdown
+		
+		int getsStatic(string name);	//返回静态成员
 		int bigSort; //标记大物体
     	//针对处理任务的一些属性
 		string expectTask;
@@ -61,5 +64,11 @@ private:
         bool sclosed;
         int cons_not;
         bool slock;
+	
+		static int book;
+		static int can;
+		static int remotecontrol;
+		static int bottle;
+		static int cup;
 };
 #endif

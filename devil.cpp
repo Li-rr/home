@@ -71,7 +71,7 @@ void Devil::Plan()
     ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
-    for(int i=0; i<senceMax; i++)
+ /*   for(int i=0; i<senceMax; i++)
     {
         if(sort[i].getsType()=="container")
         {
@@ -79,7 +79,13 @@ void Devil::Plan()
             printVector(sort[i].sinsideD);
             cout<<endl;
         }
-    }
+		if(sort[i].getsSize()=="small")
+			cout<<" book "<<sort[i].getsStatic("book")
+				<<" cup "<<sort[i].getsStatic("cup")
+				<<" can "<<sort[i].getsStatic("can")
+				<<" remotecontrol "<<sort[i].getsStatic("remotecontrol")
+				<<" bottle "<<sort[i].getsStatic("bottle")<<endl;
+    }*/
     printTask(task,taskMax);
     printInfoCons(info,infoMax,"info");
     printInfoCons(cons_not,cons_not_Max,"cons_not");
@@ -89,8 +95,8 @@ void Devil::Plan()
  	{
 	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 	}
-  //  planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
-//    planWithtask(task,sort,taskMax,senceMax,robot,G);
+    planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
+    planWithtask(task,sort,taskMax,senceMax,robot,G);
 // //  vector <unsigned int> test;
   // Sense(test);
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
