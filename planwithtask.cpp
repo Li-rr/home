@@ -61,6 +61,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==1)	//putin
 			{
+				cout<<"This task putin\n";
 				cout<<G.getStatus(i,j)<<endl;
 				int signedTask = checkPutinFirst(i,G.getDirection(i,j),G);
 				cout<<"I have other task "<<signedTask<<endl;
@@ -77,6 +78,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 					open(j,sort,robot,G);
 					G.setStatus(i,j,putin(j,sort,robot,G));
 				}
+				cout<<"Task putin is over\n";
 			}
 			if(G.getDirection(i,j)==3)	//goto,低级处理
 			{
