@@ -114,8 +114,9 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==-4&&G.getStatus(i,j)==1) //puton
 			{
-				cout<<"put --"<<i<<"---"<<"--on--"<<j<<endl;
+				cout<<"This is run puton action\n";
 				G.setStatus(i,j,puton(i,j,sort,robot,G));
+				cout<<"This is run puton over\n";
 			}
 			if(G.getDirection(i,j)==-1)	//takeout
 			{
@@ -136,6 +137,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==1)	//putin
 			{
+				cout<<"this is putin action"<<i<<" "<<j<<endl;
 				cout<<G.getStatus(i,j)<<endl;
 				int signedTask = checkPutinFirst(i,G.getDirection(i,j),G);
 				cout<<"I have other task "<<signedTask<<endl;
@@ -151,8 +153,9 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 					move(j,sort,robot);
 					cout<<"this putin I'm move"<<endl;
 					open(j,sort,robot,G);
-					G.setStatus(i,j,putin(j,sort,robot,G));
+					G.setStatus(i,j,putin(i,j,sort,robot,G));
 				}
+				cout<<"This is putin action run over\n";
 			}
 			if(G.getDirection(i,j)==3)	//goto,低级处理
 			{
@@ -196,14 +199,14 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 					int act2 = getPutinSort(robot.getHold(),G);
 					move(act2,sort,robot);
 					open(act2,sort,robot,G);
-					G.setStatus(robot.getHold(),act2,putin(act2,sort,robot,G));
+					G.setStatus(robot.getHold(),act2,putin(robot.getHold(),act2,sort,robot,G));
 				}
 				if(checkPutinFirst(robot.getPlate(),i,G)==-1)
 				{
 					int act2 = getPutinSort(robot.getPlate(),G);
 					move(act2,sort,robot);
 					open(act2,sort,robot,G);
-					G.setStatus(robot.getHold(),act2,putin(act2,sort,robot,G));
+					G.setStatus(robot.getHold(),act2,putin(robot.getHold(),act2,sort,robot,G));
 				}
 				move(i,sort,robot);
 				G.setStatus(i,j,pickup(i,sort,robot,G));

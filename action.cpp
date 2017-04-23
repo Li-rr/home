@@ -42,18 +42,26 @@ int checkConnectionBig(int sot,Graph G,int taskCode,int present)
 		if(G.getDirection(i,sot) == taskCode && G.getStatus(i,sot)==1)
 		{
 			return i;
-		}
-	}
+ 		}
+ 	}
 	cout<<"checkConnectionBig() is over!()\n";
 	return 0;
+} 
+int checkConnectionLoc(int sot,Graph G)
+{
+	for(int i=0; i<maxNode;i++)
+	{
+		if(G.getStatus(sot,i)==1)
+			return i;
+	}
 }
 int checkConnectionSmall(int sot,Graph G)
 {
     int i=0;
     for(i=0; i<maxNode; i++)
-    {
+     {
         if(G.getStatus(sot,i)==1)
-        {
+         {
             cout<<sot<<" connection with "<< i <<endl;
             return G.getDirection(sot,i);
      	}    
@@ -359,9 +367,9 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
     }
 	return flag;
 }
-int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
+int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
 {
-	int flag = 0;
+	int flag = 0,flag2=0;
 	int act1;
 	open(sot,sort,robot,G);
 	if(robot.getHold()==0&&robot.getPlate()!=0)
@@ -375,7 +383,16 @@ int Devil::putin(int sot,Sort sort[],Robot &robot,Graph G)
 	if(G.getStatus(act1,sot)==0)
 	  return 0;
 //	open(sot,sort,robot,G);
-	flag = PutIn(act1,sot);
+	if(act1 == smallsot)	//可能手中不是本次任务所需的物品
+		flag = PutIn(act1,sot);
+	else
+	{
+		flag2 = PutIn(act1,sot);
+		robot.setHold(0);
+		G.setStatus(act1,sot,flag2);
+		getSort(smallsot,sort,robot,G);
+		flag = PutIn(robot.getHold(),sot);
+	}
 	robot.setHold(0);
 	sort[act1-1].setsInside(sot);
 	cout<<"Sir, I'm put "<<act1 <<" in "<<sot<<endl;
@@ -492,10 +509,14 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 	{
 		robot.setHold(sot);
 		if(robot.getPlate()==0&&checkConnectionSmall(robot.getHold(),G)!=0)
-			{
-				ToPlate(robot.getHold());
-				robot.setPlate(robot.getHold());
-				robot.setHold(0);
+			{//嵌套的if防止当前物体在任务位置被放进盘子中
+				int obj2 = checkConnectionLoc(robot.getHold(),G);
+				if(sort[obj2-1].getsLoc()!=robot.getLoc())
+				{
+					ToPlate(robot.getHold());
+					robot.setPlate(robot.getHold());
+					robot.setHold(0);
+				}
 			}
 	}
 	if(flag == 0)

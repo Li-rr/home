@@ -27,7 +27,7 @@ namespace _home
     protected:
 		int close(int sot,Sort sort[],Robot &robot,Graph &G);
 		int getSort(int sot,Sort sort[],Robot &robot,Graph G);
-		int putin(int sot,Sort sort[],Robot &robot,Graph G);
+		int putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G);
 		int putdown(int sort,Robot &robot,Graph G);
 		int pickup(int sot,Sort sort[],Robot &robot,Graph G);
 		void checkHold(Robot &robot,Graph &G);
