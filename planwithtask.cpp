@@ -165,6 +165,12 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 				G.setStatus(i,j,close(i,sort,robot,G));
 				cout<<"run close over\n";
 			}
+			if(G.getDirection(i,j)==-2) //open
+			{
+				cout<<"This is run open\n";
+				move(i,sort,robot);
+				G.setStatus(i,j,open(i,sort,robot,G));
+			}
 			if(G.getDirection(i,j)==5)	//pickup
 			{
 				cout<<G.getStatus(i,j)<<" pickup "<<endl;

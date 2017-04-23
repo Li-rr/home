@@ -307,6 +307,7 @@ void judgewithCons(InfoCons cons_nn[],int consNn,Task task[],int taskNum,Sort so
                     if(sameName==sort[z].getsName() && cons_nn[i].getColorx()==sort[z].getsColor())
                     {
                         sort[z].setsLock();
+                        sort[z].reduce(sort[z].getsName()); //针对updateTask函数if(sort[j].getsStatic(sort[j].getsName())==1)设立
                         cons_nn[i].setState1(z+1);
                         //cout<<"z--->"<<z<<endl;
                     }
@@ -413,10 +414,59 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 					sort[j].needMatch = 0;
 					task[i].used = 1;
 				}
-
 		}
 		}
 	}
+}
+void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
+{
+    int i=0,j=0;
+    for(i=0;i<= taskNum;i++)
+    {
+        cout<<task[i].getTaskNamey()<<endl;
+        for(j=0;j<sortNum;j++)
+        {
+            if(task[i].getTaskNamex()==sort[j].getsName()&&sort[j].getsLocked()==0)
+            {
+                cout<<"This taskx match "<<task[i].getTaskNamex()<<endl;
+                sort[j].needMatch=1;
+                    if(sort[j].getsStatic(sort[j].getsName())==1)
+                    {
+                        task[i].setTaskAct1(j+1);
+                        task[i].used=1;
+                        sort[j].used=1;
+                        sort[j].needMatch=0;
+                    }
+                    if(task[i].getTaskColorx()==sort[j].getsColor())
+                    {
+                        cout<<"match it "<<task[i].getTaskNamex()<<endl;
+                        task[i].setTaskAct1(j+1);
+                        task[i].used=1;
+                        sort[j].used=1;
+                        sort[j].needMatch=0;
+                    }
+            }
+            if(task[i].getTaskNamey()==sort[j].getsName()&&sort[j].getsLocked()==0)
+            {
+                cout<<task[i].getTaskNamey()<<" "<<sort[j].getsName()<<endl;
+                    if(sort[j].getsStatic(sort[j].getsName())==1)
+                    {
+                        task[i].setTaskAct2(j+1);
+                        //task[i].used=1;
+                        sort[j].used=1;
+                        sort[j].needMatch=0;
+                    }
+                    if(task[i].getTaskColory()==sort[j].getsColor())
+                    {
+                        task[i].setTaskAct2(j+1);
+                        //task[i].used=1;
+                        sort[j].used=1;
+                        sort[j].needMatch=0;
+                    }
+            }
+        }
+    }
+    aboutTaskLackMatch(task,sort,sortNum,taskNum,robot);
 }
 void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCons consn[],Robot robot,int sNum,int tNum,int cNum,int cnNum)
 {
@@ -428,314 +478,314 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 	 *先将sort中与任务同名的物体打上标签
 	 *具体情况再由规划算法处理
 	 */
-    for(i=0;i<sNum;i++)
-	{
-		for(j=0;j <= tNum;j++)
-		{
-			if(sort[i].getsName()==task[j].getTaskNamex())
-			{
-				if(task[j].getTaskAction()=="open")/*{{{*/
-				{
-					sort[i].expectClosed = 0;
-					sort[i].needMatch = 1;  //打标记
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;   //当前物体被使用
-						sort[i].needMatch = 0;//匹配到，标记去掉
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="close")/*{{{*/
-				{
-					sort[i].expectClosed = 1;
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						task[j].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="takeout")/*{{{*/
-				{
-					sort[i].expectInsiding = 0; //代表物体将被拿出容器
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="putin")/*{{{*/
-				{
-					sort[i].expectInsiding = 1;	//代表物体将被放入容器
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="putdown")/*{{{*/
-				{
-					sort[i].expectOn = -2;	//代表物体将直接putdown
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					/*}}}*/
-				}else if(task[j].getTaskAction()=="puton")/*{{{*/
-				{
-					sort[i].expectOn = 1;
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="pickup")/*{{{*/
-				{
-					sort[i].expectOn = 0; //代表期望在机器人上
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[i].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[i].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="give")/*{{{*/
-				{
-					//此处应针对human
-					int temp = findSortByName(sNum,"human",sort);
-					sort[temp].giveme = 1;
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(temp+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="goto")/*{{{*/
-				{
-					//代表机器人必须要求的地方
-					robot.expectMove = task[j].getTaskNamex();
-					sort[i].needMatch = 1;
-					if(sort[i].getsLocked()==0)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(task[j].getTaskColorx()==sort[i].getsColor())
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-					if(sort[i].getsStatic(sort[i].getsName())==1)
-					{
-						task[j].setTaskAct1(i+1);
-						task[j].used = 1;
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-
-				}
-			}/*}}}*/
-			/*
-			 * 任务中有物体2的有give，puton，putin，takeout
-			 */
-			if(sort[i].getsName()==task[j].getTaskNamey())
-			{
-				if(task[j].getTaskAction()=="takeout")/*{{{*/
-				{
-					sort[i].expectClosed = 0; //代表容器内不想要物体
-					sort[i].needMatch = 1;
-					if(sort[i].getsColor()==task[j].getTaskColory())
-					{
-						task[j].setTaskAct2(i+1);
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="putin")/*{{{*/
-				{
-					sort[i].expectClosed = 1;
-					sort[i].needMatch = 1;
-					if(sort[i].getsColor()==task[j].getTaskColory())
-					{
-						task[j].setTaskAct2(i+1);
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-				else if(task[j].getTaskAction()=="puton")/*{{{*/
-				{
-					sort[i].expectOnBig = 1;
-					sort[i].needMatch = 1;
-					if(sort[i].getsColor()==task[j].getTaskColory())
-					{
-						task[j].setTaskAct2(i+1);
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}else if(task[j].getTaskAction()=="give")/*}}}*/
-				{/*{{{*/
-					sort[i].expectOn = 1;
-					sort[i].needMatch = 1;
-					if(sort[i].getsColor()==task[j].getTaskColory())
-					{
-						task[j].setTaskAct2(i+1);
-						sort[i].used = 1;
-						sort[i].needMatch = 0;
-					}
-				}/*}}}*/
-			}
-			if(task[j].getTaskNamex()=="container"&&task[j].getTaskAction()=="close")
-			{
-				if(sort[i].getsType()=="container")
-				{
-					sort[i].expectClosed = 1;
-					task[j].setTaskAct1(sort[i].getsNum());
-				}
-			}
-		}
-	}
-	aboutTaskLackMatch(task,sort,sNum,tNum,robot);
+//    for(i=0;i<sNum;i++)
+//	{
+//		for(j=0;j <= tNum;j++)
+//		{
+//			if(sort[i].getsName()==task[j].getTaskNamex())
+//			{
+//				if(task[j].getTaskAction()=="open")/*{{{*/
+//				{
+//					sort[i].expectClosed = 0;
+//					sort[i].needMatch = 1;  //打标记
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;   //当前物体被使用
+//						sort[i].needMatch = 0;//匹配到，标记去掉
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="close")/*{{{*/
+//				{
+//					sort[i].expectClosed = 1;
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						task[j].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="takeout")/*{{{*/
+//				{
+//					sort[i].expectInsiding = 0; //代表物体将被拿出容器
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="putin")/*{{{*/
+//				{
+//					sort[i].expectInsiding = 1;	//代表物体将被放入容器
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="putdown")/*{{{*/
+//				{
+//					sort[i].expectOn = -2;	//代表物体将直接putdown
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					/*}}}*/
+//				}else if(task[j].getTaskAction()=="puton")/*{{{*/
+//				{
+//					sort[i].expectOn = 1;
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="pickup")/*{{{*/
+//				{
+//					sort[i].expectOn = 0; //代表期望在机器人上
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[i].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[i].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="give")/*{{{*/
+//				{
+//					//此处应针对human
+//					int temp = findSortByName(sNum,"human",sort);
+//					sort[temp].giveme = 1;
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(temp+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="goto")/*{{{*/
+//				{
+//					//代表机器人必须要求的地方
+//					robot.expectMove = task[j].getTaskNamex();
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsLocked()==0)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(task[j].getTaskColorx()==sort[i].getsColor())
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//					if(sort[i].getsStatic(sort[i].getsName())==1)
+//					{
+//						task[j].setTaskAct1(i+1);
+//						task[j].used = 1;
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//
+//				}
+//			}/*}}}*/
+//			/*
+//			 * 任务中有物体2的有give，puton，putin，takeout
+//			 */
+//			if(sort[i].getsName()==task[j].getTaskNamey())
+//			{
+//				if(task[j].getTaskAction()=="takeout")/*{{{*/
+//				{
+//					sort[i].expectClosed = 0; //代表容器内不想要物体
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsColor()==task[j].getTaskColory())
+//					{
+//						task[j].setTaskAct2(i+1);
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="putin")/*{{{*/
+//				{
+//					sort[i].expectClosed = 1;
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsColor()==task[j].getTaskColory())
+//					{
+//						task[j].setTaskAct2(i+1);
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//				else if(task[j].getTaskAction()=="puton")/*{{{*/
+//				{
+//					sort[i].expectOnBig = 1;
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsColor()==task[j].getTaskColory())
+//					{
+//						task[j].setTaskAct2(i+1);
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}else if(task[j].getTaskAction()=="give")/*}}}*/
+//				{/*{{{*/
+//					sort[i].expectOn = 1;
+//					sort[i].needMatch = 1;
+//					if(sort[i].getsColor()==task[j].getTaskColory())
+//					{
+//						task[j].setTaskAct2(i+1);
+//						sort[i].used = 1;
+//						sort[i].needMatch = 0;
+//					}
+//				}/*}}}*/
+//			}
+//			if(task[j].getTaskNamex()=="container"&&task[j].getTaskAction()=="close")
+//			{
+//				if(sort[i].getsType()=="container")
+//				{
+//					sort[i].expectClosed = 1;
+//					task[j].setTaskAct1(sort[i].getsNum());
+//				}
+//			}
+//		}
+//	}
+//	aboutTaskLackMatch(task,sort,sNum,tNum,robot);
     /**************************/
     //  cons
     /************************/
@@ -847,7 +897,7 @@ void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCon
 ////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int infoNum)
-{/*{{{*/
+{
     cout<<"-----------------this is updateSenceByinfo-------------------------\n";
     cout<<"snum-->"<<SNum<<" infoNUm--> "<<infoNum<<endl;
     int i,j,inside=0,flag;
@@ -858,8 +908,9 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
         {
 
             //若名字和颜色都相等则，赋值
-            if(info[j].getNamex()==sort[i].getsName()&&info[j].getColorx()==sort[i].getsColor()&&sort[i].getsLoc()==-1)
-            {
+           // if(info[j].getNamex()==sort[i].getsName()&&info[j].getColorx()==sort[i].getsColor()&&sort[i].getsLoc()==-1)
+           	if(info[j].getNamex()==sort[i].getsName()&&info[j].getColorx()==sort[i].getsColor())
+		   	{
 
 				cout<<sort[i].getsName()<<" "<<sort[i].getsColor()<<"--info--"<<info[j].getNamex()<<" "<<info[j].getColorx()<<endl;
 				obj1 = findSortByName(SNum,info[j].getNamex(),info[j].getColorx(),sort);
@@ -896,7 +947,8 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
                             flag=0;
                     else
                             flag=1;
-                    sort[i].setsInside(flag);
+					cout<<"This is info judge closed -- "<<flag<<endl;
+                    sort[i].setsClosed(flag);
                 }
             }
         }
@@ -911,13 +963,14 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
             sort[i].setsLoc(robot.getLoc());
         }
     }
+	cout<<"----------------updatesenceByinfo is over----------\n";
 }/*}}}*/
 
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 void printTask(Task task[],int count)
 {/*{{{*/
-    cout<<"/*************************************task**********************************/"<<endl;
+    cout<<"/*************************************task**********************************/\n";
     cout<<setw(7)<<setiosflags(ios::left);
     cout<<"No.";
     cout<<setw(10)<<setiosflags(ios::left);
@@ -934,7 +987,6 @@ void printTask(Task task[],int count)
      cout<<"Namey.";
     cout<<setw(9)<<setiosflags(ios::left);
     cout<<"Colory"<<endl;
-    cout<<"/***************************************************************************/"<<endl;
     for(int i=0; i<=count; i++)
     {
     //    if(task[i].getTaskNo()!=-1)
@@ -957,13 +1009,13 @@ void printTask(Task task[],int count)
             cout<<task[i].getTaskColory()<<endl;
         }
 
-    cout<<"/*************************************task**********************************/\n\n\n";
+    cout<<"/*************************************task**********************************/\n";
 }/*}}}*/
 
 void printScence(Robot  robot,Sort sort[],int count)
 {/*{{{*/
     cout<<"/******************************sence********************************/"<<endl;
- cout<<"robot:"<<endl;
+    cout<<"robot:"<<endl;
 
     cout<<"Location: "<<robot.getLoc()<<"  Hold:  "<<robot.getHold()<<"  Plate:  "<<robot.getPlate()<<endl;
     cout<<"/*********************************************************************/"<<endl;
@@ -995,15 +1047,14 @@ void printScence(Robot  robot,Sort sort[],int count)
             cout<<setw(4)<<sort[i].getsType();
             cout<<endl;
     }
-    cout<<"/*********************************************************************/"<<endl;
+   cout<<"/*********************************************************************/"<<endl;
 }/*}}}*/
 //
 //
 //
 void printInfoCons(InfoCons info[],int count,string SIGN)
 {/*{{{*/
-
-    cout<<"/*************************************"<<SIGN<<"**********************************/\n";
+    cout<<"|-------------------------------------------------------------"<<SIGN<<"---------------------------------------------------------|\n";
     cout<<setw(7)<<setiosflags(ios::left);
     cout<<"No.";
     cout<<setw(10)<<setiosflags(ios::left);
@@ -1042,9 +1093,8 @@ void printInfoCons(InfoCons info[],int count,string SIGN)
         cout<<info[i].getColory();
         cout<<endl;
         }
-
     }
-    cout<<"/*************************************"<<SIGN<<"**********************************/\n\n";
+ cout<<"|-------------------------------------------------------------"<<SIGN<<"---------------------------------------------------------|\n";
 }
 /*}}}*/
 void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum)

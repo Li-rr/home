@@ -22,6 +22,7 @@ void judgewithCons(InfoCons cons_nn[],int consNn,Task task[],int taskNum,Sort so
 void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCons consn[],Robot robot,int sNum,int tNum,int cNum,int cnNum);
 void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot);
 
+void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot);
 void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum);
 void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int infoNum);
 

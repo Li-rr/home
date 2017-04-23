@@ -26,6 +26,7 @@ public:
         int getsNum();
         int getsLoc();
         int getsInside();
+        void reduce(string name);
         string getsName();
         string getsColor();
         string getsSize();
@@ -34,7 +35,7 @@ public:
         bool getsClosed();
         int getsConsnot();
 		int taskLock; //任务锁，针对putdown
-		
+
 		int getsStatic(string name);	//返回静态成员
 		int bigSort; //标记大物体
     	//针对处理任务的一些属性
@@ -64,7 +65,7 @@ private:
         bool sclosed;
         int cons_not;
         bool slock;
-	
+
 		static int book;
 		static int can;
 		static int remotecontrol;

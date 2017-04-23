@@ -1,5 +1,32 @@
 #include "devil.hpp"
 using namespace _home;
+int getAskLoc(string str,Sort sort[])
+{
+	int loc = -1;
+	int left = 0,right = 0, mid = 0;
+	int obj1,obj2;
+	string str1,str2,str3;
+	left = str.find("(");
+	mid = str.find(",");
+	right = str.find(")");
+	str1 = str.substr(0,left);
+	str2 = str.substr(left+1,mid-left-1);
+	str3 = str.substr(mid+1,right-mid-1);
+	if(str1 == "inside")
+	{
+		obj2 = atoi(str3.c_str());
+		obj1 = atoi(str2.c_str());
+		sort[obj1-1].setsInside(obj2);
+		cout<<"getinside "<<obj1<<" "<<sort[obj1-1].getsInside()<<endl;
+		sort[obj2-1].sinsideD.push_back(obj1);
+		loc = sort[obj2-1].getsLoc();
+	}
+	if(str1 == "at")
+	{
+		loc = atoi(str3.c_str());
+	}
+	return loc;
+}
 int checkTakeout(int sotx,int soty,Graph G)
 {
 	return G.getDirection(sotx,soty);
@@ -69,6 +96,12 @@ int checkContainer(int sot,Sort sort[],Graph G)
 int Devil::move(int sot,Sort sort[],Robot &robot)
 {
 	bool flag=0;
+	string loc;
+	if(sort[sot-1].getsLoc()==-1)
+	{
+	//	cout<<AskLoc(sot)<<endl;
+		sort[sot-1].setsLoc(getAskLoc(AskLoc(sot),sort));
+	}
 	if(robot.getLoc()!= sort[sot-1].getsLoc())
  	{
 		 flag=Move(sort[sot-1].getsLoc());
@@ -150,21 +183,43 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 	int flag = 0;
 //	if(G.getStatus(sot,0)==0)
 //	  return 1;
+	int checkHold = 0, checkPlate=0;
+	checkHold = checkConnectionSmall(robot.getHold(),G);
+	checkPlate = checkConnectionSmall(robot.getPlate(),G);
     if(robot.getUsehold()==0&&robot.getUseplate()==0)
     {
-        if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
-        {
-            cout<<"Befor open big sort,my hand have other sort, i need it -> "<<robot.getHold()<<" i will put it in my plate"<<endl;
-            ToPlate(robot.getHold());
-            robot.setPlate(robot.getHold());
-            robot.setHold(0);
-        }
-        else if(checkConnectionSmall(robot.getHold(),G)==0&&robot.getHold()!=0)
-        {
-            cout<<"Before open big sort,my hand have other sort, i need pudown it -> "<<robot.getHold()<<endl;
-            PutDown(robot.getHold());
-            robot.setHold(0);
-        }
+		if(checkHold!=0&&robot.getHold()!=0&&robot.getPlate()==0)
+		{
+			cout<<"Before open big sort,my hand have other sort, i need it->"<<robot.getHold()<<" put it in plate\n";
+			ToPlate(robot.getHold());
+			robot.setPlate(robot.getHold());
+			robot.setHold(0);
+		}
+		if(checkHold!=0&&checkPlate!=0&&robot.getHold()!=0&&robot.getPlate()!=0)
+		{
+			cout<<"In my hand and plate sort i need they,so i will putdown hand->"<<robot.getHold()<<endl;
+			PutDown(robot.getHold());
+			robot.setHold(0);
+		}
+  //      if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
+  //    {
+  //          cout<<"Befor open big sort,my hand have other sort, i need it -> "<<robot.getHold()<<" i will put it in my plate"<<endl;
+  //          ToPlate(robot.getHold());
+  //          robot.setPlate(robot.getHold());
+  //          robot.setHold(0);
+ //       }
+ 		if(checkHold==0&&robot.getHold()!=0)
+		{
+			cout<<"Before open action,my hand has a useless sort,i will putdown ->"<<robot.getHold()<<endl;
+			PutDown(robot.getHold());
+			robot.setHold(0);
+		}
+  //      else if(checkConnectionSmall(robot.getHold(),G)==0&&robot.getHold()!=0)
+   //    {
+   //         cout<<"Before open big sort,my hand have other sort, i need pudown it -> "<<robot.getHold()<<endl;
+   //         PutDown(robot.getHold());
+   //         robot.setHold(0);
+    //    }
     }
     //此处对约束进行处理
     if(robot.getUsehold()==1)

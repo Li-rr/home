@@ -14,7 +14,7 @@ Sort::Sort()
 
     sname="N_N";
     ssize="N_S";
-    scolor="";
+    scolor=" ";
 
     scontainer=false;
     sclosed=false;
@@ -170,6 +170,19 @@ void Sort::setStatic(string name)
 		bottle++;
 	if(name=="cup")
 		cup++;
+}
+void Sort::reduce(string name)
+{
+	if(name=="book")
+		book--;
+	if(name=="can")
+		can--;
+	if(name=="remotecontrol")
+		remotecontrol--;
+	if(name=="bottle")
+		bottle--;
+	if(name=="cup")
+		cup--;
 }
 int Sort::getsStatic(string name)
 {

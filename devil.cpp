@@ -41,8 +41,8 @@ Devil::Devil() :
 void Devil::Plan()
 {
     //cout << "#(Devil): Init" << endl;
-    cout << "# EnvDes:\n" << GetEnvDes() << endl;
-    cout << "# TaskDes:\n" << GetTaskDes() << endl;
+ //   cout << "# EnvDes:\n" << GetEnvDes() << endl;
+ //   cout << "# TaskDes:\n" << GetTaskDes() << endl;
     Sort sort[30];
     Robot robot;
     Task task[30];
@@ -68,32 +68,33 @@ void Devil::Plan()
     judgewithCons(cons_notnot,cons_notnotMax,task,taskMax,sort,senceMax);
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
     updateSenceByCons(sort,cons_not,robot,senceMax,cons_not_Max);
+    updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
-    for(int i=0; i<senceMax; i++)
-    {
-        if(sort[i].getsType()=="container")
-        {
-            cout<<sort[i].getsNum()<<" ";
-            printVector(sort[i].sinsideD);
-            cout<<endl;
-        }
-		if(sort[i].getsSize()=="small")
-			cout<<" book "<<sort[i].getsStatic("book")
-				<<" cup "<<sort[i].getsStatic("cup")
-				<<" can "<<sort[i].getsStatic("can")
-				<<" remotecontrol "<<sort[i].getsStatic("remotecontrol")
-				<<" bottle "<<sort[i].getsStatic("bottle")<<endl;
-		if(sort[i].getsSize()=="small")
-		{
-			cout<<sort[i].getsName()<<" "<<sort[i].getsLocked()<<endl;
-		}
-    }
+//    for(int i=0; i<senceMax; i++)
+//    {
+//        if(sort[i].getsType()=="container")
+//        {
+//            cout<<sort[i].getsNum()<<" ";
+//            printVector(sort[i].sinsideD);
+//            cout<<endl;
+//        }
+//		if(sort[i].getsSize()=="small")
+//			cout<<" book "<<sort[i].getsStatic("book")
+//				<<" cup "<<sort[i].getsStatic("cup")
+//				<<" can "<<sort[i].getsStatic("can")
+//				<<" remotecontrol "<<sort[i].getsStatic("remotecontrol")
+//				<<" bottle "<<sort[i].getsStatic("bottle")<<endl;
+//		if(sort[i].getsSize()=="small")
+//		{
+//			cout<<sort[i].getsName()<<" "<<sort[i].getsLocked()<<endl;
+//		}
+//    }
     printTask(task,taskMax);
     printInfoCons(info,infoMax,"info");
-    printInfoCons(cons_not,cons_not_Max,"cons_not");
-    printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
+   // printInfoCons(cons_not,cons_not_Max,"cons_not");
+   // printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
 
 	for(i = 0; i <= taskMax; i++)
  	{

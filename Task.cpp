@@ -8,8 +8,8 @@ Task::Task()
     Act2=0;
     Namex="";
     Namey="";
-    Colorx="";
-    Colory="";
+    Colorx=" ";
+    Colory=" ";
     Containerx = false;
     Containery = false;
     Closedx=false;

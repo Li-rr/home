@@ -7,9 +7,9 @@ InfoCons::InfoCons()
     _state1=-1;
     _state2=-2;
     _Namx="";
-    _colorx="";
+    _colorx=" ";
     _Namy="";
-    _colory="";
+    _colory=" ";
 }
 void InfoCons::setNo(int _no)
 {
