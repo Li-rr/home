@@ -110,7 +110,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			  continue;
 			if(G.getDirection(i,j)==4)	//putdown
 			{
-				G.setStatus(i,j,PutDown(i));
+				G.setStatus(i,j,putdown(i,sort,robot,G));
 			}
 			if(G.getDirection(i,j)==-4&&G.getStatus(i,j)==1) //puton
 			{
@@ -182,12 +182,12 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 
 					//先执行putdown
 						int hold = robot.getHold();
-						G.setStatus(hold,0,putdown(hold,robot,G));
+						G.setStatus(hold,0,putdown(hold,sort,robot,G));
 				}
 				if(checkPutdown(robot.getPlate(),i,G)==4)
 				{
 					int plate = robot.getPlate();
-					G.setStatus(plate,0,putdown(plate,robot,G));
+					G.setStatus(plate,0,putdown(plate,sort,robot,G));
 				}
 				if(checkPuton(robot.getHold(),i,G) == 5)
 				{

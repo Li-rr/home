@@ -420,32 +420,62 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 }
 void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
 {
+	cout<<"This is updateTask\n";
     int i=0,j=0;
     for(i=0;i<= taskNum;i++)
     {
         cout<<task[i].getTaskNamey()<<endl;
         for(j=0;j<sortNum;j++)
         {
-            if(task[i].getTaskNamex()==sort[j].getsName()&&sort[j].getsLocked()==0)
-            {
-                cout<<"This taskx match "<<task[i].getTaskNamex()<<endl;
+         //   if(task[i].getTaskNamex()==sort[j].getsName()&&sort[j].getsLocked()==0)
+           	if(task[i].getTaskNamex()==sort[j].getsName())
+		   	{
+               // cout<<"This taskx match "<<task[i].getTaskNamex()<<endl;
                 sort[j].needMatch=1;
-                    if(sort[j].getsStatic(sort[j].getsName())==1)
+                   /* if(sort[j].getsStatic(sort[j].getsName())==1&&sort[j].getsLocked()==0)
                     {
                         task[i].setTaskAct1(j+1);
                         task[i].used=1;
                         sort[j].used=1;
                         sort[j].needMatch=0;
-                    }
+                    }*/
                     if(task[i].getTaskColorx()==sort[j].getsColor())
                     {
-                        cout<<"match it "<<task[i].getTaskNamex()<<endl;
+                        cout<<i<<" "<<j<<" match it "<<sort[j].getsName()<<" "<<sort[j].getsColor()<<endl;
                         task[i].setTaskAct1(j+1);
                         task[i].used=1;
                         sort[j].used=1;
                         sort[j].needMatch=0;
                     }
+					if(task[i].used==0&&sort[j].getsStatic(sort[j].getsName())==1&&sort[j].getsLocked()==0)
+					{
+						task[i].setTaskAct1(j+1);
+						task[i].used=1;
+						sort[j].used=1;
+						sort[j].needMatch=0;
+					}
+					if(task[i].getTaskAction()=="takeout")
+					{
+						int obj2 = sort[j].getsNum();
+						if(sort[obj2-1].getsName()==task[i].getTaskNamey())
+						{
+							task[i].setTaskAct1(j+1);
+							task[i].used=1;
+							sort[j].used=1;
+							sort[j].needMatch=0;
+						}
+					}
             }
+			if(task[i].getTaskNamex()=="container")
+			{
+				if(sort[j].getsType()=="container"&&sort[j].getsClosed()==0)
+				{
+					task[i].setTaskAct1(j+1);
+					task[i].used = 1;
+					sort[j].used = 1;
+					sort[j].needMatch=0;
+				}
+			}
             if(task[i].getTaskNamey()==sort[j].getsName()&&sort[j].getsLocked()==0)
             {
                 cout<<task[i].getTaskNamey()<<" "<<sort[j].getsName()<<endl;
@@ -467,6 +497,7 @@ void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
         }
     }
     aboutTaskLackMatch(task,sort,sortNum,taskNum,robot);
+	cout<<"updateTask is over\n";
 }
 void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCons consn[],Robot robot,int sNum,int tNum,int cNum,int cnNum)
 {
