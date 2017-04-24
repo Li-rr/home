@@ -20,10 +20,17 @@ int getAskLoc(string str,Sort sort[])
 		cout<<"getinside "<<obj1<<" "<<sort[obj1-1].getsInside()<<endl;
 		sort[obj2-1].sinsideD.push_back(obj1);
 		loc = sort[obj2-1].getsLoc();
+	//	sort[obj1-1].setsLoc(loc); //此行有bug不知道为什么
+	//	cout<<"This is askloc i get location :) \n";
+	//	cout<<obj1<<" location is "<<sort[obj1-1].getsLoc()<<endl;
+
 	}
 	if(str1 == "at")
 	{
 		loc = atoi(str3.c_str());
+	//	sort[obj1-1].setsLoc(loc);//同上面一行一样
+	//	cout<<"This is askloc i get location :) \n";
+	//	cout<<obj1<<" location is "<<sort[obj1-1].getsLoc()<<endl;
 	}
 	return loc;
 }
@@ -109,6 +116,8 @@ int Devil::move(int sot,Sort sort[],Robot &robot)
 	{
 	//	cout<<AskLoc(sot)<<endl;
 		sort[sot-1].setsLoc(getAskLoc(AskLoc(sot),sort));
+		cout<<"I get it location :) \n";
+		cout<<sot<<" location is "<<sort[sot-1].getsLoc()<<endl;
 	}
 	if(robot.getLoc()!= sort[sot-1].getsLoc())
  	{
@@ -413,7 +422,8 @@ int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
     if(obj2 == 0)
     {
         cout<<"puton---only---obj1\n";
-        flag = putdown(robot.getHold(),sort,robot,G);
+       // flag = putdown(robot.getHold(),sort,robot,G); //pickup --bug
+	   	flag = putdown(sotx,sort,robot,G);
         robot.setHold(0);
     }else
     {
@@ -435,54 +445,50 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 {
 
 	int act1;
+	int flag = 0;
+	cout<<"I will put"<<sort[sot-1].getsName()<<" down"<<endl;
 	if(robot.getHold()!=sot&&robot.getPlate()!=sot)
 	{
 		getSort(sot,sort,robot,G);
 	}
 	if(robot.getHold()==sot&&robot.getPlate()!=0)
     {
-        PutDown(robot.getHold());
-        robot.setHold(0);
-        return 1;
+        flag = PutDown(robot.getHold());
     }
 	else if(robot.getHold() == sot && robot.getPlate()==0)
 	{
-		PutDown(robot.getHold());
-		robot.setHold(0);
-		return 1;
+		flag = PutDown(robot.getHold());
 	}else if(robot.getHold() == 0 && robot.getPlate()==sot)
 	{
 		FromPlate(robot.getPlate());
 		robot.setHold(robot.getPlate());
 		robot.setPlate(0);
 
-		PutDown(robot.getHold());
-		robot.setHold(0);
-		return 1;
+		flag=PutDown(robot.getHold());
 	}else if(robot.getHold() !=0 && robot.getPlate()==sot)
 	{
-		int flag = 0;
+		int flag1 = 0;
 		for(int i=0;i<maxNode;i++)
 		{
 			if(G.getStatus(sot,i)==1)
 			{
-				flag = 1;
+				flag1 = 1;
 				break;
 			}
 		}
-		if(flag == 1)
+		if(flag1 == 1)
 		{
 			PutDown(robot.getHold());
 
 			FromPlate(robot.getPlate());
 			robot.setHold(robot.getPlate());
 			robot.setPlate(0);
-			PutDown(robot.getHold());
-			robot.setHold(0);
-			return 1;
+			flag = PutDown(robot.getHold());
 		}
 	}
-	return 0;
+	if(flag==1)
+		robot.setHold(0);
+	return flag;
 }
 int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 {
@@ -514,9 +520,13 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 		robot.setHold(sot);
 		if(robot.getPlate()==0&&checkConnectionSmall(robot.getHold(),G)!=0)
 			{//嵌套的if防止当前物体在任务位置被放进盘子中
+				//此处处理的不好，当pickup完后可能会直接放到盘子里
 				int obj2 = checkConnectionLoc(robot.getHold(),G);
 				if(sort[obj2-1].getsLoc()!=robot.getLoc())
 				{
+					cout<<"This is pickup - ToPlate running :)\n";
+					cout<<sort[obj2-1].getsName()<<" location is "<<sort[obj2-1].getsLoc()<<endl;
+					cout<<"robot location is "<<robot.getLoc()<<endl;
 					ToPlate(robot.getHold());
 					robot.setPlate(robot.getHold());
 					robot.setHold(0);
