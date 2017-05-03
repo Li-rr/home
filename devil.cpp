@@ -68,7 +68,7 @@ void Devil::Plan()
     judgewithCons(cons_notnot,cons_notnotMax,task,taskMax,sort,senceMax);
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
     updateSenceByCons(sort,cons_not,robot,senceMax,cons_not_Max);
-    updateTask(sort,task,senceMax,taskMax,robot);
+   // updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
