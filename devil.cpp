@@ -1,39 +1,12 @@
-//
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//               佛祖保佑         永无BUG
-//
-//
-//
 #include "devil.hpp"
 #include <iostream>
-
+#include <fstream>
 using namespace _home;
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////////
 Devil::Devil() :
-    Plug("Devil")
+    Plug("RanrLi")
 {
 }
 
@@ -52,8 +25,15 @@ void Devil::Plan()
     Graph G;
     string STR=GetEnvDes();
     string TASK=GetTaskDes();
+    if(TASK.find("(:")==-1)
+    {
+		cout<<TASK<<endl;
+       TASK = Translate(TASK);
+	   cout<<TASK<<endl;
+    }
     int senceMax= 0,taskMax=0,infoMax=0,cons_not_Max=0,cons_notnotMax=0;
     int i=0;
+    //freopen("/tmp/Debug.txt","w",stdout);
     //////////////////////////////////////////////////
     dealwithsence(STR,sort,robot,senceMax);
    dealwithtask(TASK,task,taskMax);
@@ -68,7 +48,7 @@ void Devil::Plan()
     judgewithCons(cons_notnot,cons_notnotMax,task,taskMax,sort,senceMax);
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
     updateSenceByCons(sort,cons_not,robot,senceMax,cons_not_Max);
-   // updateTask(sort,task,senceMax,taskMax,robot);
+   updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
     printScence(robot,sort,senceMax);
@@ -107,11 +87,15 @@ void Devil::Plan()
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
   // {
 	//	cout<<*it<<endl;
-  // }
+ 
+   
+	// }
+ system("pkill -9 kill");
     cout<<"\n|-------ok--------|\n";
 }
 
 void Devil::Fini()
 {
-    cout << "#(Devil): Fini" << endl;
+  //  freopen("/dev/tty","w",stdout);
+    cout << "#(RanrLi): Fini" << endl;
 }

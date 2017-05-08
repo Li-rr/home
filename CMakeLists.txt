@@ -16,9 +16,11 @@ FILE(GLOB lrr-5_SRCS
     readyadvence.h
     readyadvence.cpp
     two_table.h
-	planwithtask.cpp
-	planwithcons_not_info.cpp
-	action.cpp
+    planwithtask.cpp
+    planwithcons_not_info.cpp
+    action.cpp
+    Nature.h
+    Nature.cpp
 )
 SOURCE_GROUP("" FILES ${lrr-5_SRCS})
 
