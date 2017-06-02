@@ -1,30 +1,3 @@
-//
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//               佛祖保佑         永无BUG
-//
-//
-//
 #include "readyadvence.h"
 void getVector(int small[],vector<int> v)
 {
@@ -1143,5 +1116,150 @@ void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int c
                     robot.setUseplate(sort[j].getsConsnot());
             }
         }
+    }
+}
+//void buildTasknum(Task task[],Tasknum tasknum[],Sort sort[],int sortNum,int taskNum)
+//{
+//    int i,j;
+//    string tmp;
+//    for(i=0; i<= taskNum;i++)
+//    {
+//        tasknum[i].taskNum = i;
+//        tasknum[i].fUsed = true;
+//        tasknum[i].taskname = task[i].getTaskAction();
+//        tmp = task[i].getTaskAction();
+//        if( tmp == "give"||tmp =="puton"||tmp == "putin"||tmp=="takeout")
+//        {
+//            if(tmp == "give")
+//            {
+//					bool fstr1 = true;
+//					string str1 = "human";
+//					bool fcol1 = false;
+//					string col1 = "";
+//					bool ftype1 = false;
+//
+//                    bool fstr2 = task[i].seeobj1fsort();
+//					string str2 = task[i].getTaskNamex();
+//					bool fcol2 = task[i].seeobj1fcolor();
+//					string col2 = task[i].getTaskColorx();
+//					bool ftype2 = task[i].getTaskContainerx();
+//
+//                    int sortnum1[10] = {0,0,0,0,0,0,0,0,0,0};
+//                    int sortnum2[10] = {0,0,0,0,0,0,0,0,0,0};
+//                    int num1 = FindSortAndSave_Info(sort,sortNum,str1,fstr1,col1,fcol1,ftype1,sortnum1);
+//                    int num2 = FindSortAndSave_Info(sort,sortNum,str2,fstr2,col2,fcol2,ftype2,sortnum2);
+//            }
+//        }
+//    }
+//}
+//int FindSortAndSave_Info(Sort sort[],int sortNum,string str,bool fstr,string col,bool fcol,bool ftype,int sortnum[])
+//{
+//    int count = 0;
+//    if(fstr == false && fcol == false && ftype == false)
+//    {
+//        cout<<"can't find sort"<<endl;
+//    }else if(fstr==false && fcol == false && ftype == true)
+//    {
+//        for(int i =0 ; i<sortNum; i++)
+//        {
+//            if(sort[i].getsType()=="container")
+//            {
+//                sortnum[count++] = i;
+//            }
+//        }
+//    }else if(fstr == false && fcol == true && ftype == false)
+//    {
+//        for(int i =0; i<sortNum;i++)
+//        {
+//            if(sort[i].getsColor()!=" ")
+//            {
+//                if(sort[i].getsColor()==col)
+//                {
+//                    sortnum[count++] = i;
+//                }
+//            }
+//        }
+//    }else if(fstr == false && fcol == true && ftype == true)
+//    {
+//
+//    }
+//    else if(fstr == true &&fcol == false && ftype == false)
+//    {
+//        for(int i =0; i<sortNum;i++)
+//        {
+//            if(sort[i].getsName()==str)
+//            {
+//                sortnum[count++] = i;
+//            }
+//        }
+//    }else if(fstr == true && fcol == false && ftype == true)
+//    {
+//        for(int i =0; i<sortNum;i++)
+//        {
+//            if(sort[i].getsSize()=="big"&&sort[i].getsType()=="container")
+//            {
+//                if(sort[i].getsName()==str)
+//                {
+//                    sortnum[count++] = i;
+//                }
+//            }
+//        }
+//    }else if(fstr == true && fcol == true && ftype == false)
+//    {
+//        for(int i=0;i <sortNum;i++)
+//        {
+//            if(sort[i].getsName()==str&&sort[i].getsColor()==col)
+//            {
+//                sortnum[count++] = i;
+//            }
+//        }
+//    }else if(fstr == true &&fcol == true && ftype == true)
+//    {
+//
+//    }
+//    return count;
+//}
+void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
+{
+    for(int i=0; i<= taskNum; i++ )
+    {
+        if(task[i].getTaskAction()=="pickup")
+        {
+            int act1 = task[i].getTaskAct1();
+            if(robot.getHold()==act1 || robot.getPlate()==act1)
+            {
+                task[i].setTaskSuccess(1);
+            }
+        }
+        else if(task[i].getTaskAction()=="give")
+        {
+            int act1 = task[i].getTaskAct1();
+            int human = findSortByName(sortNum,"human",sort);
+            if(sort[human-1].getsLoc()==sort[act1-1].getsLoc())
+            {
+                task[i].setTaskSuccess(1);
+            }
+        }
+        else if(task[i].getTaskAction()=="puton")
+        {
+            int act1 = task[i].getTaskAct1();
+            int act2 = task[i].getTaskAct2();
+            if(sort[act1-1].getsLoc()==sort[act2-1].getsLoc())
+            {
+                if(robot.getHold()!=act1&&robot.getPlate()!=act1)
+                {
+                    task[i].setTaskSuccess(1);
+                }
+            }
+        }
+        else if(task[i].getTaskAction()=="putdown")
+        {
+            int act1 = task[i].getTaskAct1();
+            if(robot.getHold()!=act1 || robot.getPlate()!=act1)
+            {
+                task[i].setTaskSuccess(1);
+            }
+        }
+        else if()
     }
 }

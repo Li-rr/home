@@ -20,18 +20,8 @@ Sort::Sort()
     sclosed=false;
     slock=false;
     cons_not = 0;
-	giveme = 0;
 	bigSort = 1;
 	used = 0;
-	expectMove = "";
-	expectInsiding = -1;
-
-	expectOn = -1;
-	expectOnBig = -1;
-	expectInsided = -1;
-	expectClosed = 0; //与上文sclosed相同
-	expectTask="";
-	appareCount = 0;
 	needMatch = 0;
 	taskLock = 0;
 }

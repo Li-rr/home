@@ -9,9 +9,6 @@ Robot::Robot()
     usePlate = 0;
     rcons_not = 0;
     rcons_notnot = 0;
-	expectMove = "";
-	expectPickup = 0;
-	expectGive = 0;
 }
 
 void Robot::setNum(int _num)

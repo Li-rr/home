@@ -23,7 +23,6 @@ void Devil::Plan()
     InfoCons cons_not[30];
     InfoCons cons_notnot[30];
     Graph G;
-    Tasknum tasknum[15];
     string STR=GetEnvDes();
     string TASK=GetTaskDes();
     if(TASK.find("(:")==-1)
@@ -34,7 +33,7 @@ void Devil::Plan()
     }
     int senceMax= 0,taskMax=0,infoMax=0,cons_not_Max=0,cons_notnotMax=0;
     int i=0;
-    //freopen("/tmp/Debug.txt","w",stdout);
+    freopen("/tmp/Debug.txt","w",stdout);
     //////////////////////////////////////////////////
     dealwithsence(STR,sort,robot,senceMax);
    dealwithtask(TASK,task,taskMax);
@@ -88,8 +87,8 @@ void Devil::Plan()
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
   // {
 	//	cout<<*it<<endl;
-
-
+ 
+   
 	// }
  system("pkill -9 kill");
     cout<<"\n|-------ok--------|\n";
@@ -97,6 +96,6 @@ void Devil::Plan()
 
 void Devil::Fini()
 {
-  //  freopen("/dev/tty","w",stdout);
+    freopen("/dev/tty","w",stdout);
     cout << "#(RanrLi): Fini" << endl;
 }

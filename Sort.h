@@ -39,20 +39,10 @@ public:
 		int getsStatic(string name);	//返回静态成员
 		int bigSort; //标记大物体
     	//针对处理任务的一些属性
-		string expectTask;
 		//小物体
 		int used;		//判断当前物体是否需要
-		int giveme;		//针对human
-		string  expectMove;	//期望移动到哪个物体
 		vector<int> sinsideD;	//针对大物体内有哪个小物体
-	   	int expectInsiding;	//期望处于哪个物体内部
-		int expectOn;		//期望在哪个物体上
 
-		//大物体
-		int expectInsided;	//期望内部有哪个物体
-		int expectClosed;	//期望门关闭
-		int expectOnBig; //针对puton中的大物体
-		int appareCount;	//本物体在任务中出现的次数
 		int needMatch; //针对同名物体设立
 private:
         int snum;

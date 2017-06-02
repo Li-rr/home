@@ -15,10 +15,6 @@ private:
     int rcons_not; //存放物体编号
     int rcons_notnot;
 public:
-	string expectMove;		//针对goto
-	int expectPickup;	//针对pickup
-	int expectGive;		//针对give
-
     Robot();
     void setNum(int _num);
     void setLoc(int _loc);

@@ -19,10 +19,11 @@ Task::Task()
     _locy=-1;
     success=0;
     needAnalyze=0;
-	expectMove = "";
-	expectPickup = -1;
-	expectGive = -1;
 	used = 0;
+    obj1fsort = false;
+    obj1fcolor = false;
+    obj2fsort = false;
+    obj2fcolor = false;
 }
 Task::~Task()
 {
@@ -60,6 +61,7 @@ void Task::setTaskAction(string act,string act1,string act2)
 void Task::setTaskAct1(int act1)
 {
     Act1=act1;
+
 }
 void Task::setTaskAct2(int  act2)
 {
@@ -69,21 +71,24 @@ void Task::setTaskNamex(string namx)
 {
     Namex=namx;
     setTaskContainerx(namx);
+    obj1fsort = true;
 
 }
 void Task::setTaskNamey(string namy)
 {
     Namey=namy;
     setTaskContainery(namy);
-
+    obj2fsort = true;
 }
 void Task::setTaskColorx(string colx)
 {
     Colorx=colx;
+    obj1fcolor = true;
 }
 void Task::setTaskColory(string coly)
 {
     Colory=coly;
+    obj2fcolor = true;
 }
 void Task::setTaskLocx(int locx)
 {
@@ -95,13 +100,17 @@ void Task::setTaskLocy(int locy)
 }
 void Task::setTaskContainerx(string name)
 {
-        if(name == "refrigerator"|| name=="cupboard")
+    if(name == "refrigerator"|| name=="cupboard"||name == "washmachine"||name =="closet"||name=="microwave")
+    {
         Containerx=true;
+    }
 }
 void Task::setTaskContainery(string name)
 {
-    if(name=="refrigerator"||name=="cupboard")
-    Containery = true;
+    if(name=="refrigerator"||name=="cupboard"||name == "washmachine"||name =="closet"||name=="microwave")
+    {
+        Containery = true;
+    }
 }
 void Task::setTaskClosed1()
 {
@@ -184,5 +193,21 @@ int Task::getTaskLocx()
 int Task::getTaskLocy()
 {
     return _locy;
+}
+bool Task::seeobj1fcolor()
+{
+    return obj1fcolor;
+}
+bool Task::seeobj2fcolor()
+{
+    return obj2fcolor;
+}
+bool Task::seeobj1fsort()
+{
+    return obj1fsort;
+}
+bool Task::seeobj2fsort()
+{
+    return obj2fsort;
 }
 

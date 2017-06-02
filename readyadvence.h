@@ -11,6 +11,7 @@
 #include "Robot.h"
 #include "Task.h"
 #include "InfoCons.h"
+#include "Tasknum.h"
 using namespace std;
 void printVector(vector<int> v);
 void getVector(int small[],vector<int> v);
@@ -26,6 +27,9 @@ void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot);
 void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum);
 void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int infoNum);
 
+void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot);
+void buildTasknum(Task task[],Tasknum tasknum[],Sort sort[],int sortNum,int taskNum);
+int FindSortAndSave_Info(Sort sort[],int sortNum,string str,bool fstr,string col,bool fcol,bool ftype,int sortnum[]);
 void printTask(Task task[],int count);
 void printScence(Robot  robot,Sort sort[],int count);
 void printInfoCons(InfoCons info[],int count,string SIGN);

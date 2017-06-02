@@ -39,14 +39,17 @@ class Task
         int getTaskPriority();
         int getTaskAnalyze();
         bool getTaskContainerx();
-        bool getTaskContainery();
-        bool getTaskClosed1();
-        bool getTaskClosed2();
-		string expectMove; //针对goto设立
-		int expectPickup; //针对pickup
-		int expectGive;	  //针对give
+    bool getTaskContainery();
+    bool getTaskClosed1();
+    bool getTaskClosed2();
+
+    bool seeobj1fsort();
+    bool seeobj2fsort();
+    	bool seeobj1fcolor();
+	bool seeobj2fcolor();
+
 		int used;		  //判断task是否匹配完成
-						
+
     private:
         int No;
     string Action;
@@ -58,10 +61,21 @@ class Task
     string Namey;
     string Colorx;
     string Colory;
+
     bool Containerx;
     bool Containery;
     bool Closedx;
     bool Closedy;
+
+    bool obj1fcolor;
+    bool obj2fcolor;
+
+    bool obj1fsort;
+    bool obj2fsort;
+
+    bool obj1ftype;
+    bool obj2ftype;
+
     int _priority;
     int success;
     int needAnalyze;
