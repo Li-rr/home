@@ -1263,3 +1263,5 @@ void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
 //        else if()
     }
 }
+
+

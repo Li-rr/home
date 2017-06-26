@@ -31,7 +31,6 @@ void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot);
 void buildTasknum(Task task[],Tasknum tasknum[],Sort sort[],int sortNum,int taskNum);
 int FindSortAndSave_Info(Sort sort[],int sortNum,string str,bool fstr,string col,bool fcol,bool ftype,int sortnum[]);
 
-void getLostLocFromTask(Task task[],int taskNum);
 void printTask(Task task[],int count);
 void printScence(Robot  robot,Sort sort[],int count);
 void printInfoCons(InfoCons info[],int count,string SIGN);

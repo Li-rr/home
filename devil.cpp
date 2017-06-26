@@ -40,7 +40,7 @@ void Devil::Plan()
     //////////////////////////////////////////////////
     dealwithsence(STR,sort,robot,senceMax);
    dealwithtask(TASK,task,taskMax);
-
+	printScence(robot,sort,senceMax);
     dealwithInfoCons(TASK,info,infoMax,"info");
 
     dealwithInfoCons(TASK,cons_not,cons_not_Max,"cons_not");
@@ -54,7 +54,7 @@ void Devil::Plan()
    updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
     cout<<endl<<endl;
-    printScence(robot,sort,senceMax);
+//    printScence(robot,sort,senceMax);
 //    for(int i=0; i<senceMax; i++)
 //    {
 //        if(sort[i].getsType()=="container")
@@ -74,6 +74,8 @@ void Devil::Plan()
 //			cout<<sort[i].getsName()<<" "<<sort[i].getsLocked()<<endl;
 //		}
 //    }
+	getLostLocFromTask(task,taskMax,sort);
+	printScence(robot,sort,senceMax);
     printTask(task,taskMax);
     printInfoCons(info,infoMax,"info");
    // printInfoCons(cons_not,cons_not_Max,"cons_not");

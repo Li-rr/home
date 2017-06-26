@@ -543,3 +543,45 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 
 	return flag;
 }
+
+
+void Devil::getLostLocFromTask(Task task[],int taskNum,Sort sort[])
+{
+	cout<<"This is getLostLocFromTask()"<<endl;
+	int where[30]={0};
+	int j = -1;
+	//mark
+	for(int i=0; i<=taskNum;i++)
+	{
+		if(task[i].getTaskLocx()==-1)
+		{
+			cout<<"task_sort:"<<task[i].getTaskAct1()<<" "<<task[i].getTaskLocx()<<endl; 
+			where[i] = task[i].getTaskAct1(); //mark
+		}
+	}
+	//find
+	for(int i=0; i<30;i++)
+	{
+		if(where[i] != 0 &&sort[where[i]-1].getsLoc()==-1)
+		{
+			j =  getAskLoc(AskLoc(where[i]),sort);
+			if(j == -1)
+			{
+				j = getAskLoc(AskLoc(where[i]),sort);
+				if(j == -1)
+				{
+					j = getAskLoc(AskLoc(where[i]),sort);
+				}
+			}
+			task[i].setTaskLocx(j);
+			sort[task[i].getTaskAct1()-1].setsLoc(j);
+			cout<<"Sort:"<<task[i].getTaskAct1()<<" "<<" loc is "
+				<<sort[task[i].getTaskAct1()-1].getsLoc()<<endl;
+		}
+	}
+	//reduction
+	cout<<"getLostLocFromTask() is over"<<endl;
+}
+
+
+

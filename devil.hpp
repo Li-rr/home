@@ -33,7 +33,7 @@ namespace _home
 		void checkHold(Robot &robot,Graph &G);
 		void checkPlate(Robot &plate,Graph G);
         void Plan();
-
+		void getLostLocFromTask(Task task[],int taskNum,Sort sort[]);
         void Fini();
     };//Plug
 
