@@ -6,16 +6,17 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////////
 Devil::Devil() :
-    Plug("RanrLi")
+ Plug("Miracle-1")
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 void Devil::Plan()
 {
+	
     //cout << "#(Devil): Init" << endl;
- //   cout << "# EnvDes:\n" << GetEnvDes() << endl;
- //   cout << "# TaskDes:\n" << GetTaskDes() << endl;
+//    cout << "# EnvDes:\n" << GetEnvDes() << endl;
+  //  cout << "# TaskDes:\n" << GetTaskDes() << endl;
     Sort sort[30];
     Robot robot;
     Task task[30];
@@ -26,6 +27,7 @@ void Devil::Plan()
     Tasknum tasknum[15];
     string STR=GetEnvDes();
     string TASK=GetTaskDes();
+  //  freopen("/tmp/Debug.txt","w",stdout);
     if(TASK.find("(:")==-1)
     {
 		cout<<TASK<<endl;
@@ -34,7 +36,7 @@ void Devil::Plan()
     }
     int senceMax= 0,taskMax=0,infoMax=0,cons_not_Max=0,cons_notnotMax=0;
     int i=0;
-    //freopen("/tmp/Debug.txt","w",stdout);
+//    freopen("/tmp/Debug.txt","w",stdout);
     //////////////////////////////////////////////////
     dealwithsence(STR,sort,robot,senceMax);
    dealwithtask(TASK,task,taskMax);
@@ -91,12 +93,11 @@ void Devil::Plan()
 
 
 	// }
- system("pkill -9 kill");
+ //system("pkill -9 kill");
     cout<<"\n|-------ok--------|\n";
 }
 
 void Devil::Fini()
 {
-  //  freopen("/dev/tty","w",stdout);
-    cout << "#(RanrLi): Fini" << endl;
+    cout << "#(Maricle-2): Fini" << endl;
 }

@@ -1260,6 +1260,6 @@ void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
                 task[i].setTaskSuccess(1);
             }
         }
-        else if()
+//        else if()
     }
 }
