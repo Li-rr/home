@@ -30,6 +30,7 @@ namespace _home
 		int putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G);
 		int putdown(int sot,Sort sort[],Robot &robot,Graph &G);
 		int pickup(int sot,Sort sort[],Robot &robot,Graph G);
+		void dealwithgoto(Task task[],int taskNum,Sort sort[],Robot &robot);
 		void checkHold(Robot &robot,Graph &G);
 		void checkPlate(Robot &plate,Graph G);
         void Plan();

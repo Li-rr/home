@@ -87,6 +87,7 @@ void Devil::Plan()
 	}
     planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
     planWithtask(task,sort,taskMax,senceMax,robot,G);
+	dealwithgoto(task,taskMax,sort,robot);
 // //  vector <unsigned int> test;
   // Sense(test);
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)
