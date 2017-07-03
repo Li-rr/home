@@ -358,8 +358,10 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
         move(sot,sort,robot);
         if(sort[sot-1].getsInside()!=-1)
         {
+			cout<<"This is getSort, i will into takeout\n";
             flag = takeout(sot,sort,robot,G);
         }else
+			cout<<"This is getSort, i will into pickup\n";
             flag = pickup(sot,sort,robot,G);
     }
     else
@@ -518,20 +520,20 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 	if(flag==1)
 	{
 		robot.setHold(sot);
-		if(robot.getPlate()==0&&checkConnectionSmall(robot.getHold(),G)!=0)
-			{//嵌套的if防止当前物体在任务位置被放进盘子中
+//		if(robot.getPlate()==0&&checkConnectionSmall(robot.getHold(),G)!=0)
+//			{//嵌套的if防止当前物体在任务位置被放进盘子中
 				//此处处理的不好，当pickup完后可能会直接放到盘子里
-				int obj2 = checkConnectionLoc(robot.getHold(),G);
-				if(sort[obj2-1].getsLoc()!=robot.getLoc())
-				{
-					cout<<"This is pickup - ToPlate running :)\n";
-					cout<<sort[obj2-1].getsName()<<" location is "<<sort[obj2-1].getsLoc()<<endl;
-					cout<<"robot location is "<<robot.getLoc()<<endl;
-					ToPlate(robot.getHold());
-					robot.setPlate(robot.getHold());
-					robot.setHold(0);
-				}
-			}
+//				int obj2 = checkConnectionLoc(robot.getHold(),G);
+//				if(sort[obj2-1].getsLoc()!=robot.getLoc())
+//				{
+//					cout<<"This is pickup - ToPlate running :)\n";
+//					cout<<sort[obj2-1].getsName()<<" location is "<<sort[obj2-1].getsLoc()<<endl;
+//					cout<<"robot location is "<<robot.getLoc()<<endl;
+//					ToPlate(robot.getHold());
+//					robot.setPlate(robot.getHold());
+//					robot.setHold(0);
+//				}
+//			}
 	}
 	if(flag == 0)
 	{
