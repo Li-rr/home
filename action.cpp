@@ -438,8 +438,8 @@ int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
         G.setStatus(obj2,soty,flag);
         cout<<"checkputon"<<obj2<<"----"<<soty<<"----"<<G.getStatus(obj2,soty)<<endl;
     }
-    return flag;
 	cout<<"puton() over!\n";
+	return flag;
 }
 int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 {
