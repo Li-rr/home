@@ -83,7 +83,15 @@ void Devil::Plan()
 
 	for(i = 0; i <= taskMax; i++)
  	{
-	  G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
+		if(task[i].getTaskAction() != "give")	
+  		{
+			G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
+		}
+		else
+		{
+			int human = findSortByName(senceMax,"human",sort);
+			G.setStatus(task[i].getTaskAct1(),human,task[i].getTaskAction());
+		}
 	}
     planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
     planWithtask(task,sort,taskMax,senceMax,robot,G);

@@ -33,6 +33,8 @@ class Graph
 				  VerList[act1][act2].direction=1;
 				if(action=="puton")
 				  VerList[act1][act2].direction=-4;
+			    if(action == "give")
+				  VerList[act1][act2].direction=6;
 			}
 
 
