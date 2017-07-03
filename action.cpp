@@ -197,14 +197,20 @@ int checkOpen(int sot,Sort sort[])
 
 int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 {
+	cout<<"==================================================="<<endl;
 	int flag = 0;
 //	if(G.getStatus(sot,0)==0)
 //	  return 1;
 	int checkHold = 0, checkPlate=0;
+	cout<<"this is open, i will checkHold\n";
 	checkHold = checkConnectionSmall(robot.getHold(),G);
+	cout<<"this is open, checkHold is over\n";
+	cout<<"this is open, i will checkPlate\n";
 	checkPlate = checkConnectionSmall(robot.getPlate(),G);
-    if(robot.getUsehold()==0&&robot.getUseplate()==0)
+	cout<<"this is open, checkPlate is over\n";
+	if(robot.getUsehold()==0&&robot.getUseplate()==0)
     {
+		cout<<"deal with something in open()\n";
 		if(checkHold!=0&&robot.getHold()!=0&&robot.getPlate()==0)
 		{
 			cout<<"Before open big sort,my hand have other sort, i need it->"<<robot.getHold()<<" put it in plate\n";
@@ -217,6 +223,18 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 			cout<<"In my hand and plate sort i need they,so i will putdown hand->"<<robot.getHold()<<endl;
 			PutDown(robot.getHold());
 			robot.setHold(0);
+		}
+		if(checkHold!=0&&checkPlate==0&&robot.getHold()!=0&&robot.getPlate()!=0)
+		{
+			cout<<"I need my hand and i don't need my plate,so i will putdown my plate,let my hand to my plate"<<endl;
+			PutDown(robot.getHold());
+			FromPlate(robot.getPlate());
+			PutDown(robot.getPlate());
+			PickUp(robot.getHold());
+			ToPlate(robot.getHold());
+
+			robot.setPlate(robot.getHold());
+			robot.setHold(robot.getPlate());
 		}
   //      if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
   //    {
@@ -257,11 +275,14 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 	{
 		flag = Open(sot);
 		sort[sot-1].setsClosed(0);
-		cout<<"Sir,I'm open "<<sot<<endl;
+		cout<<"Sir,I'm open :"<<sot<<" statue :"<<flag
+			<<" checkOpen result :"<<checkOpen(sot,sort)<<endl;	
 	} else if(checkOpen(sot,sort)== 1)
 	{
         flag = -1;
 	}
+	cout<<"open() is over"<<endl;
+	cout<<"====================================================="<<endl;
 	return flag;
 }
 
