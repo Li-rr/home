@@ -91,6 +91,13 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 				G.setStatus(i,j,puton(i,j,sort,robot,G));
 				cout<<"This is run puton over\n";
 			}
+
+			if(G.getDirection(i,j)==6&&G.getStatus(i,j)==1) //give
+			{
+				cout<<"This is run give\n";
+				G.setStatus(i,j,puton(i,j,sort,robot,G));
+				cout<<"This is run give over\n";
+			}
 			if(G.getDirection(i,j)==-1)	//takeout
 			{
 				cout<<"This is run takeout\n";
@@ -129,10 +136,6 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 					G.setStatus(i,j,putin(i,j,sort,robot,G));
 				}
 				cout<<"This is putin action run over\n";
-			}
-			if(G.getDirection(i,j)==3)	//goto,低级处理
-			{
-		//		G.setStatus(i,j,move(i,sort,robot));
 			}
 			if(G.getDirection(i,j)==2)	//close.低级处理
 			{
