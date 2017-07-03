@@ -360,9 +360,13 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
         {
 			cout<<"This is getSort, i will into takeout\n";
             flag = takeout(sot,sort,robot,G);
-        }else
-			cout<<"This is getSort, i will into pickup\n";
+			cout<<"I from takeout() get to getSort()\n";
+        }
+		else
+		{	cout<<"This is getSort, i will into pickup\n";
             flag = pickup(sot,sort,robot,G);
+			cout<<"I from pickup() get to getSort()\n";
+		}
     }
     else
     {
@@ -376,6 +380,7 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
             flag = pickup(sot,sort,robot,G);
         }
     }
+	cout<<"getSort is over\n";
 	return flag;
 }
 int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
@@ -495,9 +500,10 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	int flag = 0;
-	if(robot.getHold()!=0&&robot.getUsehold()==0)
+	if(robot.getHold()!=sot&&robot.getHold()!=0&&robot.getUsehold()==0)
 	{
 		PutDown(robot.getHold());
+		cout<<"i need:"<<sot<<"\t";
 		cout<<"I'm running Pickup ,i need putdown "<<robot.getHold()<<endl;
 		robot.setHold(0);
 	}
