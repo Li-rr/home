@@ -90,7 +90,8 @@ void Devil::Plan()
 		else
 		{
 			int human = findSortByName(senceMax,"human",sort);
-			G.setStatus(task[i].getTaskAct1(),human,task[i].getTaskAction());
+			cout<<"human: "<<sort[human].getsNum()<<endl;
+			G.setStatus(task[i].getTaskAct1(),sort[human].getsNum(),task[i].getTaskAction());
 		}
 	}
     planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
