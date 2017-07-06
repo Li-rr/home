@@ -117,7 +117,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==1)	//putin
 			{
-				cout<<"this is putin action"<<i<<" "<<j<<endl;
+				cout<<"\n\nthis is putin action  "<<i<<" "<<j<<endl;
 				cout<<G.getStatus(i,j)<<endl;
 				int signedTask = checkPutinFirst(i,G.getDirection(i,j),G);
 				cout<<"I have other task "<<signedTask<<endl;

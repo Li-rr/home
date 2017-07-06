@@ -307,6 +307,11 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
         cout<<"door is opened\n";
     }
     flag = TakeOut(sot,act2);
+	if(flag == 0)
+	{
+		Open(act2);
+		flag = TakeOut(sot,act2);
+	}
     if(flag == 1)
     {
         robot.setHold(sot);
@@ -371,6 +376,7 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph &G)
 }
 int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 {
+	cout<<"***************************************\n";
 	int flag = 0;
 	checkHold(robot,G);
 	cout<<"I want get "<<sot<<endl;
@@ -402,6 +408,7 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
         }
     }
 	cout<<"getSort is over\n";
+	cout<<"***************************************\n";
 	return flag;
 }
 int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
