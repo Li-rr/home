@@ -26,7 +26,7 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot);
 void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot);
 void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum);
 void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int infoNum);
-
+void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int SNum,int infoNum,int tNum);
 void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot);
 void buildTasknum(Task task[],Tasknum tasknum[],Sort sort[],int sortNum,int taskNum);
 int FindSortAndSave_Info(Sort sort[],int sortNum,string str,bool fstr,string col,bool fcol,bool ftype,int sortnum[]);

@@ -70,7 +70,8 @@ void Sort::setsType(string type)
 }
 void Sort::setsLock()
 {
-    slock = true;
+	if(ssize == "small")
+    	slock = true;
 }
 void Sort::setsConsnot(string action)
 {

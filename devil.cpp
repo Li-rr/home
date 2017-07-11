@@ -53,7 +53,9 @@ void Devil::Plan()
     updateSenceByCons(sort,cons_not,robot,senceMax,cons_not_Max);
    updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
-    cout<<endl<<endl;
+  	releaseSenceByCons(sort,cons_not,task,robot,senceMax,cons_not_Max,taskMax);
+ 
+   cout<<endl<<endl;
 //    printScence(robot,sort,senceMax);
 //    for(int i=0; i<senceMax; i++)
 //    {
@@ -82,9 +84,9 @@ void Devil::Plan()
    // printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
 
 	for(i = 0; i <= taskMax; i++)
- 	{
-		if(task[i].getTaskAction() != "give")	
-  		{
+   	{
+ 		if(task[i].getTaskAction() != "give")	
+   		{
 			G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 		}
 		else
@@ -95,8 +97,8 @@ void Devil::Plan()
 		}
 	}
     planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
-    planWithtask(task,sort,taskMax,senceMax,robot,G);
-	dealwithgoto(task,taskMax,sort,robot);
+ //   planWithtask(task,sort,taskMax,senceMax,robot,G);
+//	dealwithgoto(task,taskMax,sort,robot);
 // //  vector <unsigned int> test;
   // Sense(test);
   // for(vector<unsigned int>::iterator it=test.begin();it!=test.end();it++)

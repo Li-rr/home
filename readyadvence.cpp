@@ -1038,7 +1038,9 @@ void printScence(Robot  robot,Sort sort[],int count)
      cout<<setw(9)<<setiosflags(ios::left);
      cout<<"Inside.";
     cout<<setw(9)<<setiosflags(ios::left);
-    cout<<"Type"<<endl;
+    cout<<"Type";
+	cout<<setw(8)<<setiosflags(ios::left);
+	cout<<"Lock"<<endl;
     for(int i=0; i<count; i++)
     {
             cout<<setw(1)<<setw(4)<<sort[i].getsNum();
@@ -1048,7 +1050,8 @@ void printScence(Robot  robot,Sort sort[],int count)
             cout<<setw(8)<<sort[i].getsSize();
             cout<<"   "<<setw(7)<<sort[i].getsClosed();
             cout<<setw(7)<<sort[i].getsInside();
-            cout<<setw(4)<<sort[i].getsType();
+            cout<<setw(12)<<sort[i].getsType();
+			cout<<setw(8)<<sort[i].getsLocked();
             cout<<endl;
     }
    cout<<"/*********************************************************************/"<<endl;
@@ -1058,7 +1061,7 @@ void printScence(Robot  robot,Sort sort[],int count)
 //
 void printInfoCons(InfoCons info[],int count,string SIGN)
 {/*{{{*/
-    cout<<"|-------------------------------------------------------------"<<SIGN<<"---------------------------------------------------------|\n";
+    cout<<"|--------------------------"<<SIGN<<"---------------------------|\n";
     cout<<setw(7)<<setiosflags(ios::left);
     cout<<"No.";
     cout<<setw(10)<<setiosflags(ios::left);
@@ -1098,7 +1101,7 @@ void printInfoCons(InfoCons info[],int count,string SIGN)
         cout<<endl;
         }
     }
- cout<<"|-------------------------------------------------------------"<<SIGN<<"---------------------------------------------------------|\n";
+ cout<<"|---------------------------"<<SIGN<<"--------------------------------|\n";
 }
 /*}}}*/
 void updateSenceByCons(Sort sort[],InfoCons con[],Robot &robot,int sortNum,int consNum)
@@ -1264,4 +1267,67 @@ void debugTask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot)
     }
 }
 
+void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int SNum,int infoNum,int tNum)
+{
+	cout<<"\n\nTHis is releaseSenceBycons"<<endl;
+	int i, j;
+	int flag = 0;
+	int hold = robot.getHold();
+	int plate = robot.getPlate();
 
+	cout<<"\nthis is robot.hold ->"<<sort[hold-1].getsNum()<<"  "
+	   <<sort[hold-1].getsName()<<"  "
+	   <<sort[hold-1].getsColor()<<"  "
+	   <<sort[hold-1].getsConsnot()<<endl;
+	
+	cout<<"\nthis is robot.plate ->"<<sort[plate-1].getsNum()<<"  "
+		<<sort[plate-1].getsName()<<"  "
+		<<sort[plate-1].getsColor()<<"  "
+		<<sort[plate-1].getsConsnot()<<endl<<endl;
+
+	robot.setUsehold(sort[hold-1].getsConsnot());
+	robot.setUseplate(sort[plate-1].getsConsnot());
+	
+	for(i = 0; i <= tNum; i++)
+	{
+		flag = 0;
+		for(j = 0; j < SNum; j++)
+		{
+			if( task[i].getTaskNamex() == sort[j].getsName()&&!sort[j].getsLocked())
+			{
+				cout<<sort[j].getsName()<<"  "<<sort[j].getsColor()<<"  "<<sort[j].getsLocked()<<endl;
+				if( task[i].getTaskColorx() == sort[j].getsColor())
+				{
+					task[i].setTaskAct1(sort[j].getsNum());
+					flag = 1;
+				}
+				if( flag == 1)
+					continue;
+				task[i].setTaskAct1(sort[j].getsNum());
+			}
+		}
+	}
+	for(i = 0; i < SNum; i++)
+	{
+		if(i <= infoNum)
+		{
+			cout<<"this is cons_not  ";
+			cout<<info[i].getNo()<<"  "
+				<<info[i].getState()<<"  "
+				<<info[i].getState1()<<"  "
+				<<info[i].getState2()<<"  "
+				<<info[i].getNamex()<< "  "
+				<<info[i].getColorx()<<"  "
+				<<info[i].getNamey()<<"  "
+				<<info[i].getColory()<<endl<<endl;	
+		}
+		if(sort[i].getsConsnot() !=0 )
+		{
+			cout<<sort[i].getsNum()<<"  "
+				<<sort[i].getsName()<<"  "
+				<<sort[i].getsColor()<<"  "
+				<<sort[i].getsConsnot()<<endl;
+		}
+	}
+	cout<<"\nreleaseSenceBycons is over\n\n\n\n";
+}
