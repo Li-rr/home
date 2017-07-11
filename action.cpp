@@ -150,7 +150,7 @@ void Devil::checkPlate(Robot &robot,Graph G)
 }
 void Devil::checkHold(Robot &robot,Graph &G)
 {
-	cout<<"This is checkHold\n";
+	cout<<"{{{{{{{{{{{{{This is checkHold}}}}}}}}}}}}}}}\n";
 	int hold = robot.getHold();
 	int flag = 0;
 	if(hold == 0)
@@ -159,7 +159,9 @@ void Devil::checkHold(Robot &robot,Graph &G)
 	}
 	else
 	{
-		if(robot.getUsehold()==0)
+		cout<<"robot.getUseHold()->"<<robot.getUsehold()<<endl
+			<<"robot.getUseplate()->"<<robot.getUseplate()<<endl;
+		if(robot.getUsehold() == 0 && robot.getUseplate() == 0)
 		{
 			if(checkConnectionSmall(hold,G) == 0)
 			{
@@ -173,7 +175,8 @@ void Devil::checkHold(Robot &robot,Graph &G)
 				robot.setHold(0);
 				cout<<"This sort i need putdown"<<endl;
 			}
-		}else
+		}
+		else if(robot.getUsehold() == 1 && robot.getUseplate() == 0)
 		{
 			ToPlate(hold);
 			robot.setPlate(hold);
@@ -182,7 +185,7 @@ void Devil::checkHold(Robot &robot,Graph &G)
 			robot.setUsehold(0);
 		}
 	}
-	cout<<"checkHold is over\n";
+	cout<<"{{{{{{{{{{{{{{{{{{{{{{{{{{checkHold is over}}}}}}}}}}}}}}}}}}\n";
 
 }
 int checkOpen(int sot,Sort sort[])
@@ -259,11 +262,19 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
     //此处对约束进行处理
     if(robot.getUsehold()==1)
     {
-        ToPlate(robot.getHold());
-        robot.setPlate(robot.getHold());
-        robot.setHold(0);
-        robot.setUsehold(0);
-        robot.setUseplate(1);
+		cout<<"this is open, robot.getUsehold == 1"<<endl;
+		if(robot.getHold() != 0 && robot.getPlate() == 0)
+		{
+		   	ToPlate(robot.getHold());
+      	    robot.setPlate(robot.getHold());
+       	    robot.setHold(0);
+       	    robot.setUsehold(0);
+      	    robot.setUseplate(1);
+		}
+		if(robot.getHold() == 0 )
+		{
+			robot.setUsehold(0);
+		}
     }
     if(robot.getUseplate()==1&&robot.getHold()!=0)
     {
@@ -309,7 +320,9 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
     flag = TakeOut(sot,act2);
 	if(flag == 0)
 	{
+		cout<<"THis is takeout(), i will open :"<<act2<<endl;
 		Open(act2);
+		cout<<"This is takeout(), open is over "<<endl;
 		flag = TakeOut(sot,act2);
 	}
     if(flag == 1)
