@@ -6,7 +6,7 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////////
 Devil::Devil() :
- Plug("Miracle-1")
+ Plug("Miracle-test2")
 {
 }
 
@@ -114,5 +114,5 @@ void Devil::Plan()
 
 void Devil::Fini()
 {
-    cout << "#(Maricle-2): Fini" << endl;
+    cout << "#(Maricle-test2): Fini" << endl;
 }
