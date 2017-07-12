@@ -633,14 +633,27 @@ void Devil::getLostLocFromTask(Task task[],int taskNum,Sort sort[])
 }
 
 
+void Devil::dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot)
+{
+	for(int i = 0; i <= taskNum; i++)
+	{
+		if(task[i].getTaskAction()=="pickup")
+		{
+			move(task[i].getTaskAct1(),sort,robot);
+			
+			PickUp(task[i].getTaskAct1());
+			robot.setHold(task[i].getTaskAct1());
+		}
+	}
+}
 void Devil::dealwithgoto(Task task[],int taskNum,Sort sort[],Robot &robot)
 {
 	for(int i = 0;i<=taskNum;i++)
-	{
+ 	{
 		if(task[i].getTaskAction()=="goto")
 		{
 			move(task[i].getTaskAct1(),sort,robot);
-		}
+ 		}
 	}
 }
 

@@ -152,7 +152,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==5)	//pickup
 			{
-				cout<<G.getStatus(i,j)<<" pickup "<<endl;
+			/*	cout<<G.getStatus(i,j)<<" pickup "<<endl;
 				if(checkPutdown(robot.getHold(),i,G) == 4)
 				{
 
@@ -186,7 +186,9 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 				}
 				move(i,sort,robot);
 				G.setStatus(i,j,pickup(i,sort,robot,G));
+		*/
 			}
+		   
 		}
  	}
     for(int q=0; q<=taskNum;q++)
