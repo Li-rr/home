@@ -1,9 +1,10 @@
 /*
  * Simulation@Home Competition
  * File: devil.hpp
- * Author: Jiongkun Xie
- * Affiliation: Multi-Agent Systems Lab.
- *              University of Science and Technology of China
+ * Author: Ranran Li
+ * E-mail: 921090271@qq.com.
+ * Affiliation: Innovation Lab.
+ *              HeFei Normal University.
  */
 
 #ifndef __home_devil_HPP__
