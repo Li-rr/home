@@ -50,7 +50,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
 					<<task[i].getTaskAction()<<"  "
 					<<task[i].getTaskNamex()<<"  "
 					<<task[i].getTaskNamey()<<endl;
-				task[i].setTaskAction("","","");
+				task[i].setTaskAction("","X","Y");
 			}
 		}
 	}
