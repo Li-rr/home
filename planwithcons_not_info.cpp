@@ -1,35 +1,9 @@
-//
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//               佛祖保佑         永无BUG
-//
-//
-//
 #include "devil.hpp"
 using namespace _home;
 //cons_not_info:表示在环境的任何状态下，info所描述的任何情况都禁止出现
 void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Robot &robot,int consnotNum, int taskNum,Graph G )
 {
+	cout<<"\n\nthis is planwithcons_not_info()\n\n";
     int i,j;
     int obj1,obj2;
     for(i=0 ; i <= consnotNum; i++)
@@ -65,4 +39,20 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
 
         }
     }
+	for( i = 0 ; i <= taskNum; i++)
+	{
+		for(j = 0; j <= consnotNum; j++)
+		{
+			if(task[i].getTaskNamex() == cons_not[j].getNamex())
+			{
+				cout<<"This task same with cons, i will destory it\n";
+				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
+					<<task[i].getTaskAction()<<"  "
+					<<task[i].getTaskNamex()<<"  "
+					<<task[i].getTaskNamey()<<endl;
+				task[i].setTaskAction("");
+			}
+		}
+	}
+	cout<<"\n\nplanwithcons_not_info() is over\n\n";
 }
