@@ -83,6 +83,8 @@ void Devil::Plan()
    // printInfoCons(cons_not,cons_not_Max,"cons_not");
    // printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
 
+    planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
+	planwithcons_notnot_info(cons_notnot,task,sort,robot,cons_notnotMax,taskMax);
 	for(i = 0; i <= taskMax; i++)
    	{
  		if(task[i].getTaskAction() != "give")	
@@ -96,7 +98,6 @@ void Devil::Plan()
 			G.setStatus(task[i].getTaskAct1(),sort[human].getsNum(),task[i].getTaskAction());
 		}
 	}
-    planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
 	printTask(task,taskMax);
     planWithtask(task,sort,taskMax,senceMax,robot,G);
 	dealwithpickup(task,taskMax,sort,robot);

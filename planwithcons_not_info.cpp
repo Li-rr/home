@@ -45,7 +45,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
 		{
 			if(task[i].getTaskNamex() == cons_not[j].getNamex())
 			{
-				cout<<"This task same with cons, i will destory it\n";
+				cout<<"This task same with cons_not, i will destory it\n";
 				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
 					<<task[i].getTaskAction()<<"  "
 					<<task[i].getTaskNamex()<<"  "
@@ -55,4 +55,28 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
 		}
 	}
 	cout<<"\n\nplanwithcons_not_info() is over\n\n";
+}
+void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sort[],Robot &robot,int consnotnotNum,int taskNum)
+{
+	int i,j;
+	for(i = 0; i <= taskNum; i++)
+	{
+		for(j  = 0; j <= consnotnotNum; j++)
+		{
+			if(task[i].getTaskNamex() == cons_notnot[j].getNamex())
+			{
+				cout<<"This task same with cons_not, i will destory it\n";
+				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
+					<<task[i].getTaskAction()<<"  "
+					<<task[i].getTaskNamex()<<"  "
+					<<task[i].getTaskNamey()<<endl;
+				task[i].setTaskAction("","X","Y");
+
+			}
+		}
+	}
+
+
+
+
 }

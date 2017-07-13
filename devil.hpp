@@ -25,6 +25,7 @@ namespace _home
 		int takeout(int sot,Sort sort[],Robot &robot,Graph G);
 		int puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G);
 		void planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Robot &robot,int consnotNum, int taskNum,Graph G );
+		void planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sort[],Robot &robot,int consnotnotNum,int taskNum);
     protected:
 		int close(int sot,Sort sort[],Robot &robot,Graph &G);
 		int getSort(int sot,Sort sort[],Robot &robot,Graph G);

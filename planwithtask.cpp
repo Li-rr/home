@@ -191,12 +191,5 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 		   
 		}
  	}
-    for(int q=0; q<=taskNum;q++)
-    {
-        if(task[i].getTaskAction()=="goto")
-        {
-            move(task[i].getTaskAct1(),sort,robot);
-        }
-    }
 }
 
