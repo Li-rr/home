@@ -97,6 +97,7 @@ void Devil::Plan()
 		}
 	}
     planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
+	printTask(task,taskMax);
     planWithtask(task,sort,taskMax,senceMax,robot,G);
 	dealwithpickup(task,taskMax,sort,robot);
 	dealwithgoto(task,taskMax,sort,robot);
