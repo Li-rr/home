@@ -140,7 +140,8 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			if(G.getDirection(i,j)==2)	//close.低级处理
 			{
 				cout<<"This is run close\n";
-				move(i,sort,robot);
+				if(sort[i-1].getsClosed() == 0)
+					move(i,sort,robot);
 				G.setStatus(i,j,close(i,sort,robot,G));
 				cout<<"run close over\n";
 			}
@@ -191,12 +192,5 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 		   
 		}
  	}
-    for(int q=0; q<=taskNum;q++)
-    {
-        if(task[i].getTaskAction()=="goto")
-        {
-            move(task[i].getTaskAct1(),sort,robot);
-        }
-    }
 }
 
