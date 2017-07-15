@@ -13,7 +13,6 @@ Devil::Devil() :
 //////////////////////////////////////////////////////////////////////////
 void Devil::Plan()
 {
-	
     //cout << "#(Devil): Init" << endl;
 //    cout << "# EnvDes:\n" << GetEnvDes() << endl;
   //  cout << "# TaskDes:\n" << GetTaskDes() << endl;
@@ -54,7 +53,6 @@ void Devil::Plan()
    updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
   	releaseSenceByCons(sort,cons_not,task,robot,senceMax,cons_not_Max,taskMax);
- 
    cout<<endl<<endl;
 //    printScence(robot,sort,senceMax);
 //    for(int i=0; i<senceMax; i++)
@@ -87,7 +85,7 @@ void Devil::Plan()
 	planwithcons_notnot_info(cons_notnot,task,sort,robot,cons_notnotMax,taskMax);
 	for(i = 0; i <= taskMax; i++)
    	{
- 		if(task[i].getTaskAction() != "give")	
+ 		if(task[i].getTaskAction() != "give")
    		{
 			G.setStatus(task[i].getTaskAct1(),task[i].getTaskAct2(),task[i].getTaskAction());
 		}
