@@ -74,7 +74,6 @@ void Devil::Plan()
 //			cout<<sort[i].getsName()<<" "<<sort[i].getsLocked()<<endl;
 //		}
 //    }
-	getLostLocFromTask(task,taskMax,sort);
 	printScence(robot,sort,senceMax);
     printTask(task,taskMax);
     printInfoCons(info,infoMax,"info");
@@ -83,6 +82,8 @@ void Devil::Plan()
 
     planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
 	planwithcons_notnot_info(cons_notnot,task,sort,robot,cons_notnotMax,taskMax);
+	getLostLocFromTask(task,taskMax,sort);
+
 	for(i = 0; i <= taskMax; i++)
    	{
  		if(task[i].getTaskAction() != "give")
