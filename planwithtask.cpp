@@ -129,6 +129,7 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 				}
 				if(checkPutinFirst(i,G.getDirection(i,j),G) == 0) //only_putin
 				{
+					cout<<" checkPutInFirst -> "<<"0"<<endl;
 					getSort(i,sort,robot,G);
 					move(j,sort,robot);
 					cout<<"this putin I'm move"<<endl;

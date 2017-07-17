@@ -75,8 +75,4 @@ void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sor
 			}
 		}
 	}
-
-
-
-
 }

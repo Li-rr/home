@@ -84,6 +84,8 @@ void Devil::Plan()
 	planwithcons_notnot_info(cons_notnot,task,sort,robot,cons_notnotMax,taskMax);
 	getLostLocFromTask(task,taskMax,sort);
 
+
+	dealwithputdown(task,taskMax,sort,robot);
 	for(i = 0; i <= taskMax; i++)
    	{
  		if(task[i].getTaskAction() != "give")

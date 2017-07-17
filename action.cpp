@@ -200,17 +200,23 @@ int checkOpen(int sot,Sort sort[])
 
 int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 {
-	cout<<"==================================================="<<endl;
+	cout<<"\n==================================================="<<endl;
 	int flag = 0;
+	if(!sort[sot-1].getsClosed())
+	{
+		cout<<"No."<<sot<<" closed "<<sort[sot-1].getsClosed()<<endl;
+		cout<<"==================================================="<<endl;
+		return 1;
+	}
 //	if(G.getStatus(sot,0)==0)
 //	  return 1;
 	int checkHold = 0, checkPlate=0;
-	cout<<"this is open, i will checkHold\n";
+	cout<<"\nthis is open, i will checkHold\n";
 	checkHold = checkConnectionSmall(robot.getHold(),G);
-	cout<<"this is open, checkHold is over\n";
-	cout<<"this is open, i will checkPlate\n";
+	cout<<"\nthis is open, checkHold is over\n";
+	cout<<"\nthis is open, i will checkPlate\n";
 	checkPlate = checkConnectionSmall(robot.getPlate(),G);
-	cout<<"this is open, checkPlate is over\n";
+	cout<<"\nthis is open, checkPlate is over\n";
 	if(robot.getUsehold()==0&&robot.getUseplate()==0)
     {
 		cout<<"deal with something in open()\n";
@@ -428,7 +434,7 @@ int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
 {
 	int flag = 0,flag2=0;
 	int act1;
-	open(sot,sort,robot,G);
+//	open(sot,sort,robot,G);
 	if(robot.getHold()==0&&robot.getPlate()!=0)
 	{
 		FromPlate(robot.getPlate());
@@ -540,6 +546,7 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 }
 int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 {
+	cout<<"\n\nthis is pickup()\n\n";
 	int flag = 0;
 	if(robot.getHold()!=sot&&robot.getHold()!=0&&robot.getUsehold()==0)
 	{
@@ -558,11 +565,15 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
     }
 	if(sort[sot-1].getsInside()==-1)
 	{
+		cout<<"i will pickup -> "<<sot;
 		flag = PickUp(sot);
+		cout<<" result -> "<<flag<<endl;
 	}
 	else
 	{	
+		cout<<" i will takeout -> "<<sot;
 		flag = takeout(sot,sort,robot,G);
+		cout<<" result -> "<<flag<<endl;
 	}
 	if(flag==1)
 	{
@@ -657,3 +668,53 @@ void Devil::dealwithgoto(Task task[],int taskNum,Sort sort[],Robot &robot)
 	}
 }
 
+void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
+{
+	cout<<"\n\nThis is dealwithputdown()\n\n";
+	int i,j;
+	int hold = robot.getHold();
+	int plate = robot.getPlate();
+	int flag1 = 0, flag2 = 0;
+	for(i = 0; i <= taskNum; i++)
+	{
+		if(robot.getUsehold() == 0 && robot.getUseplate() == 0)
+		{
+			cout<<"i -> "<<i<<" flag1 -> "<<flag1
+				<<" flag2 -> "<<flag2<<endl;
+			if( hold == 0 && plate == 0)
+			{
+				break;		
+			}
+			if( hold == task[i].getTaskAct1())
+			{
+				cout<<"this is hold "<<task[i].getTaskAct1()<<endl;
+					flag1 = 1;
+			}
+			if(plate == task[i].getTaskAct1())
+			{
+				cout<<"this is plate "<<task[i].getTaskAct1()<<endl;
+					flag2 = 1;
+			}
+			
+			
+		}
+	}
+
+	if(hold !=0 && plate != 0 && flag1 == 0 && flag2 == 0)
+	{
+		cout<<"i will putdown "<<hold<<" "<<plate<<endl;
+		PutDown(hold);
+		robot.setHold(0);
+		FromPlate(plate);
+		PutDown(plate);
+		robot.setPlate(0);
+	}
+	else if( flag1 == 0 && flag2 == 1)
+	{
+		cout<<"i will putdown "<<hold<<endl;
+		PutDown(hold);
+		robot.setHold(0);
+	}
+
+	cout<<"\n\ndealwithputdown() is over\n"<<endl;
+}

@@ -32,6 +32,7 @@ namespace _home
 		int putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G);
 		int putdown(int sot,Sort sort[],Robot &robot,Graph &G);
 		int pickup(int sot,Sort sort[],Robot &robot,Graph G);
+		void dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot);
 		void dealwithgoto(Task task[],int taskNum,Sort sort[],Robot &robot);
 		void dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot);
 		void checkHold(Robot &robot,Graph &G);
