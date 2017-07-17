@@ -718,3 +718,11 @@ void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
 
 	cout<<"\n\ndealwithputdown() is over\n"<<endl;
 }
+
+void Devil::sense(int obj)
+{
+	vector <unsigned int> sort;
+	Sense(sort);
+	for(vector<unsigned int>::iterator it = sort.begin();it!=sort.end();it++)
+		cout<<"I can see "<<*it<<" My location is "<<robot.getLoc()<<endl;
+}
