@@ -456,6 +456,17 @@ int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
 		getSort(smallsot,sort,robot,G);
 		flag = PutIn(robot.getHold(),sot);
 	}
+	if(flag == 0)
+	{
+		PutDown(robot.getHold());
+		Open(sot);
+		PickUp(robot.getHold());
+		flag = PutIn(robot.getHold(),sot);
+	}
+	if(flag == 0)
+	{
+		sense(robot);
+	}
 	robot.setHold(0);
 	sort[act1-1].setsInside(sot);
 	cout<<"Sir, I'm put "<<act1 <<" in "<<sot<<endl;
@@ -719,7 +730,7 @@ void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
 	cout<<"\n\ndealwithputdown() is over\n"<<endl;
 }
 
-void Devil::sense(int obj)
+void Devil::sense(Robot robot)
 {
 	vector <unsigned int> sort;
 	Sense(sort);

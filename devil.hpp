@@ -27,7 +27,7 @@ namespace _home
 		void planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Robot &robot,int consnotNum, int taskNum,Graph G );
 		void planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sort[],Robot &robot,int consnotnotNum,int taskNum);
     protected:
-		void sense(int obj);
+		void sense(Robot robot);
 		int close(int sot,Sort sort[],Robot &robot,Graph &G);
 		int getSort(int sot,Sort sort[],Robot &robot,Graph G);
 		int putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G);
