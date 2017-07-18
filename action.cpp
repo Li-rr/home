@@ -709,7 +709,7 @@ void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
 			cout<<"i -> "<<i<<" flag1 -> "<<flag1
 				<<" flag2 -> "<<flag2<<endl;
 			if( hold == 0 && plate == 0)
-			{
+			{ 
 				break;		
 			}
 			if( hold == task[i].getTaskAct1())
@@ -721,11 +721,12 @@ void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
 			{
 				cout<<"this is plate "<<task[i].getTaskAct1()<<endl;
 					flag2 = 1;
-			}
+	 		}
 			
 			
 		}
 	}
+
 
 	if(hold !=0 && plate != 0 && flag1 == 0 && flag2 == 0)
 	{
@@ -736,7 +737,7 @@ void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
 		PutDown(plate);
 		robot.setPlate(0);
 	}
-	else if( flag1 == 0 && flag2 == 1)
+	if( hold != 0 && flag1 == 0 && flag2 == 1)
 	{
 		cout<<"i will putdown "<<hold<<endl;
 		PutDown(hold);
