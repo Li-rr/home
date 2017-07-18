@@ -669,7 +669,7 @@ void Devil::getLostLocFromTask(Task task[],int taskNum,Sort sort[])
 
 void Devil::dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot,Graph G)
 {
-	cout<<"\nthis is dealwithpickup()\n";
+	cout<<"\nthis is dealwithpickup() \n";
 	for(int i = 0; i <= taskNum; i++)
 	{
 		if(task[i].getTaskAction()=="pickup")
