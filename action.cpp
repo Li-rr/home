@@ -236,6 +236,7 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 		if(checkHold!=0&&checkPlate==0&&robot.getHold()!=0&&robot.getPlate()!=0)
 		{
 			cout<<"I need my hand and i don't need my plate,so i will putdown my plate,let my hand to my plate"<<endl;
+			cout<<"这个地方步骤有些多余,还可以省略"<<endl;
 			PutDown(robot.getHold());
 			FromPlate(robot.getPlate());
 			PutDown(robot.getPlate());
@@ -255,6 +256,8 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
  		if(checkHold==0&&robot.getHold()!=0)
 		{
 			cout<<"Before open action,my hand has a useless sort,i will putdown ->"<<robot.getHold()<<endl;
+			
+
 			PutDown(robot.getHold());
 			robot.setHold(0);
 		}
@@ -434,9 +437,18 @@ int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
 {
 	int flag = 0,flag2=0;
 	int act1;
-//	open(sot,sort,robot,G);
-	if(robot.getHold()==0&&robot.getPlate()!=0)
+	cout<<"\nmy location is -> "<<robot.getLoc()<<endl;
+	cout<<"\nmy sort location is -> "<<sort[smallsot-1].getsLoc()<<endl;
+	if(robot.getPlate() != smallsot && robot.getHold() == 0 && robot.getLoc() == sort[smallsot-1].getsLoc())
 	{
+		PickUp(smallsot);
+		robot.setHold(smallsot);
+	}
+//	open(sot,sort,robot,G);
+	if(robot.getHold()==0&&robot.getPlate() == smallsot)
+	{
+		cout<<"my plate -> "<<robot.getPlate()<<" now put it to hand"<<endl;
+		cout<<"smallsot -> "<<smallsot<<endl;
 		FromPlate(robot.getPlate());
 		robot.setHold(robot.getPlate());
 		robot.setPlate(0);
@@ -661,6 +673,10 @@ void Devil::dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot)
 	{
 		if(task[i].getTaskAction()=="pickup")
 		{
+			if(robot.getHold() == task[i].getTaskAct1() || robot.getPlate()== task[i].getTaskAct1())
+			{
+				break;
+			}
 			move(task[i].getTaskAct1(),sort,robot);
 			
 			PickUp(task[i].getTaskAct1());
