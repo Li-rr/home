@@ -35,7 +35,7 @@ namespace _home
 		int pickup(int sot,Sort sort[],Robot &robot,Graph G);
 		void dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot);
 		void dealwithgoto(Task task[],int taskNum,Sort sort[],Robot &robot);
-		void dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot);
+		void dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot,Graph G);
 		void checkHold(Robot &robot,Graph &G);
 		void checkPlate(Robot &plate,Graph G);
         void Plan();

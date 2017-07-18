@@ -101,7 +101,7 @@ void Devil::Plan()
 	}
 	printTask(task,taskMax);
     planWithtask(task,sort,taskMax,senceMax,robot,G);
-	dealwithpickup(task,taskMax,sort,robot);
+	dealwithpickup(task,taskMax,sort,robot,G);
 	dealwithgoto(task,taskMax,sort,robot);
 // //  vector <unsigned int> test;
   // Sense(test);

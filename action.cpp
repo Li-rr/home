@@ -667,8 +667,9 @@ void Devil::getLostLocFromTask(Task task[],int taskNum,Sort sort[])
 }
 
 
-void Devil::dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot)
+void Devil::dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot,Graph G)
 {
+	cout<<"\nthis is dealwithpickup()\n";
 	for(int i = 0; i <= taskNum; i++)
 	{
 		if(task[i].getTaskAction()=="pickup")
@@ -677,12 +678,26 @@ void Devil::dealwithpickup(Task task[],int taskNum,Sort sort[],Robot &robot)
 			{
 				break;
 			}
-			move(task[i].getTaskAct1(),sort,robot);
-			
+			getSort(task[i].getTaskAct1(),sort,robot,G);
+		/*	
+		 	move(task[i].getTaskAct1(),sort,robot);
+			if(robot.getHold() != 0 && robot.getPlate() == 0)
+			{
+				ToPlate(robot.getHold());
+				robot.setHold(0);
+			}
+			else if(robot.getHold() !=0 && robot.getPlate() != 0)
+			{
+				PutDown(robot.getHold());
+				robot.setHold(0);
+			}
+
 			PickUp(task[i].getTaskAct1());
 			robot.setHold(task[i].getTaskAct1());
+		*/
 		}
 	}
+	cout<<"\ndealwithpickup is over\n";
 }
 void Devil::dealwithgoto(Task task[],int taskNum,Sort sort[],Robot &robot)
 {
