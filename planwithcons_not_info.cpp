@@ -63,7 +63,8 @@ void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sor
 	{
 		for(j  = 0; j <= consnotnotNum; j++)
 		{
-			if(task[i].getTaskNamex() == cons_notnot[j].getNamex())
+			if(task[i].getTaskNamex() == cons_notnot[j].getNamex()
+				&& task[i].getTaskColorx() == cons_notnot[j].getColorx())
 			{
 				cout<<"This task same with cons_not, i will destory it\n";
 				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
