@@ -140,11 +140,11 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			}
 			if(G.getDirection(i,j)==2)	//close.低级处理
 			{
-				cout<<"This is run close\n";
+				cout<<"\nThis is run close\n";
 				if(sort[i-1].getsClosed() == 0)
 					move(i,sort,robot);
 				G.setStatus(i,j,close(i,sort,robot,G));
-				cout<<"run close over\n";
+				cout<<"\nrun close over\n";
 			}
 			if(G.getDirection(i,j)==-2) //open
 			{

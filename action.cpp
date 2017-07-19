@@ -308,8 +308,15 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 
 int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
 {
+	cout<<"\nthis is takeout\n";
 	int flag = 0,checkOpen = 0;
 	int act2 = sort[sot-1].getsInside();
+	cout<<"this is my location -> "<<robot.getLoc()
+		<<" the target location is -> "<<sort[act2-1].getsLoc()<<endl;
+	if(robot.getLoc() != sort[act2-1].getsLoc())
+	{
+		move(act2,sort,robot);
+	}
 //	if(G.getStatus(sot,act2)==0)
 //	  return 0;
 	cout<<"This is take -> "<<sot<<" from -> "<<act2<<endl;
@@ -340,6 +347,7 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
         sort[sot-1].setsInside(-1);
     }
 	cout<<"Sir, I'm takeout: "<<sot<<" from "<<act2<<endl;
+	cout<<"takeout is over\n";
 	return flag;
 }
 
