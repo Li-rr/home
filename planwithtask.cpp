@@ -59,6 +59,43 @@ int checkPutinFirst(int sort,int present,Graph G)
 	}
 	return 0;
 }
+/*
+//获取putin任务的小物体的编号
+int getPutinSortNum(int sort,Graph G)
+{
+	cout<<"\nthis is getPutinSortNum\n";
+	int i;
+	for(i = 0; i < maxNode; i++)
+	{
+		if(G.getDirection(i.sort) == 1 && G.getStatus(i,sort) == 1)
+		{
+			cout<<"i get it -> "<<i<<endl;
+			return i;
+		}
+	}
+	cout<<"\ngetPutinSortNum is over\n";
+}*/
+int checkPutin(int sort,int present,int &target,Graph G)
+{
+	cout<<"\nthis is checkPutin\n";
+	int i;
+	cout<<"sort -> "<<sort<<endl;
+	for(i = 0;i < maxNode; i++)
+	{
+		if(G.getDirection(i,sort) == present)
+		{
+			continue;
+		}
+		if(G.getDirection(i,sort) == 1 && G.getStatus(i,sort)==1)
+		{
+			cout<<"\ncheckPutin is over()\n";
+			target = i;
+			return 1;
+		}
+	}
+	cout<<"\ncheckPutin is over()\n";
+	return 0;
+}
 int getPutinSort(int sort,Graph G)
 {
 	int i;
@@ -141,6 +178,17 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			if(G.getDirection(i,j)==2)	//close.低级处理
 			{
 				cout<<"\nThis is run close\n";
+				int smallsort = 0;
+				int signedTask = checkPutin(i,2,smallsort,G);
+				if(signedTask == 1)
+				{		
+					cout<<"Before close, i have another task -> "<<signedTask<<endl;
+					cout<<" put "<<smallsort<<" in "<<i<<endl;
+					getSort(smallsort,sort,robot,G);
+					move(i,sort,robot);
+					open(i,sort,robot,G);
+					G.setStatus(smallsort,i,putin(smallsort,i,sort,robot,G));
+				}
 				if(sort[i-1].getsClosed() == 0)
 					move(i,sort,robot);
 				G.setStatus(i,j,close(i,sort,robot,G));
