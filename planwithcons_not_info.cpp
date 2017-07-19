@@ -58,6 +58,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
 }
 void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sort[],Robot &robot,int consnotnotNum,int taskNum)
 {
+	cout<<"\n this is planwithcons_notnot_info()\n";
 	int i,j;
 	for(i = 0; i <= taskNum; i++)
 	{
@@ -66,14 +67,28 @@ void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sor
 			if(task[i].getTaskNamex() == cons_notnot[j].getNamex()
 				&& task[i].getTaskColorx() == cons_notnot[j].getColorx())
 			{
-				cout<<"This task same with cons_not, i will destory it\n";
+				cout<<"This task same with cons_notnot, i will destory it\n";
 				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
-					<<task[i].getTaskAction()<<"  "
-					<<task[i].getTaskNamex()<<"  "
+					<<task[i].getTaskAction()<<" namex : "
+					<<task[i].getTaskNamex()<<" color : "
+					<<task[i].getTaskColorx()<<" namey : "
 					<<task[i].getTaskNamey()<<endl;
+				task[i].setTaskAction("","X","Y");
+				continue;
+			}
+			if(task[i].getTaskNamex() == cons_notnot[j].getNamex() && task[i].getTaskColorx() == " " )
+			{
+				cout<<"This task name same with cons_notnot and color is null, i will destory it\n";
+				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
+					<<task[i].getTaskAction()<<" namex : "
+					<<task[i].getTaskNamex()<<" color : "
+					<<task[i].getTaskColorx()<<" namey :"
+					<<task[i].getTaskNamey()<<endl;
+
 				task[i].setTaskAction("","X","Y");
 
 			}
 		}
 	}
+	cout<<"\nplanwithcons_notnot_info() is over\n\n";
 }
