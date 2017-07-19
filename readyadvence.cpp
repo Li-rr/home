@@ -339,6 +339,7 @@ void judgewithCons(InfoCons cons_nn[],int consNn,Task task[],int taskNum,Sort so
  */
 void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 {
+	cout<<"\n this is aboutTaskLackMatch\n";
 	int i = 0,j = 0,k=0;
 	for( i=0; i<=tNum; i++)
 	{
@@ -390,10 +391,11 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 		}
 		}
 	}
+	cout<<"\n this is aboutTaskLackMatch\n";
 }
 void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
 {
-	cout<<"This is updateTask\n";
+	cout<<"\nThis is updateTask\n";
     int i=0,j=0;
     for(i=0;i<= taskNum;i++)
     {
@@ -422,6 +424,9 @@ void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
                     }
 					if(task[i].used==0&&sort[j].getsStatic(sort[j].getsName())==1&&sort[j].getsLocked()==0)
 					{
+						cout<<"Task."<<task[i].getTaskAction()<<" name."<<task[i].getTaskNamex()
+							<<" colorx."<<task[i].getTaskColorx()<<endl;
+						cout<<"Sort."<<sort[j].getsName()<<" color."<<sort[j].getsColor()<<endl;
 						task[i].setTaskAct1(j+1);
 						task[i].used=1;
 						sort[j].used=1;
@@ -470,7 +475,7 @@ void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
         }
     }
     aboutTaskLackMatch(task,sort,sortNum,taskNum,robot);
-	cout<<"updateTask is over\n";
+	cout<<"\nupdateTask is over\n";
 }
 void updateTaskCons_not_notnot(Sort sort[],Task task[],InfoCons consNn[],InfoCons consn[],Robot robot,int sNum,int tNum,int cNum,int cnNum)
 {
@@ -1293,17 +1298,31 @@ void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int
 		flag = 0;
 		for(j = 0; j < SNum; j++)
 		{
-			if( task[i].getTaskNamex() == sort[j].getsName()&&!sort[j].getsLocked())
+			if(task[i].getTaskAct1() != 0)
 			{
-				cout<<sort[j].getsName()<<"  "<<sort[j].getsColor()<<"  "<<sort[j].getsLocked()<<endl;
+				continue;
+			}
+			if( task[i].getTaskNamex() == sort[j].getsName()&&!sort[j].getsLocked()&&!sort[j].used)
+			{
+				cout<<"Name."<<sort[j].getsName()
+					<<" Color. "<<sort[j].getsColor()
+					<<"  Locked."<<sort[j].getsLocked()
+					<<" Used."<<sort[j].used<<endl;
 				if( task[i].getTaskColorx() == sort[j].getsColor())
 				{
 					task[i].setTaskAct1(sort[j].getsNum());
 					flag = 1;
+					task[i].used = 1;
+					sort[j].used = 1;
+					sort[j].needMatch = 0;
 				}
 				if( flag == 1)
 					continue;
 				task[i].setTaskAct1(sort[j].getsNum());
+				task[i].used = 1;
+				sort[j].used = 1;
+				sort[j].needMatch = 0;
+				
 			}
 		}
 	}
