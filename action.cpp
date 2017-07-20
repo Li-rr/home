@@ -333,6 +333,12 @@ int Devil::takeout(int sot,Sort sort[],Robot &robot,Graph G)
     {
         cout<<"door is opened\n";
     }
+	if(robot.getHold()!=0 && robot.getPlate() == 0 && robot.getUseplate() == 0)
+	{
+		ToPlate(robot.getHold());
+		robot.setPlate(robot.getHold());
+		robot.setHold(0);
+	}
     flag = TakeOut(sot,act2);
 	if(flag == 0)
 	{
@@ -494,14 +500,16 @@ int Devil::putin(int smallsot,int sot,Sort sort[],Robot &robot,Graph &G)
 }
 int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
 {
-	cout<<"This is puton()\n";
+	cout<<"\nThis is puton()\n";
 	int flag = 0,obj2;
 	getSort(sotx,sort,robot,G);
 	obj2 = checkConnectionBig(soty,G,G.getDirection(sotx,soty),sotx);
 	cout<<"This is puton obj2 --> "<<obj2<<endl;
-	if(obj2 != 0)
+	if(obj2 != 0 && robot.getUseplate() == 0)
     {
+		cout<<"\nthis is puton i want to get other sort, i will into getsort\n";
         getSort(obj2,sort,robot,G);
+		cout<<"\n i come from getsort to puton\n";
     }
     move(soty,sort,robot);
     if(obj2 == 0)
