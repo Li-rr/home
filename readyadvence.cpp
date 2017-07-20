@@ -911,6 +911,21 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
     cout<<"snum-->"<<SNum<<" infoNUm--> "<<infoNum<<endl;
     int i,j,inside=0,flag;
 	int obj1,obj2;
+	int hold,plate;
+	
+	hold = robot.getHold();
+	plate = robot.getPlate();
+
+	if( hold != 0 && sort[hold-1].getsLoc() == -1)
+	{
+		cout<<"this sort in my hold, my locaion is "<<robot.getLoc()<<endl;
+		sort[hold-1].setsLoc(robot.getLoc());		
+	}
+	if(plate !=0 && sort[plate-1].getsLoc() == -1)
+	{
+		cout<<"this sort in my plate, my location is "<<robot.getLoc()<<endl;
+		sort[plate-1].setsLoc(robot.getLoc());
+	}
     for( i =0; i<SNum; i++)
     {
         for(j=0; j<=infoNum; j++)
