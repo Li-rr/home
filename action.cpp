@@ -503,6 +503,7 @@ int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
 	cout<<"\nThis is puton()\n";
 	int flag = 0,obj2;
 	getSort(sotx,sort,robot,G);
+	//此处obj2为另一个任务中的小物体，其目的地与当前任务相同
 	obj2 = checkConnectionBig(soty,G,G.getDirection(sotx,soty),sotx);
 	cout<<"This is puton obj2 --> "<<obj2<<endl;
 	if(obj2 != 0 && robot.getUseplate() == 0)
