@@ -35,4 +35,5 @@ void printTask(Task task[],int count);
 void printScence(Robot  robot,Sort sort[],int count);
 void printInfoCons(InfoCons info[],int count,string SIGN);
 
+int judgeIsNotPutDownPlate(Task task[],Sort sort[],int tNum,Robot &robot);
 #endif

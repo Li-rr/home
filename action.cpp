@@ -765,16 +765,16 @@ void Devil::dealwithputdown(Task task[],int taskNum,Sort sort[],Robot &robot)
 		cout<<"i will putdown "<<hold<<" "<<plate<<endl;
 		PutDown(hold);
 		robot.setHold(0);
-		FromPlate(plate);
-		PutDown(plate);
-		robot.setPlate(0);
+	//	FromPlate(plate);
+	//	PutDown(plate);
+	//	robot.setPlate(0);
 	}
 	if( hold != 0 && flag1 == 0 && flag2 == 1)
 	{
 		cout<<"i will putdown "<<hold<<endl;
 		PutDown(hold);
 		robot.setHold(0);
-	}
+	} 
 
 	cout<<"\n\ndealwithputdown() is over\n"<<endl;
 }

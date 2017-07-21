@@ -1374,3 +1374,53 @@ void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int
 */
 	cout<<"\nreleaseSenceBycons is over\n\n\n\n";
 }
+
+//此函数是用来判断盘子里的是否需要放下
+int judgeIsNotPutDownPlate(Task task[],Sort sort[],int tNum,Robot &robot)
+{
+	
+	cout<<"\nThis is judgeIsNotPutDownPlate\n";
+//	printScence(robot,sort,18);
+	int flag = 0;
+	int plate = robot.getPlate();
+	int i,j;
+	int sot1,sot2;
+/*	if(plate == 0)
+	{
+		cout<<"\njudegeIsNotPutDownPlate is over\n";
+		flag0;
+	}
+	*/
+	if(plate = 0)
+	{
+		flag = 1;
+	}
+	for(i = 0; i <= tNum; i++)
+	{
+		if(task[i].getTaskAction() == "" )
+		{
+			continue;
+		}
+		if(plate == task[i].getTaskAct1())
+		{
+			flag = 1;
+		}
+		sot1 = task[i].getTaskAct1();
+		for(j = i+1; j <= tNum; j++)
+		{
+			sot2 = task[j].getTaskAct1();
+			if(sort[sot1-1].getsLoc()==sort[sot2-1].getsLoc())
+			{
+				cout<<"i: "<<i<<" j: "<<j<<" "<<sort[sot1-1].getsName()<<" "<<sort[sot2-1].getsName()<<" ";
+				cout<<"i need my plate putdown"<<endl;
+				flag = 1;
+			}
+		}
+	}
+	if(flag == 0)
+	{
+		robot.setUseplate(1);
+	}
+	return flag;
+	cout<<"\njudegeIsNotPutDownPlate is over\n";
+}
