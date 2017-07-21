@@ -6,6 +6,6 @@
 #include "Nature.h"
 #include "Robot.h"
 #include "InfoCons.h"
-#include "two_table.h"
+#include "Graph.h"
 #include "readyadvence.h"
 #endif

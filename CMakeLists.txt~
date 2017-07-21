@@ -15,7 +15,7 @@ FILE(GLOB lrr-5_SRCS
     class.h
     readyadvence.h
     readyadvence.cpp
-    two_table.h
+    Graph.h
 	planwithtask.cpp
 	planwithcons_not_info.cpp
 	action.cpp
