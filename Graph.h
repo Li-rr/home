@@ -1,4 +1,7 @@
 #define maxNode 25
+#define In 1
+#define Out 0
+#define Unknown -1
 class Node
 {
 	public:
@@ -6,11 +9,35 @@ class Node
 		int direction;
 		string action;
 };
+class Obj
+{
+	public:
+		int num;
+		int direction;
+
+		Obj()
+		{
+			num = Unknown;
+			direction = Unknown;
+		}
+};
+class Map
+{
+	public:	
+		Obj obj[6];
+		int objNum;
+
+		Map()
+		{
+			objNum = 0;
+		}
+};
 class Graph
 {
 	public:
 		Graph()
 		{
+			mapNum = 0;
 			for(int i=0;i<maxNode;i++)
 			{
 				for(int j=0;j<maxNode;j++)
@@ -21,6 +48,7 @@ class Graph
 				}
 			}
 		}
+		void setTaskMap()
 		void setStatus(int act1,int act2,string action)
 		{
 			VerList[act1][act2].status = 1;
@@ -97,4 +125,6 @@ class Graph
 		}
 	private:
 		Node VerList[maxNode][maxNode];
+		Map taskMap[10];
+		int mapNum;
 };
