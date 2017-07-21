@@ -1295,24 +1295,32 @@ void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int
 	int hold = robot.getHold();
 	int plate = robot.getPlate();
 
-	cout<<"\nthis is robot.hold ->"<<sort[hold-1].getsNum()<<"  "
-	   <<sort[hold-1].getsName()<<"  "
-	   <<sort[hold-1].getsColor()<<"  "
-	   <<sort[hold-1].getsConsnot()<<endl;
-	
-	cout<<"\nthis is robot.plate ->"<<sort[plate-1].getsNum()<<"  "
-		<<sort[plate-1].getsName()<<"  "
-		<<sort[plate-1].getsColor()<<"  "
-		<<sort[plate-1].getsConsnot()<<endl<<endl;
-
-	robot.setUsehold(sort[hold-1].getsConsnot());
-	robot.setUseplate(sort[plate-1].getsConsnot());
-	
+	if(hold != 0)
+	{
+		cout<<"\nthis is robot.hold ->"<<sort[hold-1].getsNum()<<"  "
+	  	    <<sort[hold-1].getsName()<<"  "
+		    <<sort[hold-1].getsColor()<<"  "
+	  	    <<sort[hold-1].getsConsnot()<<endl;
+		robot.setUsehold(sort[hold-1].getsConsnot());
+	}
+	if(plate != 0)
+	{
+		cout<<"\nthis is robot.plate ->"<<sort[plate-1].getsNum()<<"  "
+			<<sort[plate-1].getsName()<<"  "
+			<<sort[plate-1].getsColor()<<"  "
+			<<sort[plate-1].getsConsnot()<<endl<<endl;
+		robot.setUseplate(sort[plate-1].getsConsnot());
+	}
 	for(i = 0; i <= tNum; i++)
 	{
 		flag = 0;
 		for(j = 0; j < SNum; j++)
 		{
+			/*		cout<<"Name."<<sort[j].getsName()
+					<<" Color. "<<sort[j].getsColor()
+					<<"  Locked."<<sort[j].getsLocked()
+					<<" Used."<<sort[j].used<<endl;
+			*/
 			if(task[i].getTaskAct1() != 0)
 			{
 				continue;
@@ -1341,7 +1349,7 @@ void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int
 			}
 		}
 	}
-	for(i = 0; i < SNum; i++)
+/*	for(i = 0; i < SNum; i++)
 	{
 		if(i <= infoNum)
 		{
@@ -1363,5 +1371,6 @@ void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int
 				<<sort[i].getsConsnot()<<endl;
 		}
 	}
+*/
 	cout<<"\nreleaseSenceBycons is over\n\n\n\n";
 }
