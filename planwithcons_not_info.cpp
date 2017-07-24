@@ -8,7 +8,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
     int obj1,obj2;
     for(i=0 ; i <= consnotNum; i++)
     {
-        if(cons_not[i].getState()=="on")
+     /*   if(cons_not[i].getState()=="on")
         {
 
         }
@@ -20,6 +20,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
         {
 
         }
+	*/
         if(cons_not[i].getState()=="inside")
         {
                 obj1 = cons_not[i].getState1();
@@ -30,7 +31,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
                  takeout(obj1,sort,robot,G);
                 }
         }
-        if(cons_not[i].getState()=="opened")
+    /*  if(cons_not[i].getState()=="opened")
         {
 
         }
@@ -38,12 +39,13 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
         {
 
         }
-    }
+   */
+	}
 	for( i = 0 ; i <= taskNum; i++)
 	{
 		for(j = 0; j <= consnotNum; j++)
 		{
-			if(task[i].getTaskNamex() == cons_not[j].getNamex())
+			if(task[i].getTaskNamex() == cons_not[j].getNamex() && task[i].getTaskColorx() == " ")
 			{
 				cout<<"This task same with cons_not, i will destory it\n";
 				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
