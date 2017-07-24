@@ -403,7 +403,7 @@ void updateTask(Sort sort[],Task task[],int sortNum,int taskNum,Robot &robot)
         for(j=0;j<sortNum;j++)
         {
          //   if(task[i].getTaskNamex()==sort[j].getsName()&&sort[j].getsLocked()==0)
-           	if(task[i].getTaskNamex()==sort[j].getsName() && sort[j].getsLoc()!=-1)
+           	if(task[i].getTaskNamex()==sort[j].getsName())
 		   	{
                // cout<<"This taskx match "<<task[i].getTaskNamex()<<endl;
                 sort[j].needMatch=1;
