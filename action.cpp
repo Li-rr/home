@@ -236,15 +236,15 @@ int Devil::open(int sot,Sort sort[],Robot &robot,Graph G)
 		if(checkHold!=0&&checkPlate==0&&robot.getHold()!=0&&robot.getPlate()!=0)
 		{
 			cout<<"I need my hand and i don't need my plate,so i will putdown my plate,let my hand to my plate"<<endl;
-			cout<<"这个地方步骤有些多余,还可以省略"<<endl;
+		//	cout<<"这个地方步骤有些多余,还可以省略"<<endl;
 			PutDown(robot.getHold());
-			FromPlate(robot.getPlate());
-			PutDown(robot.getPlate());
-			PickUp(robot.getHold());
-			ToPlate(robot.getHold());
+		//	FromPlate(robot.getPlate());
+		//	PutDown(robot.getPlate());
+		//	PickUp(robot.getHold());
+		//	ToPlate(robot.getHold());
 
-			robot.setPlate(robot.getHold());
-			robot.setHold(robot.getPlate());
+		//	robot.setPlate(robot.getHold());
+			robot.setHold(0);
 		}
   //      if(checkConnectionSmall(robot.getHold(),G)!= 0 && robot.getHold()!=0)
   //    {
@@ -399,7 +399,13 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph &G)
 			flag=Close(sot);
 			sort[sot-1].setsClosed(1);
 			cout<<"Sir, I'm closed the: "<<sot<<endl;
-			return 1;
+		}
+		else if(robot.getHold()!=0 && robot.getPlate()!=0)
+		{
+			PutDown(robot.getHold());
+			flag = Close(sot);
+			PickUp(robot.getHold());
+			cout<<"Sir, I'm closed the: "<<sot<<endl; 
 		}
 		if(robot.getHold()==0)
 		{
@@ -506,12 +512,16 @@ int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
 	//此处obj2为另一个任务中的小物体，其目的地与当前任务相同
 	obj2 = checkConnectionBig(soty,G,G.getDirection(sotx,soty),sotx);
 	cout<<"This is puton obj2 --> "<<obj2<<endl;
-	if(obj2 != 0 && robot.getUseplate() == 0)
+	if(obj2 != 0 && robot.getPlate()==0)
     {
 		cout<<"\nthis is puton i want to get other sort, i will into getsort\n";
         getSort(obj2,sort,robot,G);
 		cout<<"\n i come from getsort to puton\n";
     }
+	else 
+	{
+		obj2 = 0;
+	}
     move(soty,sort,robot);
     if(obj2 == 0)
     {
@@ -519,7 +529,8 @@ int Devil::puton(int sotx,int soty,Sort sort[],Robot &robot,Graph &G)
        // flag = putdown(robot.getHold(),sort,robot,G); //pickup --bug
 	   	flag = putdown(sotx,sort,robot,G);
         robot.setHold(0);
-    }else
+    }
+	else
     {
         cout<<"puton---obj1---obj2\n";
         cout<<"robot.getHold()---"<<robot.getHold()<<endl;
