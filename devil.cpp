@@ -80,7 +80,7 @@ void Devil::Plan()
    // printInfoCons(cons_not,cons_not_Max,"cons_not");
    // printInfoCons(cons_notnot,cons_notnotMax,"cons_notnot");
 
-    planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
+//    planwithcons_not_info(cons_not,task,sort,robot,cons_not_Max,taskMax,G);
 	planwithcons_notnot_info(cons_notnot,task,sort,robot,cons_notnotMax,taskMax);
 	getLostLocFromTask(task,taskMax,sort);
 //	judgeIsNotPutDownPlate(task,sort,taskMax,robot);
