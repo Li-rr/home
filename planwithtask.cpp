@@ -82,8 +82,8 @@ int checkPutin(int sort,int present,int &target,Graph G)
 	cout<<"sort -> "<<sort<<endl;
 	for(i = 0;i < maxNode; i++)
 	{
-		if(G.getDirection(i,sort) == present)
-		{
+	 	if(G.getDirection(i,sort) == present)
+	 	{
 			continue;
 		}
 		if(G.getDirection(i,sort) == 1 && G.getStatus(i,sort)==1)
@@ -91,10 +91,29 @@ int checkPutin(int sort,int present,int &target,Graph G)
 			cout<<"\ncheckPutin is over()\n";
 			target = i;
 			return 1;
-		}
-	}
+	 	}
+	} 
 	cout<<"\ncheckPutin is over()\n";
 	return 0;
+}
+int checkTakeout(int sort,int present,int &target,Graph G)
+{
+	cout<<"\nthis is checkTakeout\n";
+	int i;
+	cout<<"sort -> "<<sort<<endl;
+	for(i=0; i< maxNode;i++)
+	{
+		if(G.getDirection(i,sort) == present)
+		{
+			continue;
+		}
+		if(G.getDirection(i,sort) == -1 && G.getStatus(i,sort) == 1)
+		{
+			cout<<"\ncheckTakeout is over\n";
+			target = i;
+			return -1;
+		}
+	}
 }
 int getPutinSort(int sort,Graph G)
 {
@@ -103,7 +122,7 @@ int getPutinSort(int sort,Graph G)
 	{
 		if(G.getDirection(sort,i)==-1 && G.getStatus(sort,i)==1)
 			return i;
-	}
+	} 
 	return 0;
 }
 void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &robot,Graph &G)
@@ -209,8 +228,19 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			if(G.getDirection(i,j)==-2) //open
 			{
 				cout<<"This is run open\n";
+				int smallsort = 0;
+				int signedTask = checkTakeout(i,-2,smallsort,G);
+				if(signedTask == -1)
+				{
+					cout<<"Before close, i have another task -> "<<signedTask<<endl;
+					cout<<" take "<<smallsort<<" out "<<i<<endl;
+					move(i,sort,robot);
+					G.setStatus(smallsort,i,takeout(smallsort,sort,robot,G));
+
+				}
 				move(i,sort,robot);
 				G.setStatus(i,j,open(i,sort,robot,G));
+				cout<<"\nrun open is over\n";
 			}
 			if(G.getDirection(i,j)==5)	//pickup
 			{
