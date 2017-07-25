@@ -146,6 +146,11 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 				{
 					Devil::move(i,sort,robot);
 					G.setStatus(i,j,Devil::takeout(i,sort,robot,G));
+					if(robot.getHold() == i)
+					{
+						PutDown(i);
+						robot.setHold(0);
+					}
 				}
 				if(checkConnection(j,G)==2)	//close
 				{
