@@ -1338,6 +1338,7 @@ void releaseSenceByCons(Sort sort[],InfoCons info[],Task task[],Robot &robot,int
 					task[i].used = 1;
 					sort[j].used = 1;
 					sort[j].needMatch = 0;
+					break;
 				}
 				if( flag == 1)
 					continue;
