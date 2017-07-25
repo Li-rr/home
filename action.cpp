@@ -651,10 +651,12 @@ int Devil::pickup(int sot,Sort sort[],Robot &robot,Graph G)
 	}
 	if(flag == 0)
 	{
-		vector <unsigned int> obj;
+		sense(robot);
+	/*	vector <unsigned int> obj;
 		Sense(obj);
 		for(vector<unsigned int>::iterator it =obj.begin();it!=obj.end();it++)
-			cout<<"I can see"<<*it<<" My location is "<<robot.getLoc()<<endl;
+			cout<<"I can see "<<*it<<" My location is "<<robot.getLoc()<<endl;
+	*/
 	}
 
 	return flag;
@@ -802,3 +804,5 @@ void Devil::sense(Robot robot)
 	for(vector<unsigned int>::iterator it = sort.begin();it!=sort.end();it++)
 		cout<<"I can see "<<*it<<" My location is "<<robot.getLoc()<<endl;
 }
+
+//针对第二阶段出现的错误设立
