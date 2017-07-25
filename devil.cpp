@@ -34,7 +34,7 @@ void Devil::Plan()
 	   cout<<TASK<<endl;
     }
     int senceMax= 0,taskMax=0,infoMax=0,cons_not_Max=0,cons_notnotMax=0;
-    int i=0;
+    int i=0,j=0;
 //    freopen("/tmp/Debug.txt","w",stdout);
     //////////////////////////////////////////////////
     dealwithsence(STR,sort,robot,senceMax);
@@ -55,25 +55,19 @@ void Devil::Plan()
   	releaseSenceByCons(sort,cons_not,task,robot,senceMax,cons_not_Max,taskMax);
    cout<<endl<<endl;
 //    printScence(robot,sort,senceMax);
-//    for(int i=0; i<senceMax; i++)
-//    {
-//        if(sort[i].getsType()=="container")
-//        {
-//            cout<<sort[i].getsNum()<<" ";
-//            printVector(sort[i].sinsideD);
-//            cout<<endl;
-//        }
-//		if(sort[i].getsSize()=="small")
-//			cout<<" book "<<sort[i].getsStatic("book")
-//				<<" cup "<<sort[i].getsStatic("cup")
-//				<<" can "<<sort[i].getsStatic("can")
-//				<<" remotecontrol "<<sort[i].getsStatic("remotecontrol")
-//				<<" bottle "<<sort[i].getsStatic("bottle")<<endl;
-//		if(sort[i].getsSize()=="small")
-//		{
-//			cout<<sort[i].getsName()<<" "<<sort[i].getsLocked()<<endl;
-//		}
-//    }
+	for( i =0; i < taskMax + 1;i++)
+	{
+		for(j = i+1 ; j < taskMax+1; j++)
+		{
+			if(task[i].getTaskAction() == "" || task[i].getTaskAct1() == 0)
+				continue;
+			if(task[i].getTaskAct1()==task[j].getTaskAct1())
+			{
+				 task[j].setTaskAction("","X","Y");
+				 break;
+			}
+		}
+	}
 	printScence(robot,sort,senceMax);
     printTask(task,taskMax);
     printInfoCons(info,infoMax,"info");
