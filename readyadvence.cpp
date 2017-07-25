@@ -347,7 +347,7 @@ void aboutTaskLackMatch(Task task[],Sort sort[],int sNum,int tNum,Robot &robot)
 		  continue;
 		for(j=0;j<sNum;j++)
 		{
-			if(task[i].getTaskNamex()==sort[j].getsName())
+			if(task[i].getTaskNamex()==sort[j].getsName() && !sort[j].used )
 			{
                 if(!sort[j].taskLock&&task[i].getTaskAction()=="takeout")
 				{
