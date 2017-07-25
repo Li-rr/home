@@ -120,7 +120,9 @@ void Devil::planWithtask(Task task[],Sort sort[],int taskNum,int sortNum,Robot &
 			  continue;
 			if(G.getDirection(i,j)==4)	//putdown
 			{
+				cout<<"\nthis is run putdown\n";
 				G.setStatus(i,j,putdown(i,sort,robot,G));
+				cout<<"\nputdown is over\n";
 			}
 			if(G.getDirection(i,j)==-4&&G.getStatus(i,j)==1) //puton
 			{

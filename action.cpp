@@ -551,7 +551,12 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 
 	int act1;
 	int flag = 0;
-	cout<<"I will put"<<sort[sot-1].getsName()<<" down"<<endl;
+	cout<<"I will put "<<sort[sot-1].getsName()<<" down"<<endl;
+	if(robot.getHold() != sot && robot.getPlate() != sot)
+	{
+		cout<<" I don't need putdown\n";
+		return 1;
+	}
 	if(robot.getHold()!=sot&&robot.getPlate()!=sot)
 	{
 		getSort(sot,sort,robot,G);
@@ -579,8 +584,8 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 			{
 				flag1 = 1;
 				break;
-			}
-		}
+		 	}
+		} 
 		if(flag1 == 1)
 		{
 			PutDown(robot.getHold());
@@ -589,7 +594,7 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 			robot.setHold(robot.getPlate());
 			robot.setPlate(0);
 			flag = PutDown(robot.getHold());
-		}
+		} 
 	}
 	if(flag==1)
 		robot.setHold(0);
