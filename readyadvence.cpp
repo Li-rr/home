@@ -973,7 +973,7 @@ void updateSenceByInfo(Sort sort[],InfoCons info[],Robot robot,int SNum,int info
                     sort[i].setsLoc(sort[obj1].getsLoc());
                     cout<<"this is info -- inside\n";
                 }
-                if(info[j].getState()=="plate")
+                if(info[j].getState()=="plate" && sort[i].getsLoc()==-1)
                 {
                     sort[i].setsLoc(robot.getLoc());
                 }
