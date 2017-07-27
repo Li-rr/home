@@ -420,6 +420,12 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 {
 	cout<<"\n***************************************\n";
 	cout<<"this is getSort\n";
+	if(robot.getHold() == sot)
+	{
+		cout<<"getSort is over\n";
+		cout<<"***************************************\n";
+		return 1;
+	}
 	int flag = 0;
 	checkHold(robot,G);
 	cout<<"I want get "<<sot<<endl;
@@ -441,7 +447,7 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
     else
     {
         cout<<"This sort loc same with me"<<endl;
-		if(robot.getHold() !=0 )
+		if(robot.getHold() !=0 && robot.getHold() != sot)
 		{
 			PutDown(robot.getHold());
 			robot.setHold(0);
