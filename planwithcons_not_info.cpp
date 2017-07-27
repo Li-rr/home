@@ -61,7 +61,7 @@ void Devil::planwithcons_not_info(InfoCons cons_not[],Task task[],Sort sort[],Ro
 void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sort[],Robot &robot,int consnotnotNum,int taskNum)
 {
 	cout<<"\n this is planwithcons_notnot_info()\n";
-	int i,j;
+	int i,j,obj;
 	for(i = 0; i <= taskNum; i++)
 	{
 		for(j  = 0; j <= consnotnotNum; j++)
@@ -78,18 +78,41 @@ void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sor
 				task[i].setTaskAction("","X","Y");
 				continue;
 			}
-			if(task[i].getTaskNamex() == cons_notnot[j].getNamex() && task[i].getTaskColorx() == " " )
+			if(task[i].getTaskNamex() == cons_notnot[j].getNamex() )
 			{
-				cout<<"This task name same with cons_notnot and color is null, i will destory it\n";
-				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
-					<<task[i].getTaskAction()<<" namex : "
-					<<task[i].getTaskNamex()<<" color : "
-					<<task[i].getTaskColorx()<<" namey :"
-					<<task[i].getTaskNamey()<<endl;
+				obj = task[i].getTaskAct1();
+				if(sort[obj-1].getsColor() != cons_notnot[j].getColorx() && task[i].getTaskColorx() == " ")
+				{
+					continue;
+			 	}
+				else if(sort[obj-1].getsColor() == cons_notnot[j].getColorx() && task[i].getTaskColorx() == " ")
+				{
+					cout<<"This task name same with cons_notnot and color is null, i will destory it\n";
+					cout<<"This task is:"<<task[i].getTaskNo()<<"  "
+						<<task[i].getTaskAction()<<" namex : "
+						<<task[i].getTaskNamex()<<" color : "
+						<<task[i].getTaskColorx()<<" namey :"
+						<<task[i].getTaskNamey()<<endl;
 
-				task[i].setTaskAction("","X","Y");
+						task[i].setTaskAction("","X","Y");
+				}
+				else if(sort[obj-1].getsColor() != cons_notnot[j].getColorx() && task[i].getTaskColorx() != " ")
+				{
+					continue;
+				}
+				else if(sort[obj-1].getsColor() == cons_notnot[j].getColorx() && task[i].getTaskColorx() != " ")
+				{
+					cout<<"This task name same with cons_notnot and color is null, i will destory it\n";
+					cout<<"This task is:"<<task[i].getTaskNo()<<"  "
+						<<task[i].getTaskAction()<<" namex : "
+						<<task[i].getTaskNamex()<<" color : "
+						<<task[i].getTaskColorx()<<" namey :"
+						<<task[i].getTaskNamey()<<endl;
 
-			}
+						task[i].setTaskAction("","X","Y");
+			
+				}
+			} 
 		}
 	}
 	cout<<"\nplanwithcons_notnot_info() is over\n\n";
