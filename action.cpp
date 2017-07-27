@@ -397,28 +397,29 @@ int Devil::close(int sot,Sort sort[],Robot &robot,Graph &G)
 			robot.setHold(0);
 
 			flag=Close(sot);
-			sort[sot-1].setsClosed(1);
 			cout<<"Sir, I'm closed the: "<<sot<<endl;
 		}
 		else if(robot.getHold()!=0 && robot.getPlate()!=0)
 		{
 			PutDown(robot.getHold());
 			flag = Close(sot);
-			PickUp(robot.getHold());
+	//		PickUp(robot.getHold());
+			robot.setHold(0);
 			cout<<"Sir, I'm closed the: "<<sot<<endl; 
 		}
-		if(robot.getHold()==0)
+		if(robot.getHold()==0 && flag == 0)
 		{
 			flag = Close(sot);
-			sort[sot-1].setsClosed(1);
 			cout<<"Sir, I'm closed the: "<<sot<<endl;
 		}
 	}
+	sort[sot-1].setsClosed(flag);
 	return flag;
 }
 int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
 {
-	cout<<"***************************************\n";
+	cout<<"\n***************************************\n";
+	cout<<"this is getSort\n";
 	int flag = 0;
 	checkHold(robot,G);
 	cout<<"I want get "<<sot<<endl;
@@ -440,6 +441,11 @@ int Devil::getSort(int sot,Sort sort[],Robot &robot,Graph G)
     else
     {
         cout<<"This sort loc same with me"<<endl;
+		if(robot.getHold() !=0 )
+		{
+			PutDown(robot.getHold());
+			robot.setHold(0);
+		}
         if(sort[sot-1].getsInside()!=-1)  //inside
         {
             flag = takeout(sot,sort,robot,G);
