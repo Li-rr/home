@@ -564,7 +564,7 @@ int Devil::putdown(int sot,Sort sort[],Robot &robot,Graph &G)
 	int act1;
 	int flag = 0;
 	cout<<"I will put "<<sort[sot-1].getsName()<<" down"<<endl;
-	if(robot.getHold() != sot && robot.getPlate() != sot)
+	if(robot.getHold() != sot && robot.getPlate() != sot )
 	{
 		cout<<" I don't need putdown\n";
 		return 1;
