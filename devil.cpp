@@ -46,11 +46,12 @@ void Devil::Plan()
     dealwithInfoCons(TASK,cons_notnot,cons_notnotMax,"cons_notnot");
     ////////////////////////////////////////////////////////////////
     updateSenceByInfo(sort,info,robot,senceMax,infoMax);
+	printScence(robot,sort,senceMax);
     judgewithCons(cons_not,cons_not_Max,task,taskMax,sort,senceMax);
     judgewithCons(cons_notnot,cons_notnotMax,task,taskMax,sort,senceMax);
     updateTaskCons_not_notnot(sort,task,cons_notnot,cons_not,robot,senceMax,taskMax,cons_not_Max,cons_notnotMax);
     updateSenceByCons(sort,cons_not,robot,senceMax,cons_not_Max);
-   updateTask(sort,task,senceMax,taskMax,robot);
+    updateTask(sort,task,senceMax,taskMax,robot);
     ////////////////////////////////////////////////////////////////
   	releaseSenceByCons(sort,cons_not,task,robot,senceMax,cons_not_Max,taskMax);
    cout<<endl<<endl;
@@ -59,10 +60,15 @@ void Devil::Plan()
 	{
 		for(j = i+1 ; j < taskMax+1; j++)
 		{
-			if(task[i].getTaskAction() == "" || task[i].getTaskAct1() == 0)
+			if(task[i].getTaskAction() == "" || task[i].getTaskAct1() == 0 )
 				continue;
 			if(task[i].getTaskAct1()==task[j].getTaskAct1())
 			{
+				if(task[i].getTaskAction()=="takeout")
+				{
+					if(task[j].getTaskAction()=="puton")
+						continue;
+				}
 				 task[j].setTaskAction("","X","Y");
 				 break;
 			}

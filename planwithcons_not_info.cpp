@@ -78,9 +78,16 @@ void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sor
 				task[i].setTaskAction("","X","Y");
 				continue;
 			}
-			if(task[i].getTaskNamex() == cons_notnot[j].getNamex() )
+			if(task[i].getTaskNamex() == cons_notnot[j].getNamex() && task[i].getTaskColorx() ==" ")
 			{
-				obj = task[i].getTaskAct1();
+				cout<<"This task same with cons_not, i will destory it\n";
+				cout<<"This task is:"<<task[i].getTaskNo()<<"  "
+					<<task[i].getTaskAction()<<"  "
+					<<task[i].getTaskNamex()<<"  "
+					<<task[i].getTaskNamey()<<endl;
+				task[i].setTaskAction("","X","Y");
+			
+	        /*	obj = task[i].getTaskAct1();
 				if(sort[obj-1].getsColor() != cons_notnot[j].getColorx() && task[i].getTaskColorx() == " ")
 				{
 					continue;
@@ -112,6 +119,7 @@ void Devil::planwithcons_notnot_info(InfoCons cons_notnot[],Task task[],Sort sor
 						task[i].setTaskAction("","X","Y");
 			
 				}
+			*/
 			} 
 		}
 	}
